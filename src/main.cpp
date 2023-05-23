@@ -4,6 +4,7 @@
 #include "raylib.h"
 
 #include "config.h"
+#include "../Library/tileson.hpp"
 
 int main() {
     // Raylib initialization
@@ -23,6 +24,9 @@ int main() {
     RenderTexture2D canvas = LoadRenderTexture(Game::ScreenWidth, Game::ScreenHeight);
     float renderScale{}; //those two are relevant to drawing and code-cleanliness
     Rectangle renderRec{};
+
+    tson::Tileson t;
+    std::unique_ptr<tson::Map> theMap = t.parse(std::filesystem::path("assets/mymap.json"));
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
