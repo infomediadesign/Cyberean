@@ -5,6 +5,8 @@
 
 #include "config.h"
 #include "../Library/tileson.hpp"
+#include "masterhead.h"
+#include "mainmenu.h"
 
 int main() {
     // Raylib initialization
@@ -25,8 +27,12 @@ int main() {
     float renderScale{}; //those two are relevant to drawing and code-cleanliness
     Rectangle renderRec{};
 
+    globalState state = mainMenu;
+
+    mainmenu themenu;
+
     tson::Tileson t;
-    std::unique_ptr<tson::Map> theMap = t.parse(std::filesystem::path("assets/mymap.json"));
+    std::unique_ptr<tson::Map> theMap = t.parse(std::filesystem::path("assets/mockup_level1_blue.json"));
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -43,15 +49,36 @@ int main() {
         // Updates that are made by frame are coded here
         // ...
         // ...
+        switch(state){
+            case mainMenu:
+
+                themenu.update(state);
+                break;
+            case gameplay:
+             //   gameplay();
+                break;
+            case settings:
+               // settings();
+                break;
+            case pause:
+                //pause();
+                break;
+        }
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
         // For the letterbox we draw on canvas instad
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas.
-            ClearBackground(WHITE);
-            DrawText("Hello, world!", 10, 10, 30, LIGHTGRAY);
-            DrawTexture(myTexture, 10, 100, WHITE);
+            ClearBackground(ColorFromHSV(time(nullptr),1,1));
+            switch(state){
+                case mainMenu:
+                    themenu.draw();
+                    break;
+                default:
+                    DrawText("lol",100,100,50,BLACK);
+
+            }
         }
         EndTextureMode();
         //The following lines put the canvas in the middle of the window and have the negative as black
@@ -78,4 +105,24 @@ int main() {
     CloseWindow();
 
     return EXIT_SUCCESS;
+}
+void to_zeichnen_auf_den_Bildschirm(tson::Map *theMap, Texture &mapTex) {
+    Rectangle sourceRec{};
+    sourceRec.width = 32;
+    sourceRec.height = 32;
+    Vector2 destVec{};
+    int tilesetColumns = 8;
+    float tileSize = 32;
+    int tileMapColumns = theMap->getSize().x;
+    int tileMapRows = theMap->getSize().y;
+    for (int y = 0; y < tileMapRows; y++) {
+        for (int x = 0; x < tileMapColumns; x++) {
+            int tileData = theMap->getLayer("main")->getTileData(x, y)->getId() - 1; //-1 because tiled does stuff >:(
+            sourceRec.x = (tileData % tilesetColumns) * tileSize;
+            sourceRec.y = (tileData / tilesetColumns) * tileSize;
+            destVec.x = x * tileSize;
+            destVec.y = y * tileSize;
+            DrawTextureRec(mapTex, sourceRec, destVec, WHITE);
+        }
+    }
 }

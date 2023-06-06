@@ -1,0 +1,30 @@
+{ "frames": {
+   "mockup_level1_blue.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 1280, "h": 960 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 1280, "h": 960 },
+    "sourceSize": { "w": 1280, "h": 960 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3-rc4-x64",
+  "format": "RGBA8888",
+  "size": { "w": 1280, "h": 960 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Tilemap 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
+   { "name": "enemies", "opacity": 255, "blendMode": "normal" },
+   { "name": "Firewalls", "opacity": 255, "blendMode": "normal" },
+   { "name": "deco_shit", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
