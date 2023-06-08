@@ -74,6 +74,7 @@ int main() {
             switch(state){
                 case mainMenu:
                     themenu.draw();
+                    themenu.buttons();
                     break;
                 default:
                     DrawText("lol",100,100,50,BLACK);

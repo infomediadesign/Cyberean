@@ -37,3 +37,17 @@ void mainmenu::draw() {
     DrawTexture(background,0,0,WHITE);
     DrawTexture(windowsoli,0,0,WHITE);
 }
+
+void mainmenu::buttons() {
+    DrawTexture(Start_markiert,460,400,WHITE);
+    DrawTexture(Exit,460,500,WHITE);
+    DrawTexture(Unmuted_dunkel,460,600,WHITE);
+    switch(cursor){
+        case 0:
+            DrawTexture(Start,460,400,WHITE);
+        case 1:
+            DrawTexture(Exit_markiert,460,500,WHITE);
+        case 2:
+            DrawTexture(Unmuted,460,600,WHITE);
+    }
+}
