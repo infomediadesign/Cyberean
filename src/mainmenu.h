@@ -15,6 +15,7 @@ public:
     void draw();
     void buttons();
     int cursor = 0;
+    bool sound = true;
 
     Texture2D background = LoadTexture("assets/hauser.png");
     Texture2D windowsoli = LoadTexture("assets/phenster.png");
