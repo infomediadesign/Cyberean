@@ -13,11 +13,11 @@ void mainmenu::update(globalState &globalState) {
         cursor --;
     }
      if(cursor < 0){
-         cursor = 0;
+         cursor = 2;
      }
 
     if(cursor > 2){
-        cursor = 2;
+        cursor = 0;
     }
 
     if(IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)){
@@ -44,9 +44,8 @@ void mainmenu::buttons() {
     if(sound == true){
         DrawTexture(Unmuted_dunkel,460,600,WHITE);
     }else{
-        DrawTexture(Muted,460,600,WHITE);
+        DrawTexture(Muted_dunkel,460,600,WHITE);
     }
-    DrawTexture(Unmuted_dunkel,460,600,WHITE);
     switch(cursor){
         case 0:
             DrawTexture(Start,460,400,WHITE);
@@ -58,16 +57,16 @@ void mainmenu::buttons() {
             switch(sound) {
                 case(true):
                     DrawTexture(Unmuted, 460, 600, WHITE);
+                    if (IsKeyPressed(KEY_ENTER) && sound == true) {
+                        sound = false;
+                    }
                     break;
                 case(false):
-                    DrawTexture(Muted_dunkel, 460, 600, WHITE);
+                    DrawTexture(Muted, 460, 600, WHITE);
+                    if (IsKeyPressed(KEY_ENTER) && sound == false) {
+                        sound = true;
+                    }
                     break;
-            }
-
-            if (IsKeyPressed(KEY_ENTER) && sound == true) {
-                sound = false;
-            }else{
-                sound = true;
             }
     }
 }
