@@ -45,14 +45,12 @@ void mainmenu::buttons() {
     switch(cursor){
         case 0:
             DrawTexture(Start,460,400,WHITE);
-            if (cursor = 0)
-
+            break;
         case 1:
             DrawTexture(Exit_markiert,460,500,WHITE);
+            break;
         case 2:
             DrawTexture(Unmuted,460,600,WHITE);
-            if(IsKeyPressed(KEY_ENTER)){
-                DrawTexture(Muted, 460, 600, WHITE);
-            }
+            break;
     }
 }
