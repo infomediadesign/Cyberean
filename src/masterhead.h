@@ -1,6 +1,3 @@
-//
-// Created by lukas on 23.05.2023.
-//
 #pragma once
 #ifndef RAYLIBSTARTER_MASTERHEAD_H
 #define RAYLIBSTARTER_MASTERHEAD_H

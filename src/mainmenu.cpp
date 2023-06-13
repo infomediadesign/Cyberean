@@ -1,7 +1,3 @@
-//
-// Created by lukas on 06.06.2023.
-//
-
 #include "mainmenu.h"
 
 void mainmenu::update(globalState &globalState) {
@@ -24,6 +20,7 @@ void mainmenu::update(globalState &globalState) {
         switch(cursor){
             case 0:
                 globalState = gameplay;
+
                 break;
             case 1:
                 CloseWindow();
@@ -36,6 +33,10 @@ void mainmenu::update(globalState &globalState) {
 void mainmenu::draw() {
     DrawTexture(background,0,0,WHITE);
     DrawTexture(windowsoli,0,0,WHITE);
+}
+
+bool mainmenu::IsMusicMuted(){
+    return sound;
 }
 
 void mainmenu::buttons() {

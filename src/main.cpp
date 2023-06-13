@@ -7,6 +7,7 @@
 #include "../Library/tileson.hpp"
 #include "masterhead.h"
 #include "mainmenu.h"
+#include "musicplayer.h"
 
 int main() {
     // Raylib initialization
@@ -27,9 +28,20 @@ int main() {
     float renderScale{}; //those two are relevant to drawing and code-cleanliness
     Rectangle renderRec{};
 
+    bool isMusicPlaying = false;
+
     globalState state = mainMenu;
 
     mainmenu themenu;
+    //musik initialisier stuff
+    MusicPlayer musicPlayer;
+    musicPlayer.LoadMusic("assets/audio/tracks/cyberean_mainmenu.wav", MusicState::MainMenu);
+    musicPlayer.LoadMusic("assets/audio/tracks/cyberean_lvl_1.wav", MusicState::Lvl1);
+    musicPlayer.PlayMusic(MusicState::MainMenu);
+
+    MusicState previousState = MusicState::MainMenu; // Variable zum Speichern des vorherigen Zustands
+    MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
+    musicPlayer.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
     tson::Tileson t;
     std::unique_ptr<tson::Map> theMap = t.parse(std::filesystem::path("assets/mockup_level1_blue.json"));
@@ -65,6 +77,13 @@ int main() {
                 break;
         }
 
+        if (themenu.IsMusicMuted() == false) { //Mute Möglichkeit
+            musicPlayer.SetMusicVolume(0.0f);
+        } else {
+            musicPlayer.SetMusicVolume(0.0f); //auf 1.0f einstellen um die Musik zu hören
+        }
+
+
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
         // For the letterbox we draw on canvas instad
@@ -75,10 +94,11 @@ int main() {
                 case mainMenu:
                     themenu.draw();
                     themenu.buttons();
+                    currentState = MusicState::MainMenu;
                     break;
                 default:
                     DrawText("lol",100,100,50,BLACK);
-
+                    currentState = MusicState::Lvl1;
             }
         }
         EndTextureMode();
@@ -95,6 +115,13 @@ int main() {
                        renderRec,
                        {}, 0, WHITE);
         EndDrawing();
+
+        if (currentState != previousState) { //beim ändern des states wird ein anderes Lied abgespielt
+            musicPlayer.PlayMusic(currentState);
+            previousState = currentState;
+        }
+
+        musicPlayer.Update();
     } // Main game loop end
 
     // De-initialization here
@@ -104,6 +131,7 @@ int main() {
 
     // Close window and OpenGL context
     CloseWindow();
+    musicPlayer.StopMusic();
 
     return EXIT_SUCCESS;
 }

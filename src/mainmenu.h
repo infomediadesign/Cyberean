@@ -1,7 +1,3 @@
-//
-// Created by lukas on 06.06.2023.
-//
-
 #ifndef RAYLIBSTARTER_MAINMENU_H
 #define RAYLIBSTARTER_MAINMENU_H
 
@@ -14,6 +10,7 @@ public:
     void update(globalState &globalState);
     void draw();
     void buttons();
+    bool IsMusicMuted();
     int cursor = 0;
     bool sound = true;
 
