@@ -8,6 +8,7 @@
 #include "masterhead.h"
 #include "mainmenu.h"
 #include "musicplayer.h"
+#include "gameszene.h"
 
 int main() {
     // Raylib initialization
@@ -43,8 +44,7 @@ int main() {
     MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
     musicPlayer.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
-    tson::Tileson t;
-    std::unique_ptr<tson::Map> theMap = t.parse(std::filesystem::path("assets/mockup_level1_blue.json"));
+    gameSzene gs(0);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -80,7 +80,7 @@ int main() {
         if (themenu.IsMusicMuted() == false) { //Mute Möglichkeit
             musicPlayer.SetMusicVolume(0.0f);
         } else {
-            musicPlayer.SetMusicVolume(0.0f); //auf 1.0f einstellen um die Musik zu hören
+            musicPlayer.SetMusicVolume(1.0f); //auf 1.0f einstellen um die Musik zu hören
         }
 
 
@@ -95,6 +95,9 @@ int main() {
                     themenu.draw();
                     themenu.buttons();
                     currentState = MusicState::MainMenu;
+                    break;
+                case gameplay:
+                    gs.draw();
                     break;
                 default:
                     DrawText("lol",100,100,50,BLACK);
