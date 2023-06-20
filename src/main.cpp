@@ -67,7 +67,7 @@ int main() {
                 themenu.update(state);
                 break;
             case gameplay:
-             //   gameplay();
+                gs.update(state);
                 break;
             case settings:
                // settings();

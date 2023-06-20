@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(${PROJECT_NAME} main.cpp ../Library/tileson.hpp masterhead.h mainmenu.cpp mainmenu.h musicplayer.cpp musicplayer.h gameszene.cpp gameszene.h player.cpp player.h gameobject.cpp gameobject.h)
+add_executable(${PROJECT_NAME} main.cpp ../Library/tileson.hpp masterhead.h mainmenu.cpp mainmenu.h musicplayer.cpp musicplayer.h gameszene.cpp gameszene.h player.cpp player.h gameobject.cpp gameobject.h emeny.cpp emeny.h)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)
