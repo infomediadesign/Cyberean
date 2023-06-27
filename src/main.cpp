@@ -98,10 +98,10 @@ int main() {
                     break;
                 case gameplay:
                     gs.draw();
+                    currentState = MusicState::Lvl1;
                     break;
                 default:
                     DrawText("lol",100,100,50,BLACK);
-                    currentState = MusicState::Lvl1;
             }
         }
         EndTextureMode();
