@@ -76,7 +76,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":30,
          "id":3,
-         "name":"collosion",
+         "name":"collision",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
