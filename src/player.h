@@ -12,15 +12,19 @@
 class player {
 public:
     int life = 0;
-    int posX = 0;
-    int posY = 0;
+    int posX = 20;
+    int posY = 13;
     int age = 0;
     int anim = 0;
+    tson::Map* map;
+    const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
 
     Texture2D texture = LoadTexture("assets/mockup_avatar_portal-hop_anim.png");
 
     void update();
     void draw();
+
+    bool canMoveTo(int x, int y);
 };
 
 

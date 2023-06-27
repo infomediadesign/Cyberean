@@ -8,6 +8,7 @@ gameSzene::gameSzene(int Level) {
     tson::Tileson t;
     themap = t.parse("assets/blue_level_prototype.tmj");
     maptext = LoadTexture("assets/tilemap_prototype_selina_test.png");
+    theplayer.map = themap.get();
 }
 
 void gameSzene::draw() {
