@@ -18,6 +18,7 @@ public:
 
     void update(globalState &globalstate);
     void draw();
+    void drawLayer(const std::string& layer);
     gameSzene(int Level);
 
 };

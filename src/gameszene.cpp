@@ -4,6 +4,8 @@
 
 #include "gameszene.h"
 
+void drawLayer(const std::string &layer);
+
 gameSzene::gameSzene(int Level) {
     tson::Tileson t;
     themap = t.parse("assets/blue_level_prototype.tmj");
@@ -12,26 +14,33 @@ gameSzene::gameSzene(int Level) {
 }
 
 void gameSzene::draw() {
+    drawLayer("Background");
+    drawLayer("Overlay");
+
+
+    theplayer.draw();
+}
+
+void gameSzene::drawLayer(const std::string &layer) {
     Rectangle sourceRec{};
     sourceRec.width = 32;
     sourceRec.height = 32;
     Vector2 destVec{};
-    int tilesetColumns = 5;
+    int tilesetColumns = 4;
     float tileSize = 32;
-    int tileMapColumns = themap->getSize().x;
-    int tileMapRows = themap->getSize().y;
+    int tileMapColumns = this->themap->getSize().x;
+    int tileMapRows = this->themap->getSize().y;
     for (int y = 0; y < tileMapRows; y++) {
         for (int x = 0; x < tileMapColumns; x++) {
-            int tileData = themap->getLayer("Background")->getData()[x+y*tileMapColumns]-1; //-1 because tiled does stuff >:(
+            int tileData = this->themap->getLayer(layer)->getData()[x + y * tileMapColumns] - 1; //-1 because tiled does stuff >:(
             if (tileData < 0) continue;
             sourceRec.x = (tileData % tilesetColumns) * tileSize;
             sourceRec.y = (tileData / tilesetColumns) * tileSize;
             destVec.x = x * tileSize;
             destVec.y = y * tileSize;
-            DrawTextureRec(maptext, sourceRec, destVec, WHITE);
+            DrawTextureRec(this->maptext, sourceRec, destVec, WHITE);
         }
     }
-    theplayer.draw();
 }
 
 void gameSzene::update(globalState &globalstate) {
