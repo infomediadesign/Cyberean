@@ -12,7 +12,7 @@
 class player {
 public:
     int life = 0;
-    int posX = 20;
+    int posX = 19;
     int posY = 13;
     int age = 0;
     int anim = 0;

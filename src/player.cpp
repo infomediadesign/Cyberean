@@ -36,7 +36,7 @@ void player::draw() {
 }
 
 bool player::canMoveTo(int x, int y) {
-    int tileData = map->getLayer("collosion")->getData()[x + y * map->getLayer("collosion")->getSize().x];
+    int tileData = map->getLayer("collision")->getData()[x + y * map->getLayer("collision")->getSize().x];
     return !tileData;
     return false;
 }
