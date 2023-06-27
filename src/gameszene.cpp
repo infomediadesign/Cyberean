@@ -21,7 +21,7 @@ void gameSzene::draw() {
     int tileMapRows = themap->getSize().y;
     for (int y = 0; y < tileMapRows; y++) {
         for (int x = 0; x < tileMapColumns; x++) {
-            int tileData = themap->getLayer("Tile Layer 1")->getData()[x+y*tileMapColumns]-1; //-1 because tiled does stuff >:(
+            int tileData = themap->getLayer("Background")->getData()[x+y*tileMapColumns]-1; //-1 because tiled does stuff >:(
             if (tileData < 0) continue;
             sourceRec.x = (tileData % tilesetColumns) * tileSize;
             sourceRec.y = (tileData / tilesetColumns) * tileSize;
