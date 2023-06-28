@@ -40,3 +40,4 @@ bool player::canMoveTo(int x, int y) {
     return !tileData;
     return false;
 }
+

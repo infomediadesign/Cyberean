@@ -15,6 +15,8 @@ gameSzene::gameSzene(int Level) {
 
 void gameSzene::draw() {
     drawLayer("Background");
+    drawLayer("Cover");
+    drawLayer("Boulder");
     drawLayer("Overlay");
 
 
