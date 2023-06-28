@@ -15,12 +15,15 @@ public:
     std::vector<gameobject> objects;
     player theplayer;
     Texture2D maptext;
+    std::vector<bool> covers;
 
     void update(globalState &globalstate);
     void draw();
     void drawLayer(const std::string& layer);
     gameSzene(int Level);
-
+    void fillCoverMatrix();
+    void drawCover();
+    void removeCover();
 };
 
 #endif //RAYLIBSTARTER_GAMESZENE_H

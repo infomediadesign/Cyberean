@@ -42,7 +42,7 @@ int main() {
 
     MusicState previousState = MusicState::MainMenu; // Variable zum Speichern des vorherigen Zustands
     MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
-    musicPlayer.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
+    //musicPlayer.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
     gameSzene gs(0);
 
@@ -77,7 +77,7 @@ int main() {
                 break;
         }
 
-        if (themenu.IsMusicMuted() == false) { //Mute Möglichkeit
+        if (!themenu.IsMusicMuted()) { //Mute Möglichkeit
             musicPlayer.SetMusicVolume(0.0f);
         } else {
             musicPlayer.SetMusicVolume(1.0f); //auf 1.0f einstellen um die Musik zu hören
@@ -86,7 +86,7 @@ int main() {
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
-        // For the letterbox we draw on canvas instad
+        // For the letterbox we draw on canvas instead
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas.
             ClearBackground(ColorFromHSV(time(nullptr),1,1));

@@ -11,16 +11,14 @@ gameSzene::gameSzene(int Level) {
     themap = t.parse("assets/blue_level_prototype.tmj");
     maptext = LoadTexture("assets/tilemap_prototype_selina_test.png");
     theplayer.map = themap.get();
+    fillCoverMatrix();
 }
 
 void gameSzene::draw() {
     drawLayer("Background");
-    drawLayer("Cover");
-    drawLayer("Boulder");
     drawLayer("Overlay");
-
-
     theplayer.draw();
+    drawCover();
 }
 
 void gameSzene::drawLayer(const std::string &layer) {
@@ -47,4 +45,28 @@ void gameSzene::drawLayer(const std::string &layer) {
 
 void gameSzene::update(globalState &globalstate) {
     theplayer.update();
+    removeCover();
+}
+
+void gameSzene::fillCoverMatrix() {
+    for (int i = 0; i < themap->getLayer("Cover")->getData().size(); i++){
+        covers.push_back(themap->getLayer("Cover")->getData()[i]);
+
+    };
+    return;
+}
+
+void gameSzene::drawCover() {
+    Rectangle source{32,0,32,32};
+    for (int y = 0; y<themap->getSize().y; y++){
+        for (int x = 0; x< themap->getSize().x;x++){
+            if (covers[x+y*themap->getSize().x])
+            DrawTextureRec(maptext,source,{(float)x*32,(float)y*32},WHITE);
+        }
+    }
+}
+
+void gameSzene::removeCover() {
+    int playerPosIndex = theplayer.posX + theplayer.posY * themap->getSize().x;
+    covers[playerPosIndex] = false;
 }

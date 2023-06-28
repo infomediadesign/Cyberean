@@ -23,7 +23,6 @@ public:
 
     void update();
     void draw();
-
     bool canMoveTo(int x, int y);
 };
 
