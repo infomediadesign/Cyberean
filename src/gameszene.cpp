@@ -36,8 +36,8 @@ void gameSzene::drawLayer(const std::string &layer) {
             if (tileData < 0) continue;
             sourceRec.x = (tileData % tilesetColumns) * tileSize;
             sourceRec.y = (tileData / tilesetColumns) * tileSize;
-            destVec.x = x * tileSize;
-            destVec.y = y * tileSize;
+            destVec.x = x * tileSize; //destination vector x
+            destVec.y = y * tileSize; //destination vector y
             DrawTextureRec(this->maptext, sourceRec, destVec, WHITE);
         }
     }

@@ -8,6 +8,7 @@
 #include "masterhead.h"
 #include "player.h"
 #include "gameobject.h"
+#include "Enemy.h"
 
 class gameSzene {
 public:
