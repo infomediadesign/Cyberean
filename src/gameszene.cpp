@@ -12,6 +12,7 @@ gameSzene::gameSzene(int Level) {
     maptext = LoadTexture("assets/tilemap_prototype_selina_test.png");
     theplayer.map = themap.get();
     fillCoverMatrix();
+    populateEnemies();
 }
 
 void gameSzene::draw() {
@@ -19,6 +20,9 @@ void gameSzene::draw() {
     drawLayer("Overlay");
     theplayer.draw();
     drawCover();
+    for(Enemy e: enemies){
+        e.draw(maptext);
+    }
 }
 
 void gameSzene::drawLayer(const std::string &layer) {
@@ -39,6 +43,16 @@ void gameSzene::drawLayer(const std::string &layer) {
             destVec.x = x * tileSize; //destination vector x
             destVec.y = y * tileSize; //destination vector y
             DrawTextureRec(this->maptext, sourceRec, destVec, WHITE);
+        }
+    }
+}
+
+void gameSzene::populateEnemies() {
+    for(int y = 0; y < themap->getSize().y; y++){
+        for(int x = 0; x < themap->getSize().x ; x++){
+            if(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x]){
+                enemies.push_back(Enemy(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x],x,y, this));
+            }
         }
     }
 }

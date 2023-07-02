@@ -5,6 +5,7 @@
 #ifndef RAYLIBSTARTER_GAMEOBJECT_H
 #define RAYLIBSTARTER_GAMEOBJECT_H
 
+#pragma once
 
 class gameobject {
 

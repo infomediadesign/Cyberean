@@ -5,9 +5,12 @@
 #ifndef RAYLIBSTARTER_PLAYER_H
 #define RAYLIBSTARTER_PLAYER_H
 
+#pragma once
 #include "masterhead.h"
 #include "player.h"
 #include "gameobject.h"
+
+class gameSzene;
 
 class player {
 public:
@@ -16,7 +19,7 @@ public:
     int posY = 13;
     int age = 0;
     int anim = 0;
-    tson::Map* map;
+    gameSzene* szene;
     const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
 
     Texture2D texture = LoadTexture("assets/mockup_avatar_portal-hop_anim.png");

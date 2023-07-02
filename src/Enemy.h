@@ -4,11 +4,15 @@
 
 #ifndef RAYLIBSTARTER_ENEMY_H
 #define RAYLIBSTARTER_ENEMY_H
+
+#pragma once
+#include "raylib.h"
+
 class gameSzene;
 
 class Enemy {
     public:
-    Enemy();
+    Enemy(int ID, int posX, int posY, gameSzene *szene);
 
     enum  {
         boulder,
@@ -19,12 +23,15 @@ class Enemy {
     int posX;
     int posY;
     int moveDelay; //Changing the enemy speed (based on frame)
+    int moveCooldown; // remaining time until moving
     bool isAlive = true;
-    int gravityX; //Gravity Vector X
-    int gravityY; //Gravity Vector Y
+    int gravityX = 0; //Gravity Vector X
+    int gravityY = 1; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
     gameSzene* theMap;
-    void draw();
+    Rectangle textureSource;
+
+    void draw(Texture2D texture);
     void update();
 };
 #endif //RAYLIBSTARTER_ENEMY_H

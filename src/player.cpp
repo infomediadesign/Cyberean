@@ -36,9 +36,12 @@ void player::draw() {
 }
 
 bool player::canMoveTo(int x, int y) {
-    int tileData = map->getLayer("collision")->getData()[x + y * map->getLayer("collision")->getSize().x];
-    return !tileData;
-    return false;
+    int tileData = szene->themap->getLayer("collision")->getData()[x + y * map->getLayer("collision")->getSize().x];
+    if(tileData != 0){
+        return false;
+    }
+
+    return true;
 }
 
 

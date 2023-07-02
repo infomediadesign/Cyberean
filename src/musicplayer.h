@@ -1,6 +1,7 @@
 #ifndef MUSICPLAYER_H
 #define MUSICPLAYER_H
 
+#pragma once
 #include <raylib.h>
 #include <map>
 #include <string>

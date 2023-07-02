@@ -5,6 +5,7 @@
 #ifndef RAYLIBSTARTER_GAMESZENE_H
 #define RAYLIBSTARTER_GAMESZENE_H
 
+#pragma once
 #include "masterhead.h"
 #include "player.h"
 #include "gameobject.h"
@@ -13,7 +14,7 @@
 class gameSzene {
 public:
     std::unique_ptr<tson::Map> themap;
-    std::vector<gameobject> objects;
+    std::vector<Enemy> enemies;
     player theplayer;
     Texture2D maptext;
     std::vector<bool> covers;
@@ -25,6 +26,8 @@ public:
     void fillCoverMatrix();
     void drawCover();
     void removeCover();
+
+    void populateEnemies();
 };
 
 #endif //RAYLIBSTARTER_GAMESZENE_H
