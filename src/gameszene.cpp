@@ -11,6 +11,7 @@ gameSzene::gameSzene(int Level) {
     themap = t.parse("assets/blue_level_prototype.tmj");
     maptext = LoadTexture("assets/tilemap_prototype_selina_test.png");
     theplayer.map = themap.get();
+    theplayer.enemies = &enemies;
     fillCoverMatrix();
     populateEnemies();
 }
@@ -51,7 +52,7 @@ void gameSzene::populateEnemies() {
     for(int y = 0; y < themap->getSize().y; y++){
         for(int x = 0; x < themap->getSize().x ; x++){
             if(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x]){
-                enemies.push_back(Enemy(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x],x,y, this));
+                enemies.push_back(Enemy(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x], x, y, themap, &covers, &enemies));
             }
         }
     }

@@ -7,12 +7,14 @@
 
 #pragma once
 #include "raylib.h"
+#include "../Library/tileson.hpp"
 
 class gameSzene;
 
 class Enemy {
     public:
-    Enemy(int ID, int posX, int posY, gameSzene *szene);
+    Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
+          std::vector<Enemy> *otherEnemies);
 
     enum  {
         boulder,
@@ -28,9 +30,12 @@ class Enemy {
     int gravityX = 0; //Gravity Vector X
     int gravityY = 1; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
-    gameSzene* theMap;
+    tson::Map* theMap;
     Rectangle textureSource;
 
+    bool canMoveTo(int x, int y);
+    std::vector<bool>*covers;
+    std::vector<Enemy>*otherEnemies;
     void draw(Texture2D texture);
     void update();
 };

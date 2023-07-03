@@ -36,11 +36,17 @@ void player::draw() {
 }
 
 bool player::canMoveTo(int x, int y) {
-    int tileData = szene->themap->getLayer("collision")->getData()[x + y * map->getLayer("collision")->getSize().x];
+    int tileData = map->getLayer("collision")->getData()[x + y * map->getLayer("collision")->getSize().x];
     if(tileData != 0){
         return false;
     }
-
+for(int i=0;i<enemies->size();i++) {
+    Enemy enemy = (*enemies)[i];
+    if(enemy.posX == x && enemy.posY == y)
+    {
+        return false;
+    }
+}
     return true;
 }
 

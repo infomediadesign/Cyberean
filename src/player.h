@@ -9,6 +9,7 @@
 #include "masterhead.h"
 #include "player.h"
 #include "gameobject.h"
+#include "Enemy.h"
 
 class gameSzene;
 
@@ -23,6 +24,8 @@ public:
     const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
 
     Texture2D texture = LoadTexture("assets/mockup_avatar_portal-hop_anim.png");
+    tson::Map* map;
+    std::vector<Enemy> *enemies;
 
     void update();
     void draw();
