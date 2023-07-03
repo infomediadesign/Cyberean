@@ -3,6 +3,7 @@
 //
 
 #include "gameszene.h"
+#include "Enemy.h"
 
 void drawLayer(const std::string &layer);
 
