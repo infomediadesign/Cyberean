@@ -44,7 +44,7 @@ int main() {
     MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
     //musicPlayer.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
-    gameSzene gs(0);
+    gameScene gs(0);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key

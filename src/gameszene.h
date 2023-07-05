@@ -10,8 +10,9 @@
 #include "player.h"
 #include "gameobject.h"
 #include "Enemy.h"
+#include "../Library/tileson.hpp"
 
-class gameSzene {
+class gameScene {
 public:
     std::unique_ptr<tson::Map> themap;
     std::vector<Enemy> enemies;
@@ -22,7 +23,7 @@ public:
     void update(globalState &globalstate);
     void draw();
     void drawLayer(const std::string& layer);
-    gameSzene(int Level);
+    gameScene(int Level);
     void fillCoverMatrix();
     void drawCover();
     void removeCover();

@@ -3,11 +3,10 @@
 //
 
 #include "gameszene.h"
-#include "Enemy.h"
 
 void drawLayer(const std::string &layer);
 
-gameSzene::gameSzene(int Level) {
+gameScene::gameScene(int Level) {
     tson::Tileson t;
     themap = t.parse("assets/blue_level_prototype.tmj");
     maptext = LoadTexture("assets/tilemap_prototype_selina_test.png");
@@ -17,7 +16,7 @@ gameSzene::gameSzene(int Level) {
     populateEnemies();
 }
 
-void gameSzene::draw() {
+void gameScene::draw() {
     drawLayer("Background");
     drawLayer("Overlay");
     theplayer.draw();
@@ -27,7 +26,7 @@ void gameSzene::draw() {
     }
 }
 
-void gameSzene::drawLayer(const std::string &layer) {
+void gameScene::drawLayer(const std::string &layer) {
     Rectangle sourceRec{};
     sourceRec.width = 32;
     sourceRec.height = 32;
@@ -49,7 +48,7 @@ void gameSzene::drawLayer(const std::string &layer) {
     }
 }
 
-void gameSzene::populateEnemies() {
+void gameScene::populateEnemies() {
     for(int y = 0; y < themap->getSize().y; y++){
         for(int x = 0; x < themap->getSize().x ; x++){
             if(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x]){
@@ -59,12 +58,12 @@ void gameSzene::populateEnemies() {
     }
 }
 
-void gameSzene::update(globalState &globalstate) {
+void gameScene::update(globalState &globalstate) {
     theplayer.update();
     removeCover();
 }
 
-void gameSzene::fillCoverMatrix() {
+void gameScene::fillCoverMatrix() {
     for (int i = 0; i < themap->getLayer("Cover")->getData().size(); i++){
         covers.push_back(themap->getLayer("Cover")->getData()[i]);
 
@@ -72,7 +71,7 @@ void gameSzene::fillCoverMatrix() {
     return;
 }
 
-void gameSzene::drawCover() {
+void gameScene::drawCover() {
     Rectangle source{32,0,32,32};
     for (int y = 0; y<themap->getSize().y; y++){
         for (int x = 0; x< themap->getSize().x;x++){
@@ -82,7 +81,7 @@ void gameSzene::drawCover() {
     }
 }
 
-void gameSzene::removeCover() {
+void gameScene::removeCover() {
     int playerPosIndex = theplayer.posX + theplayer.posY * themap->getSize().x;
     covers[playerPosIndex] = false;
 }

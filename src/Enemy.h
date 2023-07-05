@@ -9,7 +9,7 @@
 #include "raylib.h"
 #include "../Library/tileson.hpp"
 
-class gameSzene;
+class gameScene;
 
 class Enemy {
     public:

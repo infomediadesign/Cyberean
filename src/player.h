@@ -11,7 +11,7 @@
 #include "gameobject.h"
 #include "Enemy.h"
 
-class gameSzene;
+class gameScene;
 
 class player {
 public:
@@ -20,7 +20,7 @@ public:
     int posY = 13;
     int age = 0;
     int anim = 0;
-    gameSzene* szene;
+    gameScene* szene;
     const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
 
     Texture2D texture = LoadTexture("assets/mockup_avatar_portal-hop_anim.png");
