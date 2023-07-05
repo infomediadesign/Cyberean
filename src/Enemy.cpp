@@ -9,14 +9,22 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
     this->posX = posX;
     this->posY = posY;
     this->theMap = map;
-    this->otherEnemies = otherEnemies;
     this->covers = covers;
+    this->otherEnemies = otherEnemies;
     this->Type = boulder; // für nen anderen "Gegner" andere ID übergeben (if needed lol)
     switch(Type)
     {
         default:
-            moveDelay = 30;
+            moveDelay = 15;
             textureSource = {96, 0, 32, 32};
+    }
+    moveCooldown = moveDelay;
+}
+    void Enemy::update() {
+    moveCooldown--;
+    if(canMoveTo(posX,posY+1)&&moveCooldown <= 0){
+        posY++;
+        moveCooldown = moveDelay;
     }
 }
 
@@ -26,9 +34,19 @@ void Enemy::draw(Texture2D texture) {
 }
 
 bool Enemy::canMoveTo(int x, int y) {
-    int tileData = theMap->getLayer("collision")->getData()[x + y * theMap->getLayer("collision")->getSize().x];
+    int tileData = theMap->getLayer("collision")->getData()[x + y * theMap->getSize().x];
     if(tileData != 0){
         return false;
+    }
+    if ((*covers)[x + y * theMap->getSize().x]){
+        return false;
+    }
+    for (int i = 0; i < otherEnemies->size(); i++){
+        if ((*otherEnemies)[i].posX == x){
+            if ((*otherEnemies)[i].posY == y){
+                return false;
+            }
+        }
     }
     return true;
 }
