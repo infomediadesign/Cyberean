@@ -52,7 +52,7 @@ void gameScene::populateEnemies() {
     for(int y = 0; y < themap->getSize().y; y++){
         for(int x = 0; x < themap->getSize().x ; x++){
             if(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x]){
-                enemies.push_back(Enemy(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x], x, y, themap, &covers, &enemies));
+                enemies.emplace_back(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x], x, y, themap.get(), &covers, &enemies);
             }
         }
     }
