@@ -22,8 +22,8 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
 }
     void Enemy::update() {
     moveCooldown--;
-    if(canMoveTo(posX,posY+1)&&moveCooldown <= 0){
-        posY++;
+    if(canMoveTo(posX,posY-1)&&moveCooldown <= 0){
+        posY--;
         moveCooldown = moveDelay;
     }
 }
