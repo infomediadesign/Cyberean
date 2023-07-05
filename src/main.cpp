@@ -100,6 +100,8 @@ int main() {
                     gs.draw();
                     currentState = MusicState::Lvl1;
                     break;
+                case pause:
+                    break;
                 default:
                     DrawText("lol",100,100,50,BLACK);
             }
