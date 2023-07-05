@@ -1,5 +1,5 @@
 //
-// Created by seli on 05/07/2023.
+// Created by selina on 05/07/2023.
 //
 
 #ifndef RAYLIBSTARTER_PAUSESCREEN_H
