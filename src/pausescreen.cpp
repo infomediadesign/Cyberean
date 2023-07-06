@@ -1,5 +1,5 @@
 //
-// Created by seli on 05/07/2023.
+// Created by selina on 05/07/2023.
 //
 
 #include "pausescreen.h"
@@ -26,9 +26,20 @@ void pausescreen::update(globalState &globalState) {
                 globalState = gameplay;
 
                 break;
+
             case 1:
-                CloseWindow();
+                globalState = settings;
+
+                break;
+
             case 2:
+                globalState = mainMenu;
+
+                break;
+
+            case 3:
+                CloseWindow();
+
                 break;
         }
     }
