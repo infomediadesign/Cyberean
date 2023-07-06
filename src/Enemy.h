@@ -8,13 +8,15 @@
 #pragma once
 #include "raylib.h"
 #include "../Library/tileson.hpp"
+#include "player.h"
 
+class player;
 class gameScene;
 
 class Enemy {
     public:
     Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
-          std::vector<Enemy> *otherEnemies);
+          std::vector<Enemy> *otherEnemies, player* playerPtr);
 
     enum  {
         boulder,
@@ -38,5 +40,8 @@ class Enemy {
     std::vector<Enemy>*otherEnemies;
     void draw(Texture2D texture);
     void update();
+
+    player* playerPtr;
+
 };
 #endif //RAYLIBSTARTER_ENEMY_H

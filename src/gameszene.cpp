@@ -14,6 +14,7 @@ gameScene::gameScene(int Level) {
     theplayer.enemies = &enemies;
     fillCoverMatrix();
     populateEnemies();
+    playerPtr = &theplayer;
 }
 
 void gameScene::draw() {
@@ -49,10 +50,11 @@ void gameScene::drawLayer(const std::string &layer) {
 }
 
 void gameScene::populateEnemies() {
+    playerPtr = &theplayer;
     for(int y = 0; y < themap->getSize().y; y++){
         for(int x = 0; x < themap->getSize().x ; x++){
             if(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x]){
-                enemies.emplace_back(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x], x, y, themap.get(), &covers, &enemies);
+                enemies.emplace_back(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x], x, y, themap.get(), &covers, &enemies, playerPtr);
             }
         }
     }

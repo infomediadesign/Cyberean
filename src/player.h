@@ -11,6 +11,7 @@
 #include "gameobject.h"
 #include "Enemy.h"
 
+class Enemy;
 class gameScene;
 
 class player {

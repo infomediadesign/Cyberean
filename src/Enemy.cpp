@@ -5,7 +5,8 @@
 #include "Enemy.h"
 
 Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
-             std::vector<Enemy> *otherEnemies) {
+             std::vector<Enemy> *otherEnemies, player* playerPtr): playerPtr(playerPtr) {
+
     this->posX = posX;
     this->posY = posY;
     this->theMap = map;
@@ -22,8 +23,8 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
 }
     void Enemy::update() {
     moveCooldown--;
-    if(canMoveTo(posX,posY-1)&&moveCooldown <= 0){
-        posY--;
+    if(canMoveTo(posX,posY+1)&&moveCooldown <= 0){
+        posY++;
         moveCooldown = moveDelay;
     }
 }
@@ -47,6 +48,9 @@ bool Enemy::canMoveTo(int x, int y) {
                 return false;
             }
         }
+    }
+    if (x == playerPtr->posX && y == playerPtr->posY) {
+        return false;
     }
     return true;
 }

@@ -19,6 +19,7 @@ public:
     player theplayer;
     Texture2D maptext;
     std::vector<bool> covers;
+    player* playerPtr;
 
     void update(globalState &globalstate);
     void draw();
