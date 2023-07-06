@@ -16,7 +16,7 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
     switch(Type)
     {
         default:
-            moveDelay = 15;
+            moveDelay = 25;
             textureSource = {96, 0, 32, 32};
     }
     moveCooldown = moveDelay;
