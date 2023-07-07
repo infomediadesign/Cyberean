@@ -3,6 +3,7 @@
 //
 
 #include "gameobject.h"
+#include "gameszene.h"
 
 
 gameobject::gameobject(int ID, int posX, int posY, player* playerPtr, std::vector<gameobject>& gameObjects, gameScene* gameScenePtr): playerPtr(playerPtr), gameObjects(&gameObjects), gameScenePtr(gameScenePtr) {
@@ -25,11 +26,11 @@ void gameobject::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float)posX * 32, (float)posY * 32}, WHITE);
 }
 
-void gameobject::update() {
+void gameobject::update(gameScene& scene) {
     if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 5) {
         for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it) {
             if (&(*it) == this) {
-                //gameScenePtr->increaseCollectedObjectsCount();
+                scene.increaseCollectedObjectsCount();
                 gameObjects->erase(it);
                 break;
             }

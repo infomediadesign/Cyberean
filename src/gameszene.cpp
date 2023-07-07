@@ -29,7 +29,7 @@ void gameScene::draw() {
     for(gameobject e: thegameobject){
         e.draw(maptext);
     }
-    //drawCollectedObjectsCount();
+    drawCollectedObjectsCount();
 }
 
 void gameScene::drawLayer(const std::string &layer) {
@@ -82,7 +82,7 @@ void gameScene::update(globalState &globalstate) {
         enemies[i].update();
     }
     for(int i = 0; i<thegameobject.size();i++){
-        thegameobject[i].update();
+        thegameobject[i].update(*this);
     }
     removeCover();
 }

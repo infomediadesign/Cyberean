@@ -12,7 +12,6 @@
 
 class gameScene;
 class player;
-class gameScene;
 
 class gameobject {
 public:
@@ -36,7 +35,7 @@ public:
     std::vector<gameobject>* gameObjects;
 
     void draw(Texture2D texture);
-    void update();
+    void update(gameScene& scene);
 };
 
 
