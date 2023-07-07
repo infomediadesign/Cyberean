@@ -21,7 +21,6 @@ gameScene::gameScene(int Level) {
 void gameScene::draw() {
     drawLayer("Background");
     drawLayer("Overlay");
-    theplayer.draw();
     drawCover();
     for(Enemy e: enemies){
         e.draw(maptext);
@@ -29,6 +28,7 @@ void gameScene::draw() {
     for(gameobject e: thegameobject){
         e.draw(maptext);
     }
+    theplayer.draw();
     drawCollectedObjectsCount();
 }
 
