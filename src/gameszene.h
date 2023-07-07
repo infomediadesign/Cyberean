@@ -16,6 +16,7 @@ class gameScene {
 public:
     std::unique_ptr<tson::Map> themap;
     std::vector<Enemy> enemies;
+    std::vector<gameobject> thegameobject;
     player theplayer;
     Texture2D maptext;
     std::vector<bool> covers;
@@ -30,6 +31,7 @@ public:
     void removeCover();
 
     void populateEnemies();
+    void populategameobjects();
 };
 
 #endif //RAYLIBSTARTER_GAMESZENE_H

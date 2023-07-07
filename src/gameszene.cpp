@@ -14,6 +14,7 @@ gameScene::gameScene(int Level) {
     theplayer.enemies = &enemies;
     fillCoverMatrix();
     populateEnemies();
+    populategameobjects();
     playerPtr = &theplayer;
 }
 
@@ -23,6 +24,9 @@ void gameScene::draw() {
     theplayer.draw();
     drawCover();
     for(Enemy e: enemies){
+        e.draw(maptext);
+    }
+    for(gameobject e: thegameobject){
         e.draw(maptext);
     }
 }
@@ -55,6 +59,16 @@ void gameScene::populateEnemies() {
         for(int x = 0; x < themap->getSize().x ; x++){
             if(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x]){
                 enemies.emplace_back(themap->getLayer("Boulder")->getData()[x + y * themap->getSize().x], x, y, themap.get(), &covers, &enemies, playerPtr);
+            }
+        }
+    }
+}
+
+void gameScene::populategameobjects() {
+    for(int y = 0; y < themap->getSize().y; y++){
+        for(int x = 0; x < themap->getSize().x ; x++){
+            if(themap->getLayer("Items")->getData()[x + y * themap->getSize().x]){
+                thegameobject.emplace_back(themap->getLayer("Items")->getData()[x + y * themap->getSize().x], x, y);
             }
         }
     }
