@@ -115,6 +115,6 @@ void gameScene::increaseCollectedObjectsCount() {
 }
 
 void gameScene::drawCollectedObjectsCount() {
-    std::string countText = "Collected Objects: " + std::to_string(collectedObjectsCount);
+    std::string countText = "Collected Notes: " + std::to_string(collectedObjectsCount);
     DrawText(countText.c_str(), 10, GetScreenHeight() - 30, 20, WHITE); // Zeichnet die aktuelle Anzahl gesammelter GameObjects
 }
