@@ -29,6 +29,7 @@ void gameScene::draw() {
     for(gameobject e: thegameobject){
         e.draw(maptext);
     }
+    //drawCollectedObjectsCount();
 }
 
 void gameScene::drawLayer(const std::string &layer) {
@@ -65,10 +66,11 @@ void gameScene::populateEnemies() {
 }
 
 void gameScene::populategameobjects() {
+    playerPtr = &theplayer;
     for(int y = 0; y < themap->getSize().y; y++){
         for(int x = 0; x < themap->getSize().x ; x++){
             if(themap->getLayer("Items")->getData()[x + y * themap->getSize().x]){
-                thegameobject.emplace_back(themap->getLayer("Items")->getData()[x + y * themap->getSize().x], x, y);
+                thegameobject.emplace_back(themap->getLayer("Items")->getData()[x + y * themap->getSize().x], x, y, playerPtr, thegameobject, this);
             }
         }
     }
@@ -78,6 +80,9 @@ void gameScene::update(globalState &globalstate) {
     theplayer.update();
     for(int i = 0; i<enemies.size();i++){
         enemies[i].update();
+    }
+    for(int i = 0; i<thegameobject.size();i++){
+        thegameobject[i].update();
     }
     removeCover();
 }
@@ -103,4 +108,13 @@ void gameScene::drawCover() {
 void gameScene::removeCover() {
     int playerPosIndex = theplayer.posX + theplayer.posY * themap->getSize().x;
     covers[playerPosIndex] = false;
+}
+
+void gameScene::increaseCollectedObjectsCount() {
+    collectedObjectsCount++; // Erhöhe den Zähler für gesammelte GameObjects
+}
+
+void gameScene::drawCollectedObjectsCount() {
+    std::string countText = "Collected Objects: " + std::to_string(collectedObjectsCount);
+    DrawText(countText.c_str(), 10, GetScreenHeight() - 30, 20, WHITE); // Zeichnet die aktuelle Anzahl gesammelter GameObjects
 }

@@ -21,6 +21,7 @@ public:
     Texture2D maptext;
     std::vector<bool> covers;
     player* playerPtr;
+    int collectedObjectsCount;
 
     void update(globalState &globalstate);
     void draw();
@@ -32,6 +33,9 @@ public:
 
     void populateEnemies();
     void populategameobjects();
+    void increaseCollectedObjectsCount(); // Erhöht den Zähler für gesammelte GameObjects
+    void drawCollectedObjectsCount(); // Zeichnet den Zähler für gesammelte GameObjects
 };
+
 
 #endif //RAYLIBSTARTER_GAMESZENE_H
