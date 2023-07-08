@@ -9,6 +9,7 @@
 #include "mainmenu.h"
 #include "musicplayer.h"
 #include "gameszene.h"
+#include "Enemy.h"
 
 int main() {
     // Raylib initialization
@@ -63,7 +64,6 @@ int main() {
         // ...
         switch(state){
             case mainMenu:
-
                 themenu.update(state);
                 break;
             case gameplay:

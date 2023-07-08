@@ -21,7 +21,7 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
     }
     moveCooldown = moveDelay;
 }
-    void Enemy::update() {
+    void Enemy::update() { //Temporary! This is the update function for enemies (currently for boulders only) Works as Gravity for now.
     moveCooldown--;
     if(canMoveTo(posX,posY+1)&&moveCooldown <= 0){
         posY++;
