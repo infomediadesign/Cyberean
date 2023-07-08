@@ -6,7 +6,7 @@
 
 Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
              std::vector<Enemy> *otherEnemies, player* playerPtr): playerPtr(playerPtr) {
-
+    this->ID = ID;
     this->posX = posX;
     this->posY = posY;
     this->theMap = map;
@@ -16,17 +16,19 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
     switch(Type)
     {
         default:
-            moveDelay = 25;
+            moveDelay = 20; // Boulder Falling Speed (Higher Number = Slower)
             textureSource = {96, 0, 32, 32};
     }
     moveCooldown = moveDelay;
 }
-    void Enemy::update() { //Temporary! This is the update function for enemies (currently for boulders only) Works as Gravity for now.
+    void Enemy::update() { // Boulders Gravity
     moveCooldown--;
-    if(canMoveTo(posX,posY+1)&&moveCooldown <= 0){
-        posY++;
+    if(canMoveTo(posX + gravityX,posY + gravityY) && moveCooldown <= 0) {
+        posY += gravityY;
+        posX += gravityX;
         moveCooldown = moveDelay;
     }
+
 }
 
 void Enemy::draw(Texture2D texture) {
@@ -39,10 +41,10 @@ bool Enemy::canMoveTo(int x, int y) {
     if(tileData != 0){
         return false;
     }
-    if ((*covers)[x + y * theMap->getSize().x]){
+    if ((*covers)[x + y * theMap->getSize().x]) {
         return false;
     }
-    for (int i = 0; i < otherEnemies->size(); i++){
+    for (int i = 0; i < otherEnemies->size(); i++) {
         if ((*otherEnemies)[i].posX == x){
             if ((*otherEnemies)[i].posY == y){
                 return false;
@@ -53,4 +55,26 @@ bool Enemy::canMoveTo(int x, int y) {
         return false;
     }
     return true;
+}
+
+void Enemy::switchGravity(int direction) {
+    switch (direction % 4){
+        case 0:
+            gravityX = 0;
+            gravityY = 1;
+            break;
+        case 1:
+            gravityX = 1;
+            gravityY = 0;
+            break;
+        case 2:
+            gravityY = -1;
+            gravityX = 0;
+            break;
+        case 3:
+            gravityX = -1;
+            gravityY = 0;
+            break;
+
+    }
 }

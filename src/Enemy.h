@@ -24,24 +24,26 @@ class Enemy {
         bomb
     }Type;
 
+    int ID;
     int posX;
     int posY;
     int moveDelay; //Changing the enemy speed (based on frame)
     int moveCooldown; // remaining time until moving
     bool isAlive = true;
     int gravityX = 0; //Gravity Vector X
-    int gravityY = 1; //Gravity Vector Y
+    int gravityY = -1; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
+
     tson::Map* theMap;
     Rectangle textureSource;
-
     bool canMoveTo(int x, int y);
     std::vector<bool>*covers;
     std::vector<Enemy>*otherEnemies;
     void draw(Texture2D texture);
     void update();
-
     player* playerPtr;
+    void switchGravity(int direction);
+
 
 };
 #endif //RAYLIBSTARTER_ENEMY_H

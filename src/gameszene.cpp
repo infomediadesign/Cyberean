@@ -85,6 +85,12 @@ void gameScene::update(globalState &globalstate) {
         thegameobject[i].update(*this);
     }
     removeCover();
+    if(themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 6){
+        for(int i = 0;i<enemies.size();i++)
+        {
+            enemies[i].switchGravity(0);
+        }
+    }
 }
 
 void gameScene::fillCoverMatrix() {

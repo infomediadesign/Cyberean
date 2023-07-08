@@ -25,7 +25,7 @@ public:
     int stepCounterDown = 0;
     int stepCounterRight = 0;
     int stepCounterLeft = 0;
-    int keyDownDelay = 5; // Sets the speed of the player - Higher Delay = Slower Player
+    int keyDownDelay = 15; // Sets the speed of the player - Higher Delay = Slower Player
 
     gameScene* szene;
     const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};

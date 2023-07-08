@@ -63,8 +63,8 @@ void player::update() {
         stepCounterDown = 0;
         stepCounterRight ++;
         stepCounterLeft = 0;
+        //sleep_for(50ms);
         if(stepCounterRight==keyDownDelay) {
-            //sleep_for(50ms);
             if (canMoveTo(posX + 1, posY))
                 posX++;
             stepCounterRight = 0;
@@ -78,10 +78,10 @@ void player::update() {
     }else if(IsKeyDown(KEY_DOWN)|| IsKeyDown(KEY_S)) {
         stepCounterUp = 0;
         stepCounterDown++;
-        stepCounterRight = 0;
         stepCounterLeft = 0;
+        stepCounterRight = 0;
+        //sleep_for(50ms);
         if (stepCounterDown == keyDownDelay) {
-            //sleep_for(50ms);
             if (canMoveTo(posX, posY + 1))
                 posY++;
             stepCounterDown = 0;
