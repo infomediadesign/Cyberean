@@ -9,7 +9,6 @@
 #include "mainmenu.h"
 #include "musicplayer.h"
 #include "gameszene.h"
-#include "Enemy.h"
 
 int main() {
     // Raylib initialization

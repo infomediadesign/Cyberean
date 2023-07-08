@@ -25,7 +25,7 @@ void player::update() {
         stepCounterDown = 0;
         stepCounterRight = 0;
         stepCounterLeft ++;
-        //sleep_for(50ms);
+        //sleep_for(50ms); // Not needed, but there cause might be useful.
         if(stepCounterLeft==keyDownDelay) {
             if (canMoveTo(posX - 1, posY))
                 posX--;
