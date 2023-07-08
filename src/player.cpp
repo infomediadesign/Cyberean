@@ -95,19 +95,26 @@ void player::draw() {
 }
 
 bool player::canMoveTo(int x, int y) { // checks if the player can move to adjacent Tile
-    int tileData = map->getLayer("collision")->getData()[x + y * map->getLayer("collision")->getSize().x];
+    int tileData = map->getLayer("Collision")->getData()[x + y * map->getLayer("Collision")->getSize().x];
     if(tileData != 0){
         return false;
+
+bool player::canMoveTo(int x, int y) {
+    int tileData = map->getLayer("Collision")->getData()[x + y * map->getLayer("Collision")->getSize().x];
+
+    bool player::canMoveTo(int x, int y) { // checks if the player can move to adjacent Tile
+        int tileData = map->getLayer("Collision")->getData()[x + y * map->getLayer("Collision")->getSize().x];
+        if (tileData != 0) {
+            return false;
+        }
+        for (int i = 0; i < enemies->size(); i++) {
+            Enemy enemy = (*enemies)[i];
+            if (enemy.posX == x && enemy.posY == y) {
+                return false;
+            }
+        }
+        return true;
     }
-for(int i=0;i<enemies->size();i++) {
-    Enemy enemy = (*enemies)[i];
-    if(enemy.posX == x && enemy.posY == y)
-    {
-        return false;
-    }
+
+
 }
-    return true;
-}
-
-
-

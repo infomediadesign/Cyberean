@@ -8,8 +8,8 @@ void drawLayer(const std::string &layer);
 
 gameScene::gameScene(int Level) {
     tson::Tileson t;
-    themap = t.parse("assets/blue_level_prototype.tmj");
-    maptext = LoadTexture("assets/tilemap_prototype_selina_test.png");
+    themap = t.parse("assets/level_1.tmj");
+    maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
     theplayer.map = themap.get();
     theplayer.enemies = &enemies;
     fillCoverMatrix();

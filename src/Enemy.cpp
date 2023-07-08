@@ -35,7 +35,7 @@ void Enemy::draw(Texture2D texture) {
 }
 
 bool Enemy::canMoveTo(int x, int y) {
-    int tileData = theMap->getLayer("collision")->getData()[x + y * theMap->getSize().x];
+    int tileData = theMap->getLayer("Collision")->getData()[x + y * theMap->getSize().x];
     if(tileData != 0){
         return false;
     }
