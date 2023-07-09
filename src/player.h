@@ -19,7 +19,7 @@ class player {
 public:
     int life = 0;
     int posX = 19;
-    int posY = 13;
+    int posY = 14;
     int age = 0;
     int stepCounterUp = 0;
     int stepCounterDown = 0;
