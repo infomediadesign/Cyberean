@@ -15,7 +15,6 @@ void player::update() {
 
     if(IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) // Move Left
     {
-        age++;
         if (canMoveTo(posX-1,posY))
         posX--;
 
@@ -35,7 +34,6 @@ void player::update() {
 
     if(IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) //Move Up
     {
-        age++;
         if (canMoveTo(posX,posY-1))
         posY--;
     }else if(IsKeyDown(KEY_UP)|| IsKeyDown(KEY_W))
@@ -54,7 +52,6 @@ void player::update() {
 
     if(IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D)) //Move Right
     {
-        age++;
         if (canMoveTo(posX+1,posY))
         posX++;
     }else if(IsKeyDown(KEY_RIGHT)||IsKeyDown(KEY_D))
@@ -72,7 +69,6 @@ void player::update() {
     }
     if(IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) //Move Down
     {
-        age++;
         if (canMoveTo(posX,posY+1))
         posY++;
     }else if(IsKeyDown(KEY_DOWN)|| IsKeyDown(KEY_S)) {

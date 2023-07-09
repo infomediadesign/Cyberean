@@ -6,10 +6,13 @@
 #include "gameszene.h"
 
 
-gameobject::gameobject(int ID, int posX, int posY, player* playerPtr, std::vector<gameobject>& gameObjects, gameScene* gameScenePtr): playerPtr(playerPtr), gameObjects(&gameObjects), gameScenePtr(gameScenePtr) {
+gameobject::gameobject(int ID, int posX, int posY, player* playerPtr, std::vector<gameobject>& gameObjects, gameScene* gameScenePtr) {
+    this->ID = ID;
     this->posX = posX;
     this->posY = posY;
-    this->ID = ID;
+    this->playerPtr = playerPtr;
+    this->gameObjects = &gameObjects;
+    this->gameScenePtr = gameScenePtr;
 
     switch(ID)
     {

@@ -58,9 +58,7 @@ int main() {
                 ToggleFullscreen();
             }
         }
-        // Updates that are made by frame are coded here
-        // ...
-        // ...
+
         switch(state){
             case mainMenu:
                 themenu.update(state);
@@ -101,8 +99,6 @@ int main() {
                     break;
                 case pause:
                     break;
-                default:
-                    DrawText("lol",100,100,50,BLACK);
             }
         }
         EndTextureMode();

@@ -23,10 +23,10 @@ public:
     player* playerPtr;
     int collectedObjectsCount = 0;
 
+    gameScene(int Level);
     void update(globalState &globalstate);
     void draw();
     void drawLayer(const std::string& layer);
-    gameScene(int Level);
     void fillCoverMatrix();
     void drawCover();
     void removeCover();

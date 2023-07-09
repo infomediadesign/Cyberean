@@ -21,7 +21,6 @@ void MusicPlayer::LoadMusic(const std::string& filename, MusicState state) {
 }
 
 void MusicPlayer::PlayMusic(MusicState state) {
-    StopMusic();
 
     auto it = musicMap.find(state);
     if (it != musicMap.end()) {

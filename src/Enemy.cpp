@@ -5,19 +5,24 @@
 #include "Enemy.h"
 
 Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
-             std::vector<Enemy> *otherEnemies, player* playerPtr): playerPtr(playerPtr) {
+             std::vector<Enemy> *otherEnemies, player* playerPtr){
     this->ID = ID;
     this->posX = posX;
     this->posY = posY;
     this->theMap = map;
     this->covers = covers;
     this->otherEnemies = otherEnemies;
-    this->Type = boulder; // für nen anderen "Gegner" andere ID übergeben (if needed lol)
-    switch(Type)
+    this->playerPtr = playerPtr;
+    switch(ID)
     {
-        default:
+        case 4:
+            this->Type = boulder;
             moveDelay = 20; // Boulder Falling Speed (Higher Number = Slower)
             textureSource = {96, 0, 32, 32};
+        case 5:
+            break; // Firewall
+        case 6:
+            break; // bomb
     }
     moveCooldown = moveDelay;
 }
