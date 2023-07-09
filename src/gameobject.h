@@ -26,9 +26,10 @@ public:
     int posY;
     int ID;
     int collected = 0;
-    bool touched = true;
+    bool isActive = false;
     player* playerPtr;
     gameScene* gameScenePtr;
+    Texture2D overlayTexture;
 
     tson::Map* theMap;
     Rectangle textureSource;

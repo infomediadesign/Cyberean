@@ -23,10 +23,15 @@ gameobject::gameobject(int ID, int posX, int posY, player* playerPtr, std::vecto
             textureSource = {32, 32, 32, 32};
             break;
     }
+    overlayTexture = LoadTexture("assets/switch_gravity_down.png");
 }
 
 void gameobject::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float)posX * 32, (float)posY * 32}, WHITE);
+    if (isActive) {
+        // Überlagernde PNG-Datei zeichnen, wenn der Schalter aktiviert ist
+        DrawTextureRec(overlayTexture, textureSource, Vector2{(float)posX * 32, (float)posY * 32}, WHITE);
+    }
 }
 
 void gameobject::update(gameScene& scene) {
@@ -38,5 +43,9 @@ void gameobject::update(gameScene& scene) {
                 break;
             }
         }
+    }
+    else if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 6) {
+        // Schalter aktivieren, wenn der Spieler ihn berührt
+        isActive = true;
     }
 }
