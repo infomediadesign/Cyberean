@@ -40,30 +40,30 @@ bool mainmenu::IsMusicMuted(){
 }
 
 void mainmenu::buttons() {
-    DrawTexture(Start,368,400,WHITE);
-    DrawTexture(Exit,368,500,WHITE);
+    DrawTexture(Start,368,500,WHITE);
+    DrawTexture(Exit,368,600,WHITE);
     if(sound == true){
-        DrawTexture(Unmuted_dunkel,368,600,WHITE);
+        DrawTexture(Unmuted_dunkel,368,700,WHITE);
     }else{
-        DrawTexture(Muted_dunkel,368,600,WHITE);
+        DrawTexture(Muted_dunkel,368,700,WHITE);
     }
     switch(cursor){
         case 0:
-            DrawTexture(Start_markiert,368,400,WHITE);
+            DrawTexture(Start_markiert,368,500,WHITE);
             break;
         case 1:
-            DrawTexture(Exit_markiert,368,500,WHITE);
+            DrawTexture(Exit_markiert,368,600,WHITE);
             break;
         case 2:
             switch(sound) {
                 case(true):
-                    DrawTexture(Unmuted, 368, 600, WHITE);
+                    DrawTexture(Unmuted, 368, 700, WHITE);
                     if (IsKeyPressed(KEY_ENTER) && sound == true) {
                         sound = false;
                     }
                     break;
                 case(false):
-                    DrawTexture(Muted, 368, 600, WHITE);
+                    DrawTexture(Muted, 368, 700, WHITE);
                     if (IsKeyPressed(KEY_ENTER) && sound == false) {
                         sound = true;
                     }
