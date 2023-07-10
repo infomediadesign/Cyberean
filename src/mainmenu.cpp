@@ -32,7 +32,7 @@ void mainmenu::update(globalState &globalState) {
 
 void mainmenu::draw() {
     DrawTexture(background,0,0,WHITE);
-    DrawTexture(windowsoli,0,0,WHITE);
+    //DrawTexture(windowsoli,0,0,WHITE);
 }
 
 bool mainmenu::IsMusicMuted(){

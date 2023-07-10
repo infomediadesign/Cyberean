@@ -14,8 +14,8 @@ public:
     int cursor = 0;
     bool sound = true;
 
-    Texture2D background = LoadTexture("assets/hauser.png");
-    Texture2D windowsoli = LoadTexture("assets/phenster.png");
+    Texture2D background = LoadTexture("assets/prototype_title_screen_selina_tech-demo.png");
+    //Texture2D windowsoli = LoadTexture("assets/phenster.png");
 
     Texture2D Exit = LoadTexture("assets/Exit.png");
     Texture2D Exit_markiert = LoadTexture("assets/Exit_markiert.png");
