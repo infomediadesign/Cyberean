@@ -30,7 +30,7 @@ public:
     gameScene* szene;
     const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
 
-    Texture2D texture = LoadTexture("assets/mockup_avatar_portal-hop_anim.png");
+    Texture2D texture = LoadTexture("assets/avatar_bopping_glasses_anim_1.1.png");
     tson::Map* map;
     std::vector<Enemy> *enemies;
 
