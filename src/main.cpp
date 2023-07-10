@@ -52,14 +52,14 @@ int main() {
         if (IsKeyDown(KEY_LEFT_ALT) && IsKeyPressed(KEY_ENTER)) { //Fullscreen logic.
             if (IsWindowFullscreen()) {
                 ToggleFullscreen();
-                SetWindowSize(Game::ScreenWidth,Game::ScreenHeight);
+                SetWindowSize(Game::ScreenWidth, Game::ScreenHeight);
             } else {
                 SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
                 ToggleFullscreen();
             }
         }
 
-        switch(state){
+        switch (state) {
             case mainMenu:
                 themenu.update(state);
                 break;
@@ -67,7 +67,7 @@ int main() {
                 gs.update(state);
                 break;
             case settings:
-               // settings();
+                // settings();
                 break;
             case pause:
                 //pause();
@@ -86,8 +86,8 @@ int main() {
         // For the letterbox we draw on canvas instead
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas.
-            ClearBackground(ColorFromHSV(time(nullptr),1,1));
-            switch(state){
+            ClearBackground(ColorFromHSV(time(nullptr), 1, 1));
+            switch (state) {
                 case mainMenu:
                     themenu.draw();
                     themenu.buttons();
@@ -135,6 +135,7 @@ int main() {
 
     return EXIT_SUCCESS;
 }
+
 void to_zeichnen_auf_den_Bildschirm(tson::Map *theMap, Texture &mapTex) {
     Rectangle sourceRec{};
     sourceRec.width = 32;
