@@ -6,7 +6,7 @@
 
 void drawLayer(const std::string &layer);
 
-gameScene::gameScene(int Level) {
+gameScene::gameScene(int Level, MusicPlayer* musicPlayerPtr) {
     tson::Tileson t;
     themap = t.parse("assets/level_1.tmj");
     maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
@@ -16,6 +16,8 @@ gameScene::gameScene(int Level) {
     populateEnemies();
     populategameobjects();
     playerPtr = &theplayer;
+
+    musicPlayer = musicPlayerPtr;
 }
 
 void gameScene::draw() {

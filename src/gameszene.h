@@ -11,6 +11,7 @@
 #include "gameobject.h"
 #include "Enemy.h"
 #include "../Library/tileson.hpp"
+#include "musicplayer.h"
 
 class gameScene {
 public:
@@ -22,8 +23,9 @@ public:
     std::vector<bool> covers;
     player* playerPtr;
     int collectedObjectsCount = 0;
+    MusicPlayer* musicPlayer;
 
-    gameScene(int Level);
+    gameScene(int Level, MusicPlayer* musicPlayerPtr);
     void update(globalState &globalstate);
     void draw();
     void drawLayer(const std::string& layer);
