@@ -35,16 +35,32 @@ int main() {
 
     mainmenu themenu;
     //musik initialisier stuff
-    MusicPlayer musicPlayer;
-    musicPlayer.LoadMusic("assets/audio/tracks/cyberean_mainmenu.wav", MusicState::MainMenu);
-    musicPlayer.LoadMusic("assets/audio/tracks/cyberean_lvl_1.wav", MusicState::Lvl1);
-    musicPlayer.PlayMusic(MusicState::MainMenu);
+
+    InitAudioDevice();
+
+    MusicPlayer musicPlayermenu;
+    MusicPlayer musicPlayer1;
+    MusicPlayer musicPlayer2;
+    MusicPlayer musicPlayer3;
+    MusicPlayer musicPlayer4;
+    MusicPlayer musicPlayer5;
+
+    musicPlayermenu.LoadMusic("assets/audio/tracks/cyberean_mainmenu.wav", MusicState::MainMenu);
+    musicPlayermenu.LoadMusic("assets/audio/tracks/cyberean_lvl_1.wav", MusicState::Lvl1);
+    musicPlayermenu.PlayMusic(MusicState::MainMenu);
+
+    musicPlayer1.LoadMusic("assets/audio/tracks/cyberean_lvl1_part1.wav", MusicState::Lvl1_part1);
+    musicPlayer2.LoadMusic("assets/audio/tracks/cyberean_lvl1_part2.wav", MusicState::Lvl1_part2);
+    musicPlayer3.LoadMusic("assets/audio/tracks/cyberean_lvl1_part3.wav", MusicState::Lvl1_part3);
+    musicPlayer4.LoadMusic("assets/audio/tracks/cyberean_lvl1_part4.wav", MusicState::Lvl1_part4);
+    musicPlayer5.LoadMusic("assets/audio/tracks/cyberean_lvl1_part5.wav", MusicState::Lvl1_part5);
+
 
     MusicState previousState = MusicState::MainMenu; // Variable zum Speichern des vorherigen Zustands
     MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
-    //musicPlayer.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
+    //musicPlayermenu.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
-    gameScene gs(0, &musicPlayer);
+    gameScene gs(0, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4, &musicPlayer5);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -75,9 +91,9 @@ int main() {
         }
 
         if (!themenu.IsMusicMuted()) { //Mute Möglichkeit
-            musicPlayer.SetMusicVolume(0.0f);
+            musicPlayermenu.SetMusicVolume(0.0f);
         } else {
-            musicPlayer.SetMusicVolume(1.0f); //auf 1.0f einstellen um die Musik zu hören
+            musicPlayermenu.SetMusicVolume(1.0f); //auf 1.0f einstellen um die Musik zu hören
         }
 
 
@@ -95,7 +111,6 @@ int main() {
                     break;
                 case gameplay:
                     gs.draw();
-                    currentState = MusicState::Lvl1;
                     break;
                 case pause:
                     break;
@@ -117,11 +132,17 @@ int main() {
         EndDrawing();
 
         if (currentState != previousState) { //beim ändern des states wird ein anderes Lied abgespielt
-            musicPlayer.PlayMusic(currentState);
+            musicPlayermenu.PlayMusic(currentState);
             previousState = currentState;
         }
 
-        musicPlayer.Update();
+        musicPlayermenu.Update();
+        musicPlayer1.Update();
+        musicPlayer2.Update();
+        musicPlayer3.Update();
+        musicPlayer4.Update();
+        musicPlayer5.Update();
+
     } // Main game loop end
 
     // De-initialization here
@@ -131,7 +152,14 @@ int main() {
 
     // Close window and OpenGL context
     CloseWindow();
-    musicPlayer.StopMusic();
+    musicPlayermenu.StopMusic();
+    musicPlayer1.StopMusic();
+    musicPlayer2.StopMusic();
+    musicPlayer3.StopMusic();
+    musicPlayer4.StopMusic();
+    musicPlayer5.StopMusic();
+
+    CloseAudioDevice();
 
     return EXIT_SUCCESS;
 }

@@ -24,14 +24,20 @@ public:
     player* playerPtr;
     int collectedObjectsCount = 0;
     MusicPlayer* musicPlayer;
+    MusicPlayer* musicPlayer1Ptr;
+    MusicPlayer* musicPlayer2Ptr;
+    MusicPlayer* musicPlayer3Ptr;
+    MusicPlayer* musicPlayer4Ptr;
+    MusicPlayer* musicPlayer5Ptr;
 
-    gameScene(int Level, MusicPlayer* musicPlayerPtr);
+    gameScene(int Level, MusicPlayer* musicPlayerPtr, MusicPlayer* musicPlayer1, MusicPlayer* musicPlayer2, MusicPlayer* musicPlayer3, MusicPlayer* musicPlayer4, MusicPlayer* musicPlayer5);
     void update(globalState &globalstate);
     void draw();
     void drawLayer(const std::string& layer);
     void fillCoverMatrix();
     void drawCover();
     void removeCover();
+    void updateMusicPlayers();
 
     void populateEnemies();
     void populategameobjects();

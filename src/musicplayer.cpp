@@ -1,7 +1,6 @@
 #include "musicplayer.h"
 
 MusicPlayer::MusicPlayer() {
-    InitAudioDevice();
     currentMusicState = MusicState::MainMenu;
 }
 
@@ -12,7 +11,6 @@ MusicPlayer::~MusicPlayer() {
         UnloadMusicStream(pair.second);
     }
 
-    CloseAudioDevice();
 }
 
 void MusicPlayer::LoadMusic(const std::string& filename, MusicState state) {
@@ -39,4 +37,8 @@ void MusicPlayer::SetMusicVolume(float volume) {
 
 void MusicPlayer::Update() {
     UpdateMusicStream(musicMap[currentMusicState]);
+}
+
+MusicState MusicPlayer::GetCurrentMusicState(){
+    return currentMusicState;
 }

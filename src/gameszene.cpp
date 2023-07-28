@@ -6,7 +6,7 @@
 
 void drawLayer(const std::string &layer);
 
-gameScene::gameScene(int Level, MusicPlayer* musicPlayerPtr) {
+gameScene::gameScene(int Level, MusicPlayer* musicPlayerPtr, MusicPlayer* musicPlayer1, MusicPlayer* musicPlayer2, MusicPlayer* musicPlayer3, MusicPlayer* musicPlayer4, MusicPlayer* musicPlayer5) {
     tson::Tileson t;
     themap = t.parse("assets/level_1.tmj");
     maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
@@ -18,6 +18,12 @@ gameScene::gameScene(int Level, MusicPlayer* musicPlayerPtr) {
     playerPtr = &theplayer;
 
     musicPlayer = musicPlayerPtr;
+    musicPlayer1Ptr = musicPlayer1;
+    musicPlayer2Ptr = musicPlayer2;
+    musicPlayer3Ptr = musicPlayer3;
+    musicPlayer4Ptr = musicPlayer4;
+    musicPlayer5Ptr = musicPlayer5;
+
 }
 
 void gameScene::draw() {
@@ -92,6 +98,49 @@ void gameScene::update(globalState &globalstate) {
         {
             enemies[i].switchGravity(0);
         }
+    }
+
+    updateMusicPlayers();
+}
+
+void gameScene::updateMusicPlayers() {
+    if (musicPlayer->GetCurrentMusicState() == MusicState::MainMenu) {
+        // Stoppe das Hauptmenü-Musikstück
+        musicPlayer->StopMusic();
+
+        // Entmute alle anderen MusicPlayer-Instanzen
+        musicPlayer1Ptr->SetMusicVolume(1.0f);
+        musicPlayer2Ptr->SetMusicVolume(0.0f);
+        musicPlayer3Ptr->SetMusicVolume(0.0f);
+        musicPlayer4Ptr->SetMusicVolume(0.0f);
+        musicPlayer5Ptr->SetMusicVolume(0.0f);
+
+        // Spiele die Musik der anderen Level ab
+        musicPlayer1Ptr->PlayMusic(MusicState::Lvl1_part1);
+        musicPlayer2Ptr->PlayMusic(MusicState::Lvl1_part2);
+        musicPlayer3Ptr->PlayMusic(MusicState::Lvl1_part3);
+        musicPlayer4Ptr->PlayMusic(MusicState::Lvl1_part4);
+        musicPlayer5Ptr->PlayMusic(MusicState::Lvl1_part5);
+    }
+
+    if (collectedObjectsCount == 1) {
+        musicPlayer1Ptr->SetMusicVolume(0.0f);
+        musicPlayer2Ptr->SetMusicVolume(1.0f);
+    }
+
+    if (collectedObjectsCount == 2) {
+        musicPlayer2Ptr->SetMusicVolume(0.0f);
+        musicPlayer3Ptr->SetMusicVolume(1.0f);
+    }
+
+    if (collectedObjectsCount == 3) {
+        musicPlayer3Ptr->SetMusicVolume(0.0f);
+        musicPlayer4Ptr->SetMusicVolume(1.0f);
+    }
+
+    if (collectedObjectsCount == 4) {
+        musicPlayer4Ptr->SetMusicVolume(0.0f);
+        musicPlayer5Ptr->SetMusicVolume(1.0f);
     }
 }
 
