@@ -164,7 +164,7 @@ int main() {
     return EXIT_SUCCESS;
 }
 
-void to_zeichnen_auf_den_Bildschirm(tson::Map *theMap, Texture &mapTex) {
+void toDrawOnScreen(tson::Map *theMap, Texture &mapTex) {
     Rectangle sourceRec{};
     sourceRec.width = 32;
     sourceRec.height = 32;

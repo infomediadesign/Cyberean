@@ -5,7 +5,7 @@
 #include "raymath.h"
 #include "../Library/tileson.hpp"
 
-void to_zeichnen_auf_den_Bildschirm(tson::Map *theMap, Texture &mapTex);
+void toDrawOnScreen(tson::Map *theMap, Texture &mapTex);
 
 enum globalState{
     mainMenu,

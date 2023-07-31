@@ -28,7 +28,8 @@ public:
     int keyDownDelay = 15; // Sets the speed of the player - Higher Delay = Slower Player
 
     gameScene* szene;
-    const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
+    //const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
+    const bool tileWalkableLookup [55] = {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     Texture2D texture = LoadTexture("assets/avatar_bopping_glasses_anim_1.1.png");
     tson::Map* map;
