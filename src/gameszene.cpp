@@ -10,8 +10,8 @@ gameScene::gameScene(int Level, MusicPlayer* musicPlayerPtr, MusicPlayer* musicP
     tson::Tileson t;
     //themap = t.parse("assets/level_1.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
-    themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
-    maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
+    themap = t.parse("assets/blue_tileset_level_1_viktor_3.tmj");
+    maptext = LoadTexture("assets/blue_tileset_level_1_viktor_2.png");
     theplayer.map = themap.get();
     theplayer.enemies = &enemies;
     fillCoverMatrix();
