@@ -6,19 +6,24 @@
 
 Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
              std::vector<Enemy> *otherEnemies, player* playerPtr){
-    this->ID = ID;
+    this->ID = ID - 1;
     this->posX = posX;
     this->posY = posY;
     this->theMap = map;
     this->covers = covers;
     this->otherEnemies = otherEnemies;
     this->playerPtr = playerPtr;
-    switch(ID)
+
+    textureSource.x = float((this->ID % 4) * 32);
+    textureSource.y = float((this->ID / 4) * 32);
+    textureSource.width = 32;
+    textureSource.height = 32;
+
+    switch(this->ID)
     {
-        case 4:
+        case 27:
             this->Type = boulder;
             moveDelay = 20; // Boulder Falling Speed (Higher Number = Slower)
-            textureSource = {96, 0, 32, 32};
         case 5:
             break; // Firewall
         case 6:

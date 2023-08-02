@@ -11,7 +11,7 @@ gameScene::gameScene(int Level, MusicPlayer* musicPlayerPtr, MusicPlayer* musicP
     //themap = t.parse("assets/level_1.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
     themap = t.parse("assets/blue_tileset_level_1_viktor_3.tmj");
-    maptext = LoadTexture("assets/blue_tileset_level_1_viktor_2.png");
+    maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
     theplayer.map = themap.get();
     theplayer.enemies = &enemies;
     fillCoverMatrix();
@@ -96,7 +96,7 @@ void gameScene::update(globalState &globalstate) {
         thegameobject[i].update(*this);
     }
     removeCover();
-    if(themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 6){
+    if(themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 33){
         for(int i = 0;i<enemies.size();i++)
         {
             enemies[i].switchGravity(0);
