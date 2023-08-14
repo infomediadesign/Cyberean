@@ -39,7 +39,7 @@ void gameobject::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float)posX * 32, (float)posY * 32}, WHITE);
     if (isActive) {
         // Überlagernde PNG-Datei zeichnen, wenn der Schalter aktiviert ist
-        DrawTextureRec(overlayTexture, Rectangle{0,0,32,32}, Vector2{(float)posX * 32, (float)posY * 32}, WHITE);
+        DrawTextureRec(texture, Rectangle{32,256,32,32}, Vector2{(float)posX * 32, (float)posY * 32}, WHITE);
     }
 }
 
@@ -53,8 +53,18 @@ void gameobject::update(gameScene& scene) {
             }
         }
     }
-    else if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 32) {
-        // Schalter aktivieren, wenn der Spieler ihn berührt
-        isActive = true;
+
+    if(playerPtr->posX != posX || playerPtr->posY != posY || ID != 32){
+        playeronswitch = false;
+    }
+
+    if(playerPtr->posX == posX && playerPtr->posY == posY && ID == 32 && playeronswitch == false) {
+        if(isActive == false){
+            isActive = true;
+        }
+        else{
+            isActive = false;
+        }
+        playeronswitch = true;
     }
 }

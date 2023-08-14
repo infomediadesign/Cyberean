@@ -27,6 +27,7 @@ public:
     int ID;
     int collected = 0;
     bool isActive = false;
+    bool playeronswitch = false;
     player* playerPtr;
     gameScene* gameScenePtr;
     Texture2D overlayTexture;
