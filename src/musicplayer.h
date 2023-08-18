@@ -2,6 +2,7 @@
 #define MUSICPLAYER_H
 
 #pragma once
+
 #include <raylib.h>
 #include <map>
 #include <string>
@@ -20,13 +21,19 @@ enum class MusicState {
 class MusicPlayer {
 public:
     MusicPlayer();
+
     ~MusicPlayer();
 
-    void LoadMusic(const std::string& filename, MusicState state);
+    void LoadMusic(const std::string &filename, MusicState state);
+
     void PlayMusic(MusicState state);
+
     void StopMusic();
+
     void SetMusicVolume(float volume);
+
     void Update();
+
     MusicState GetCurrentMusicState();
 
 private:

@@ -7,13 +7,13 @@ MusicPlayer::MusicPlayer() {
 MusicPlayer::~MusicPlayer() {
     StopMusic();
 
-    for (auto& pair : musicMap) {
+    for (auto &pair: musicMap) {
         UnloadMusicStream(pair.second);
     }
 
 }
 
-void MusicPlayer::LoadMusic(const std::string& filename, MusicState state) {
+void MusicPlayer::LoadMusic(const std::string &filename, MusicState state) {
     Music music = LoadMusicStream(filename.c_str());
     musicMap[state] = music;
 }
@@ -39,6 +39,6 @@ void MusicPlayer::Update() {
     UpdateMusicStream(musicMap[currentMusicState]);
 }
 
-MusicState MusicPlayer::GetCurrentMusicState(){
+MusicState MusicPlayer::GetCurrentMusicState() {
     return currentMusicState;
 }

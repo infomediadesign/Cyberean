@@ -1,13 +1,14 @@
 #pragma once
 #ifndef RAYLIBSTARTER_MASTERHEAD_H
 #define RAYLIBSTARTER_MASTERHEAD_H
+
 #include "raylib.h"
 #include "raymath.h"
 #include "../Library/tileson.hpp"
 
 void toDrawOnScreen(tson::Map *theMap, Texture &mapTex);
 
-enum globalState{
+enum globalState {
     mainMenu,
     gameplay,
     settings,

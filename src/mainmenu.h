@@ -8,9 +8,13 @@
 class mainmenu {
 public:
     void update(globalState &globalState);
+
     void draw();
+
     void buttons();
+
     bool IsMusicMuted();
+
     int cursor = 0;
     bool sound = true;
 
