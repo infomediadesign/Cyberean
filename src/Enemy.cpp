@@ -35,14 +35,53 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
     updateGravity(); //Initializes the gravity value
 }
 
-void Enemy::update() { // Boulders Gravity
+void Enemy::update() { // Boulders + Bomb Gravity
+    bool bNextEnemiesIsBoulder = false;
     moveCooldown--;
     if (canMoveTo(posX + gravityX, posY + gravityY) && moveCooldown <= 0) {
         posY += gravityY;
         posX += gravityX;
+        consecMoves++;
         moveCooldown = moveDelay;
+        return;
     }
+    consecMoves = 0;
+    //Check if the enemy next to the boulder (in direction of gravity) is a boulder.
+    for (int i = 0; i < otherEnemies->size(); i++)
+        if ((*otherEnemies)[i].posX == posX + gravityX && (*otherEnemies)[i].posY == posY + gravityY &&
+            (*otherEnemies)[i].Type == boulder) {
+            bNextEnemiesIsBoulder = true;
+            break;
+        }
+    //if next enemy is not a boulder -> don't fall next to it.
+    if (!bNextEnemiesIsBoulder) return;
 
+    if (gravityX != 0) {
+        if (canMoveTo(posX, posY + 1) && canMoveTo(posX + gravityX, posY + 1) && moveCooldown <= 0) {
+            posY += 1;
+            moveCooldown = moveDelay;
+            //Insert animation for data chan (counter clock wise) here:
+
+        } else if (canMoveTo(posX, posY - 1) && canMoveTo(posX + gravityX, posY - 1) && moveCooldown <= 0) {
+            posY -= 1;
+            //Insert animation for data chan (clock wise) here:
+
+            moveCooldown = moveDelay;
+        }
+
+    } else if (gravityY != 0) {
+        if (canMoveTo(posX + 1, posY) && canMoveTo(posX + 1, posY + gravityY) && moveCooldown <= 0) {
+            posX += 1;
+            //Insert animation for data chan (clock wise) here:
+            
+            moveCooldown = moveDelay;
+        } else if (canMoveTo(posX - 1, posY) && canMoveTo(posX - 1, posY + gravityY) && moveCooldown <= 0) {
+            posX -= 1;
+            //Insert animation for data chan (counter clock wise) here:
+
+            moveCooldown = moveDelay;
+        }
+    }
 }
 
 void Enemy::draw(Texture2D texture) {
@@ -50,7 +89,10 @@ void Enemy::draw(Texture2D texture) {
 
 }
 
-bool Enemy::canMoveTo(int x, int y) {
+bool Enemy::canMoveTo(int x, int y) { // NOLINT(*-make-member-function-const)
+    int gravityVal = theMap->getLayer("Gravity")->getData()[posX + posY * theMap->getSize().x];
+    if (gravityVal <= 50 || gravityVal >= 56)
+        return false;
     int tileData = theMap->getLayer("Collision")->getData()[x + y * theMap->getSize().x];
     if (tileData != 0) {
         return false;
@@ -114,7 +156,7 @@ void Enemy::updateGravity() {
                 if (playerPtr->gravitySwitchStatusLeft)
                     switchGravity(1);
                 else
-                    switchGravity(3); //Left
+                    switchGravity(3); // Left
                 break;
             case 53:
             default:

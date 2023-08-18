@@ -23,6 +23,7 @@ public:
     enum {
         boulder,
         firewall,
+        rogueAntivirus,
         bomb
     } Type;
 
@@ -35,6 +36,7 @@ public:
     int gravityX = 0; //Gravity Vector X
     int gravityY = 0; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
+    int boulderStackingCounter = 0;
 
     tson::Map *theMap;
     Rectangle textureSource;
@@ -52,6 +54,7 @@ public:
 
     void switchGravity(int direction); //Needs to be updated.
     void updateGravity();
+    void checkIfStackable();
 
 
 };
