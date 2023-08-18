@@ -73,7 +73,7 @@ void Enemy::update() { // Boulders + Bomb Gravity
         if (canMoveTo(posX + 1, posY) && canMoveTo(posX + 1, posY + gravityY) && moveCooldown <= 0) {
             posX += 1;
             //Insert animation for data chan (clock wise) here:
-            
+
             moveCooldown = moveDelay;
         } else if (canMoveTo(posX - 1, posY) && canMoveTo(posX - 1, posY + gravityY) && moveCooldown <= 0) {
             posX -= 1;

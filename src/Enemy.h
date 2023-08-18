@@ -36,7 +36,6 @@ public:
     int gravityX = 0; //Gravity Vector X
     int gravityY = 0; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
-    int boulderStackingCounter = 0;
 
     tson::Map *theMap;
     Rectangle textureSource;
@@ -52,9 +51,8 @@ public:
 
     player *playerPtr;
 
-    void switchGravity(int direction); //Needs to be updated.
+    void switchGravity(int direction);
     void updateGravity();
-    void checkIfStackable();
 
 
 };
