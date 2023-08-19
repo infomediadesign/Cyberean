@@ -40,9 +40,9 @@ gameobject::gameobject(int ID, int posX, int posY, player *playerPtr, std::vecto
 void gameobject::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
     if (isActive) {
-        // draw the imposed PNG, when the switch is activated
         DrawTextureRec(texture, Rectangle{32, 256, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
     }
+
 }
 
 void gameobject::update(gameScene &scene) {
@@ -63,8 +63,20 @@ void gameobject::update(gameScene &scene) {
     if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 32 && playerOnSwitch == false) {
         if (isActive == false) {
             isActive = true;
+            for (auto& otherSwitch : *gameObjects) {
+                if (&otherSwitch != this && otherSwitch.ID == 32) {
+                    otherSwitch.isActive = isActive;
+                    break;
+                }
+            }
         } else {
             isActive = false;
+            for (auto& otherSwitch : *gameObjects) {
+                if (&otherSwitch != this && otherSwitch.ID == 32) {
+                    otherSwitch.isActive = isActive;
+                    break;
+                }
+            }
         }
         playerOnSwitch = true;
         int gravityVal = playerPtr->map->getLayer("Gravity")->getData()[posX + posY * playerPtr->map->getSize().x];
