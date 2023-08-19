@@ -30,12 +30,24 @@ public:
     int ID;
     int posX;
     int posY;
-    int moveDelay; //Changing the enemy speed (based on frame)
-    int moveCooldown; // remaining time until moving
+    int gravMoveDelay; //Boulder and Bomb movement speed.
+    int gravMoveCooldown; //Boulder and Bomb move cooldown.
+    int antiVirusMoveDelay; //antiVirus movement speed.
+    int antiVirusMoveCooldown; //antiVirus move cooldown.
     bool isAlive = true;
+
+    //Movement variables for boulders and bombs
     int gravityX = 0; //Gravity Vector X
     int gravityY = 0; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
+
+    //Movement variables for rogueAntivirus (counter clockwise)
+    enum {
+        leftMove,
+        downMove,
+        rightMove,
+        upMove
+    } movingStatus;
 
     tson::Map *theMap;
     Rectangle textureSource;
@@ -52,6 +64,7 @@ public:
     player *playerPtr;
 
     void switchGravity(int direction);
+
     void updateGravity();
 
 

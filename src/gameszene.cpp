@@ -78,6 +78,15 @@ void gameScene::populateEnemies() {
             }
         }
     }
+    for (int y = 0; y < themap->getSize().y; y++) {
+        for (int x = 0; x < themap->getSize().x; x++) {
+            if (themap->getLayer("Enemies")->getData()[x + y * themap->getSize().x]) {
+                enemies.emplace_back(themap->getLayer("Enemies")->getData()[x + y * themap->getSize().x], x, y,
+                                     themap.get(), &covers, &enemies, playerPtr);
+            }
+        }
+    }
+
 }
 
 void gameScene::populategameobjects() {
