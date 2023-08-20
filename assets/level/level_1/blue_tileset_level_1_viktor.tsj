@@ -1,0 +1,14 @@
+{ "columns":4,
+ "image":"blue_tileset_level_1_viktor.png",
+ "imageheight":512,
+ "imagewidth":128,
+ "margin":0,
+ "name":"blue_tileset_level_1_viktor",
+ "spacing":0,
+ "tilecount":64,
+ "tiledversion":"1.10.1",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.10"
+}

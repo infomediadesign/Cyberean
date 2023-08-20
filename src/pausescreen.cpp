@@ -45,10 +45,10 @@ void pausescreen::update(globalState &globalState) {
     }
 }
 
-void pausescreen::draw() {
+/*void pausescreen::draw() {
     DrawTexture(background, 0, 0, WHITE);
     DrawTexture(windowsoli, 0, 0, WHITE);
-}
+}*/
 
 bool pausescreen::IsMusicMuted() {
     return sound;

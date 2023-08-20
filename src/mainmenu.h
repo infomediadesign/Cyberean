@@ -21,14 +21,14 @@ public:
     Texture2D background = LoadTexture("assets/prototype_title_screen_selina_tech-demo.png");
     //Texture2D windowsoli = LoadTexture("assets/phenster.png");
 
-    Texture2D Exit = LoadTexture("assets/Exit.png");
-    Texture2D Exit_markiert = LoadTexture("assets/Exit_markiert.png");
-    Texture2D Start = LoadTexture("assets/Start.png");
-    Texture2D Start_markiert = LoadTexture("assets/Start_markiert.png");
-    Texture2D Muted = LoadTexture("assets/muted.png");
-    Texture2D Muted_dunkel = LoadTexture("assets/Muted_dunkel.png");
-    Texture2D Unmuted = LoadTexture("assets/unmuted.png");
-    Texture2D Unmuted_dunkel = LoadTexture("assets/unmuted_dunkel.png");
+    Texture2D Exit = LoadTexture("assets/screens/menu_screen/Exit.png");
+    Texture2D Exit_markiert = LoadTexture("assets/screens/menu_screen/Exit_markiert.png");
+    Texture2D Start = LoadTexture("assets/screens/menu_screen/Start.png");
+    Texture2D Start_markiert = LoadTexture("assets/screens/menu_screen/Start_markiert.png");
+    Texture2D Muted = LoadTexture("assets/screens/menu_screen/muted.png");
+    Texture2D Muted_dunkel = LoadTexture("assets/screens/menu_screen/Muted_dunkel.png");
+    Texture2D Unmuted = LoadTexture("assets/screens/menu_screen/unmuted.png");
+    Texture2D Unmuted_dunkel = LoadTexture("assets/screens/menu_screen/unmuted_dunkel.png");
 
 };
 

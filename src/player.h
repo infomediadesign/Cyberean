@@ -39,11 +39,12 @@ public:
 
     gameScene *szene;
     //const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
-    const bool tileWalkableLookup[55] = {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                                         0, 0, 0};
+    const bool tileWalkableLookup[63] = {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,
+                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,
+                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,
+                                         0, 0};
 
-    Texture2D texture = LoadTexture("assets/avatar_bopping_glasses_anim_1.1.png");
+    Texture2D texture = LoadTexture("assets/animations/avatar_bopping_glasses_anim_1.1.png");
     tson::Map *map;
     std::vector<Enemy> *enemies;
 
