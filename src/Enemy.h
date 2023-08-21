@@ -24,17 +24,22 @@ public:
         boulder,
         firewall,
         rogueAntivirus,
-        bomb
+        bomb,
+        unknown
     } Type;
 
     int ID;
     int posX;
     int posY;
-    int gravMoveDelay; //Boulder and Bomb movement speed.
-    int gravMoveCooldown; //Boulder and Bomb move cooldown.
-    int antiVirusMoveDelay; //antiVirus movement speed.
-    int antiVirusMoveCooldown; //antiVirus move cooldown.
     bool isAlive = true;
+
+    //All of the speeds below need to be compacted. (it's ugly like this)
+    int gravMoveDelay; //Boulder and Bomb movement speed.
+    int gravMoveCooldown;
+    int antiVirusMoveDelay; //antiVirus movement speed.
+    int antiVirusMoveCooldown;
+    int firewallMoveDelay; //Firewall movement speed.
+    int firewallMoveCooldown;
 
     //Movement variables for boulders and bombs
     int gravityX = 0; //Gravity Vector X
@@ -43,6 +48,7 @@ public:
 
     //Movement variables for rogueAntivirus (counter clockwise)
     enum {
+        lookingLeftForWall,
         leftMove,
         downMove,
         rightMove,
@@ -66,6 +72,12 @@ public:
     void switchGravity(int direction);
 
     void updateGravity();
+
+    int GetEnemyType(int x, int y);
+
+    bool neighborExist90();
+
+    bool neighborExist360();
 
 
 };

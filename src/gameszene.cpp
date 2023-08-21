@@ -16,11 +16,15 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
     themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
     maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
+    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
+    //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
+
     theplayer.map = themap.get();
     theplayer.enemies = &enemies;
     fillCoverMatrix();
     populateEnemies();
     populategameobjects();
+    updateFirewallDirection();
     playerPtr = &theplayer;
 
     musicPlayer = musicPlayerPtr;
@@ -88,7 +92,6 @@ void gameScene::populateEnemies() {
             }
         }
     }
-
 }
 
 void gameScene::populategameobjects() {
@@ -194,4 +197,17 @@ void gameScene::drawCollectedObjectsCount() {
     std::string countText = "Collected Notes: " + std::to_string(collectedObjectsCount);
     DrawText(countText.c_str(), 50, GetScreenHeight() - 75, 20,
              WHITE); // Zeichnet die aktuelle Anzahl gesammelter GameObjects
+}
+
+void gameScene::updateFirewallDirection() { //This algorithm checks horizontal or vertical neighbors (Firewall n; 1<n<5)
+    for (int i = 0; i < enemies.size(); i++) {
+        if (enemies[i].ID == 36) { // 36 is a Firewall ID
+            if (enemies[i].GetEnemyType(enemies[i].posX - 1, enemies[i].posY) == 36 ||
+                enemies[i].GetEnemyType(enemies[i].posX + 1, enemies[i].posY) == 36)
+                enemies[i].movingStatus = Enemy::upMove;
+            else if (enemies[i].GetEnemyType(enemies[i].posX, enemies[i].posY - 1) == 36 ||
+                     enemies[i].GetEnemyType(enemies[i].posX, enemies[i].posY + 1) == 36)
+                enemies[i].movingStatus = Enemy::rightMove;
+        }
+    }
 }

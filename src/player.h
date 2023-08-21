@@ -23,7 +23,7 @@ public:
     int life = 0;
     int posX = 19;
     int posY = 14;
-    int age = 0;
+    float age = 0;
     int stepCounterUp = 0;
     int stepCounterDown = 0;
     int stepCounterRight = 0;
@@ -39,9 +39,9 @@ public:
 
     gameScene *szene;
     //const bool tileWalkableLookup[13] = {1,1,0,0,0,0,0,0,0,0,0,0,0};
-    const bool tileWalkableLookup[63] = {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,
-                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,
-                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,
+    const bool tileWalkableLookup[63] = {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                          0, 0};
 
     Texture2D texture = LoadTexture("assets/animations/avatar_bopping_glasses_anim_1.1.png");

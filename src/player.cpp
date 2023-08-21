@@ -83,7 +83,7 @@ void player::update() {
 }
 
 void player::draw() {
-    DrawTextureRec(texture, Rectangle{(float) age * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
+    DrawTextureRec(texture, Rectangle{age * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
                    WHITE);
 
 }

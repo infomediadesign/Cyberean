@@ -7,7 +7,7 @@
 
 Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
              std::vector<Enemy> *otherEnemies, player *playerPtr) {
-    this->ID = ID - 1; //WHY?
+    this->ID = ID - 1; //because Tiled is a bitch c:
     this->posX = posX;
     this->posY = posY;
     this->theMap = map;
@@ -25,8 +25,16 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
         case 27:
             this->Type = boulder;
             gravMoveDelay = 20; // Boulder Falling Speed (Higher Number = Slower)
-        case 5:
-            break; // Firewall
+            break;
+        case 36:
+            this->Type = firewall;
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 120)
+                firewallMoveDelay = 15; //firewall movement speed (Fastest firewall of size 1x2)
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 121)
+                firewallMoveDelay = 20;
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 122)
+                firewallMoveDelay = 25;
+            break;
         case 39:
             this->Type = rogueAntivirus;
             movingStatus = leftMove;
@@ -36,9 +44,13 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
             this->Type = bomb;
             gravMoveDelay = 20; // Same Fall Speed as Data-Chan
             break;
+        default:
+            break;
     }
     gravMoveCooldown = gravMoveDelay;
+    consecMoves = 0;
     antiVirusMoveCooldown = antiVirusMoveDelay;
+    firewallMoveCooldown = firewallMoveDelay;
     updateGravity(); //Initialize gravity value
 }
 
@@ -102,9 +114,17 @@ void Enemy::update() {
         if (antiVirusMoveCooldown <= 0) {
             switch (movingStatus) {
                 case leftMove:
-                    if (canMoveTo(posX, posY - 1)) {
-                        posY--;
-                        movingStatus = upMove;
+                    if (!neighborExist360()) {
+                        posX--;
+                        movingStatus = lookingLeftForWall;
+                    } else if (canMoveTo(posX, posY - 1)) {
+                        if (!canMoveTo(posX + 1, posY - 1)) {
+                            posY--;
+                            movingStatus = upMove;
+                        } else {
+                            posY++;
+                            movingStatus = downMove;
+                        }
                     } else if (canMoveTo(posX - 1, posY)) {
                         posX--;
                         movingStatus = leftMove;
@@ -117,7 +137,10 @@ void Enemy::update() {
                     }
                     break;
                 case downMove:
-                    if (canMoveTo(posX - 1, posY)) {
+                    if (!neighborExist360()) {
+                        posX--;
+                        movingStatus = lookingLeftForWall;
+                    } else if (canMoveTo(posX - 1, posY)) {
                         posX--;
                         movingStatus = leftMove;
                     } else if (canMoveTo(posX, posY + 1)) {
@@ -132,7 +155,10 @@ void Enemy::update() {
                     }
                     break;
                 case rightMove:
-                    if (canMoveTo(posX, posY + 1)) {
+                    if (!neighborExist360()) {
+                        posX--;
+                        movingStatus = lookingLeftForWall;
+                    } else if (canMoveTo(posX, posY + 1)) {
                         posY++;
                         movingStatus = downMove;
                     } else if (canMoveTo(posX + 1, posY)) {
@@ -147,7 +173,10 @@ void Enemy::update() {
                     }
                     break;
                 case upMove:
-                    if (canMoveTo(posX + 1, posY)) {
+                    if (!neighborExist360()) {
+                        posX--;
+                        movingStatus = lookingLeftForWall;
+                    } else if (canMoveTo(posX + 1, posY)) {
                         posX++;
                         movingStatus = rightMove;
                     } else if (canMoveTo(posX, posY - 1)) {
@@ -161,13 +190,60 @@ void Enemy::update() {
                         movingStatus = downMove;
                     }
                     break;
+                case lookingLeftForWall:
+                    if (!canMoveTo(posX - 1, posY)) {
+                        if (canMoveTo(posX, posY + 1)) {
+                            posY++;
+                            movingStatus = downMove;
+                        } else
+                            movingStatus = downMove;
+                    } else
+                        posX--;
+                    break;
             }
             antiVirusMoveCooldown = antiVirusMoveDelay;
         }
     }
     //Firewall Logic
     if (this->Type == firewall) {
-
+        firewallMoveCooldown--;
+        if (firewallMoveCooldown <= 0) {
+            switch (movingStatus) {
+                case rightMove:
+                    if (theMap->getLayer("Firewall Path")->getData()[posX + 1 + posY * theMap->getSize().x] != 0)
+                        posX++;
+                    else {
+                        posX--;
+                        movingStatus = leftMove;
+                    }
+                    break;
+                case leftMove:
+                    if (theMap->getLayer("Firewall Path")->getData()[posX - 1 + posY * theMap->getSize().x] != 0)
+                        posX--;
+                    else {
+                        posX++;
+                        movingStatus = rightMove;
+                    }
+                    break;
+                case upMove:
+                    if (theMap->getLayer("Firewall Path")->getData()[posX + (posY + 1) * theMap->getSize().x] != 0)
+                        posY++;
+                    else {
+                        posY--;
+                        movingStatus = downMove;
+                    }
+                    break;
+                case downMove:
+                    if (theMap->getLayer("Firewall Path")->getData()[posX + (posY - 1) * theMap->getSize().x] != 0)
+                        posY--;
+                    else {
+                        posY++;
+                        movingStatus = upMove;
+                    }
+                    break;
+            }
+            firewallMoveCooldown = firewallMoveDelay;
+        }
     }
 }
 
@@ -227,7 +303,7 @@ void Enemy::updateGravity() {
     int gravityVal = theMap->getLayer("Gravity")->getData()[posX + posY * theMap->getSize().x];
     if (gravityVal > 50) {
         switch (gravityVal) {
-            case 55:
+            case 54:
                 if (playerPtr->gravitySwitchStatusRight)
                     switchGravity(3);
                 else
@@ -239,13 +315,13 @@ void Enemy::updateGravity() {
                 else
                     switchGravity(2); // Up
                 break;
-            case 54:
+            case 53:
                 if (playerPtr->gravitySwitchStatusLeft)
                     switchGravity(1);
                 else
                     switchGravity(3); // Left
                 break;
-            case 53:
+            case 55:
             default:
                 if (playerPtr->gravitySwitchStatusDown)
                     switchGravity(2);
@@ -253,4 +329,39 @@ void Enemy::updateGravity() {
                     switchGravity(0); // Down
         }
     }
+}
+
+//Returns true if enemy can move Up && Down && Left && Right.
+bool Enemy::neighborExist90() {
+    if (canMoveTo(posX - 1, posY) &&
+        canMoveTo(posX + 1, posY) &&
+        canMoveTo(posX, posY + 1) &&
+        canMoveTo(posX, posY - 1))
+        return false;
+    return true;
+}
+
+bool Enemy::neighborExist360() {
+    if (canMoveTo(posX - 1, posY) &&
+        canMoveTo(posX + 1, posY) &&
+        canMoveTo(posX, posY + 1) &&
+        canMoveTo(posX, posY - 1) &&
+        canMoveTo(posX - 1, posY - 1) &&
+        canMoveTo(posX + 1, posY + 1) &&
+        canMoveTo(posX - 1, posY + 1) &&
+        canMoveTo(posX + 1, posY - 1))
+        return false;
+    return true;
+}
+
+int Enemy::GetEnemyType(int x, int y) {
+    int nID = 0;
+    for (int i = 0; i < otherEnemies->size(); i++) {
+        if ((*otherEnemies)[i].posX == x) {
+            if ((*otherEnemies)[i].posY == y) {
+                nID = (*otherEnemies)[i].ID;
+            }
+        }
+    }
+    return nID;
 }

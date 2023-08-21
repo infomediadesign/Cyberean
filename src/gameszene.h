@@ -52,6 +52,8 @@ public:
 
     void populategameobjects();
 
+    void updateFirewallDirection();
+
     void increaseCollectedObjectsCount(); // Increases the number of collected game objects
     void drawCollectedObjectsCount(); // draws the counter of collected game objects
 };
