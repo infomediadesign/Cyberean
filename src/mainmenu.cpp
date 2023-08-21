@@ -4,9 +4,11 @@ void mainmenu::update(globalState &globalState) {
 
     if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
         cursor++;
+        soundplayerPtr->menuControll_sound();
     }
     if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
         cursor--;
+        soundplayerPtr->menuControll_sound();
     }
     if (cursor < 0) {
         cursor = 2;
@@ -19,6 +21,7 @@ void mainmenu::update(globalState &globalState) {
     if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
         switch (cursor) {
             case 0:
+                soundplayerPtr->menuEnter_sound();
                 globalState = gameplay;
 
                 break;
@@ -70,4 +73,8 @@ void mainmenu::buttons() {
                     break;
             }
     }
+}
+
+mainmenu::mainmenu(SoundPlayer *soundplayer) {
+    soundplayerPtr = soundplayer;
 }

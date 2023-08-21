@@ -8,7 +8,8 @@
 void drawLayer(const std::string &layer);
 
 gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicPlayer1, MusicPlayer *musicPlayer2,
-                     MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5) {
+                     MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5, SoundPlayer *soundPlayer)
+        : theplayer(soundPlayer){
     tson::Tileson t;
     //themap = t.parse("assets/level_1.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
@@ -22,13 +23,13 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
     populateEnemies();
     populategameobjects();
     playerPtr = &theplayer;
-
     musicPlayer = musicPlayerPtr;
     musicPlayer1Ptr = musicPlayer1;
     musicPlayer2Ptr = musicPlayer2;
     musicPlayer3Ptr = musicPlayer3;
     musicPlayer4Ptr = musicPlayer4;
     musicPlayer5Ptr = musicPlayer5;
+    soundPlayerPtr = soundPlayer;
 
 }
 
@@ -97,7 +98,7 @@ void gameScene::populategameobjects() {
         for (int x = 0; x < themap->getSize().x; x++) {
             if (themap->getLayer("Items")->getData()[x + y * themap->getSize().x]) {
                 thegameobject.emplace_back(themap->getLayer("Items")->getData()[x + y * themap->getSize().x], x, y,
-                                           playerPtr, thegameobject, this);
+                                           playerPtr, thegameobject, this, soundPlayerPtr);
             }
         }
     }
@@ -124,7 +125,7 @@ void gameScene::update(globalState &globalstate) {
 
 void gameScene::updateMusicPlayers() {
     if (musicPlayer->GetCurrentMusicState() == MusicState::MainMenu) {
-        // Stoppe das Hauptmenü-Musikstück
+
         musicPlayer->StopMusic();
 
         // Entmute alle anderen MusicPlayer-Instanzen
@@ -183,7 +184,10 @@ void gameScene::drawCover() {
 
 void gameScene::removeCover() {
     int playerPosIndex = theplayer.posX + theplayer.posY * themap->getSize().x;
-    covers[playerPosIndex] = false;
+    if (covers[playerPosIndex]) {
+        covers[playerPosIndex] = false;
+        soundPlayerPtr->playerCover_sound();
+    }
 }
 
 void gameScene::increaseCollectedObjectsCount() {

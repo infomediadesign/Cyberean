@@ -4,9 +4,12 @@
 #pragma once
 
 #include "masterhead.h"
+#include "SoundPlayer.h"
 
 class mainmenu {
 public:
+    mainmenu(SoundPlayer *soundplayer);
+
     void update(globalState &globalState);
 
     void draw();
@@ -17,6 +20,7 @@ public:
 
     int cursor = 0;
     bool sound = true;
+    SoundPlayer *soundplayerPtr;
 
     Texture2D background = LoadTexture("assets/prototype_title_screen_selina_tech-demo.png");
     //Texture2D windowsoli = LoadTexture("assets/phenster.png");

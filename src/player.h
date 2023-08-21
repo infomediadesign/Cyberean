@@ -11,6 +11,7 @@
 #include "player.h"
 #include "gameobject.h"
 #include "Enemy.h"
+#include "SoundPlayer.h"
 
 class gameobject;
 
@@ -23,6 +24,8 @@ public:
     int life = 0;
     int posX = 19;
     int posY = 14;
+    int previousX = 0;
+    int previousY = 0;
     int age = 0;
     int stepCounterUp = 0;
     int stepCounterDown = 0;
@@ -53,6 +56,9 @@ public:
     void draw();
 
     bool canMoveTo(int x, int y);
+
+    player(SoundPlayer *soundPlayer);
+    SoundPlayer *soundplayerPtr;
 };
 
 

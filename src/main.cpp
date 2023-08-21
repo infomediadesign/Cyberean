@@ -9,6 +9,7 @@
 #include "mainmenu.h"
 #include "musicplayer.h"
 #include "gameszene.h"
+#include "SoundPlayer.h"
 
 int main() {
     // Raylib initialization
@@ -33,10 +34,11 @@ int main() {
 
     globalState state = mainMenu;
 
-    mainmenu themenu;
-    //musik initialisier stuff
-
     InitAudioDevice();
+
+    SoundPlayer soundPlayer;
+
+    mainmenu themenu(&soundPlayer);
 
     MusicPlayer musicPlayermenu;
     MusicPlayer musicPlayer1;
@@ -60,7 +62,7 @@ int main() {
     MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
     //musicPlayermenu.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
-    gameScene gs(0, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4, &musicPlayer5);
+    gameScene gs(0, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4, &musicPlayer5, &soundPlayer);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key

@@ -13,6 +13,7 @@
 #include "Enemy.h"
 #include "../Library/tileson.hpp"
 #include "musicplayer.h"
+#include "SoundPlayer.h"
 
 class gameScene {
 public:
@@ -30,9 +31,10 @@ public:
     MusicPlayer *musicPlayer3Ptr;
     MusicPlayer *musicPlayer4Ptr;
     MusicPlayer *musicPlayer5Ptr;
+    SoundPlayer *soundPlayerPtr;
 
     gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicPlayer1, MusicPlayer *musicPlayer2,
-              MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5);
+              MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5, SoundPlayer *soundPlayer);
 
     void update(globalState &globalstate);
 
