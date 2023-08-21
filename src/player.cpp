@@ -12,6 +12,8 @@ using std::chrono::system_clock; // reads system clock
 
 void player::update() {
     age++;
+    previousX = posX;
+    previousY = posY;
 
     if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) // Move Left
     {
@@ -80,6 +82,13 @@ void player::update() {
             stepCounterDown = 0;
         }
     }
+
+    if(previousX != posX){
+        soundplayerPtr->playerWalk_sound();
+    }
+    if(previousY != posY){
+        soundplayerPtr->playerWalk_sound();
+    }
 }
 
 void player::draw() {
@@ -93,14 +102,20 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
     //Collision with None-Walkable Tiles (e.g Wall)
     int tileData = map->getLayer("Collision")->getData()[x + y * map->getLayer("Collision")->getSize().x];
     if (tileData != 0) {
+        soundplayerPtr->playerWall_sound();
         return false;
     }
     //Collision with enemies
     for (int i = 0; i < enemies->size(); i++) {
         Enemy enemy = (*enemies)[i];
         if (enemy.posX == x && enemy.posY == y) {
+            soundplayerPtr->playerWall_sound();
             return false;
         }
     }
     return true;
+}
+
+player::player(SoundPlayer *soundPlayer) {
+    soundplayerPtr = soundPlayer;
 }

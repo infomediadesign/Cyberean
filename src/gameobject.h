@@ -10,6 +10,7 @@
 #include "raylib.h"
 #include "../Library/tileson.hpp"
 #include "player.h"
+#include "SoundPlayer.h"
 
 class gameScene;
 
@@ -18,7 +19,7 @@ class player;
 class gameobject {
 public:
     gameobject(int ID, int posX, int posY, player *playerPtr, std::vector<gameobject> &gameObjects,
-               gameScene *gameScenePtr);
+               gameScene *gameScenePtr, SoundPlayer *soundplayer);
 
     enum {
         button, //Gravity switch button
@@ -32,6 +33,7 @@ public:
     bool isActive = false;
     bool playerOnSwitch = false;
     player *playerPtr;
+    SoundPlayer *soundplayerPtr;
     gameScene *gameScenePtr;
     Texture2D overlayTexture;
 

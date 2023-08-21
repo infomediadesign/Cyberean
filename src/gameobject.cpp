@@ -7,13 +7,14 @@
 
 
 gameobject::gameobject(int ID, int posX, int posY, player *playerPtr, std::vector<gameobject> &gameObjects,
-                       gameScene *gameScenePtr) {
+                       gameScene *gameScenePtr, SoundPlayer *soundPlayer) {
     this->ID = ID - 1;
     this->posX = posX;
     this->posY = posY;
     this->playerPtr = playerPtr;
     this->gameObjects = &gameObjects;
     this->gameScenePtr = gameScenePtr;
+    this->soundplayerPtr = soundPlayer;
 
     textureSource.x = float((this->ID % 4) * 32);
     textureSource.y = float((this->ID / 4) * 32);
@@ -51,6 +52,7 @@ void gameobject::update(gameScene &scene) {
             if (&(*it) == this) {
                 scene.increaseCollectedObjectsCount();
                 gameObjects->erase(it);
+                //soundplayerPtr->playerNote_sound();
                 break;
             }
         }
