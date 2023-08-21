@@ -17,6 +17,8 @@ SoundPlayer::SoundPlayer() {
     wall = LoadSound("assets/audio/sfx/wall.wav");
     cover = LoadSound("assets/audio/sfx/walkclear.wav");
     note = LoadSound("assets/audio/sfx/note.wav");
+    button = LoadSound("assets/audio/sfx/button.wav");
+    all4notes = LoadSound("assets/audio/sfx/allnotes.wav");
 }
 
 SoundPlayer::~SoundPlayer() {
@@ -51,5 +53,17 @@ void SoundPlayer::playerCover_sound() {
 void SoundPlayer::playerNote_sound() {
     if(mastersoundvolume == true){
         PlaySound(note);
+    }
+}
+
+void SoundPlayer::playerButton_sound() {
+    if(mastersoundvolume == true){
+        PlaySound(button);
+    }
+}
+
+void SoundPlayer::all4Notes() {
+    if(mastersoundvolume == true){
+        PlaySound(all4notes);
     }
 }

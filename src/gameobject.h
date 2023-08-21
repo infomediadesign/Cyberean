@@ -32,6 +32,7 @@ public:
     int collected = 0;
     bool isActive = false;
     bool playerOnSwitch = false;
+    bool switchsoundplayed = false;
     player *playerPtr;
     SoundPlayer *soundplayerPtr;
     gameScene *gameScenePtr;

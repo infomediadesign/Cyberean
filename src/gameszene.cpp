@@ -113,6 +113,12 @@ void gameScene::update(globalState &globalstate) {
         enemies[i].update();
     }
     for (int i = 0; i < thegameobject.size(); i++) {
+        if (thegameobject[i].playerOnSwitch && !thegameobject[i].switchsoundplayed) {
+            soundPlayerPtr->playerButton_sound();
+            thegameobject[i].switchsoundplayed = true;
+        } else if (!thegameobject[i].playerOnSwitch) {
+            thegameobject[i].switchsoundplayed = false; // Setze die Variable zurück, wenn der Spieler den Schalter verlässt
+        }
         thegameobject[i].update(*this);
     }
     removeCover();
@@ -132,7 +138,7 @@ void gameScene::updateMusicPlayers() {
         musicPlayer->StopMusic();
 
         // Entmute alle anderen MusicPlayer-Instanzen
-        musicPlayer1Ptr->SetMusicVolume(1.0f);
+        musicPlayer1Ptr->SetMusicVolume(0.9f);
         musicPlayer2Ptr->SetMusicVolume(0.0f);
         musicPlayer3Ptr->SetMusicVolume(0.0f);
         musicPlayer4Ptr->SetMusicVolume(0.0f);
@@ -148,22 +154,22 @@ void gameScene::updateMusicPlayers() {
 
     if (collectedObjectsCount == 1) {
         musicPlayer1Ptr->SetMusicVolume(0.0f);
-        musicPlayer2Ptr->SetMusicVolume(1.0f);
+        musicPlayer2Ptr->SetMusicVolume(0.0f);
     }
 
     if (collectedObjectsCount == 2) {
         musicPlayer2Ptr->SetMusicVolume(0.0f);
-        musicPlayer3Ptr->SetMusicVolume(1.0f);
+        musicPlayer3Ptr->SetMusicVolume(0.4f);
     }
 
     if (collectedObjectsCount == 3) {
         musicPlayer3Ptr->SetMusicVolume(0.0f);
-        musicPlayer4Ptr->SetMusicVolume(1.0f);
+        musicPlayer4Ptr->SetMusicVolume(0.4f);
     }
 
     if (collectedObjectsCount == 4) {
         musicPlayer4Ptr->SetMusicVolume(0.0f);
-        musicPlayer5Ptr->SetMusicVolume(1.0f);
+        musicPlayer5Ptr->SetMusicVolume(0.4);
     }
 }
 
@@ -195,6 +201,11 @@ void gameScene::removeCover() {
 
 void gameScene::increaseCollectedObjectsCount() {
     collectedObjectsCount++; // Erhöhe den Zähler für gesammelte GameObjects
+    soundPlayerPtr->playerNote_sound();
+    if(collectedObjectsCount == 4 && counter == 0){
+        //soundPlayerPtr->all4Notes();
+        counter++;
+    }
 }
 
 void gameScene::drawCollectedObjectsCount() {

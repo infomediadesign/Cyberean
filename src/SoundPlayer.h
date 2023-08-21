@@ -15,6 +15,8 @@ public:
     Sound wall;
     Sound note;
     Sound cover;
+    Sound button;
+    Sound all4notes;
     bool mastersoundvolume = true;
 
     SoundPlayer();
@@ -25,6 +27,8 @@ public:
     void playerWall_sound();
     void playerNote_sound();
     void playerCover_sound();
+    void playerButton_sound();
+    void all4Notes();
 };
 
 

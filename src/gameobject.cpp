@@ -52,7 +52,6 @@ void gameobject::update(gameScene &scene) {
             if (&(*it) == this) {
                 scene.increaseCollectedObjectsCount();
                 gameObjects->erase(it);
-                //soundplayerPtr->playerNote_sound();
                 break;
             }
         }
