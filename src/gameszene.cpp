@@ -154,7 +154,7 @@ void gameScene::updateMusicPlayers() {
 
     if (collectedObjectsCount == 1) {
         musicPlayer1Ptr->SetMusicVolume(0.0f);
-        musicPlayer2Ptr->SetMusicVolume(0.0f);
+        musicPlayer2Ptr->SetMusicVolume(0.7f);
     }
 
     if (collectedObjectsCount == 2) {

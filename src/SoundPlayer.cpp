@@ -28,12 +28,14 @@ SoundPlayer::~SoundPlayer() {
 
 void SoundPlayer::menuEnter_sound() {
     if(mastersoundvolume == true){
+        SetSoundVolume(menuenter, 1.0f);
         PlaySound(menuenter);
     }
 }
 
 void SoundPlayer::playerWalk_sound() {
     if(mastersoundvolume == true){
+        SetSoundVolume(menuenter, 1.0f);
         PlaySound(walk);
     }
 }
