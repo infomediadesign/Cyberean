@@ -420,10 +420,6 @@
  "tileheight":32,
  "tilesets":[
         {
-         "firstgid":1,
-         "source":"blue_tileset_level_1_viktor_3.tsj"
-        }, 
-        {
          "firstgid":65,
          "source":"blue_tileset_level_1_viktor.tsj"
         }],

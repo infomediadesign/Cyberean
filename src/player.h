@@ -21,11 +21,11 @@ class gameScene;
 
 class player {
 public:
-    int life = 0;
+    int life = 3;
     int posX = 19;
     int posY = 14;
 
-    float age = 0;
+    float age = 0; //Frame counter
 
     int previousX = 0;
     int previousY = 0;

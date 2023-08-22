@@ -420,8 +420,8 @@
  "tileheight":32,
  "tilesets":[
         {
-         "firstgid":1,
-         "source":"magenta_tileset_level_2_viktor.tsx"
+         "firstgid":65,
+         "source":"magenta_tileset_level_2_viktor.tsj"
         }],
  "tilewidth":32,
  "type":"map",

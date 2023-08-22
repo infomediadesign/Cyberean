@@ -8,17 +8,32 @@
 void drawLayer(const std::string &layer);
 
 gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicPlayer1, MusicPlayer *musicPlayer2,
-                     MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5, SoundPlayer *soundPlayer)
-        : theplayer(soundPlayer){
+                     MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5,
+                     SoundPlayer *soundPlayer)
+        : theplayer(soundPlayer) {
     tson::Tileson t;
     //themap = t.parse("assets/level_1.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
     //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
-    themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
-    maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
-    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
+    //themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
+    //maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
+
+
+    //Folder accessed levels:
+
+    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
+
     //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
+
+    //themap = t.parse("assets/level/level_3/green_tileset_level_3_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_viktor.png");
+
+    themap = t.parse("assets/level/level_4/corroded_tileset_level_4_viktor.tmj");
+    maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_viktor.png");
+
 
     theplayer.map = themap.get();
     theplayer.enemies = &enemies;
@@ -202,7 +217,7 @@ void gameScene::removeCover() {
 void gameScene::increaseCollectedObjectsCount() {
     collectedObjectsCount++; // Erhöhe den Zähler für gesammelte GameObjects
     soundPlayerPtr->playerNote_sound();
-    if(collectedObjectsCount == 4 && counter == 0){
+    if (collectedObjectsCount == 4 && counter == 0) {
         //soundPlayerPtr->all4Notes();
         counter++;
     }

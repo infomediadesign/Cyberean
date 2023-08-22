@@ -35,7 +35,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":30,
          "id":1,
-         "name":"Backgrund",
+         "name":"Background",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -420,7 +420,7 @@
  "tileheight":32,
  "tilesets":[
         {
-         "firstgid":1,
+         "firstgid":65,
          "source":"corroded_tileset_level_4_viktor.tsj"
         }],
  "tilewidth":32,
