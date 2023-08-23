@@ -28,11 +28,11 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
             break;
         case 36:
             this->Type = firewall;
-            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 120)
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 56)
                 firewallMoveDelay = 15; //firewall movement speed (Fastest firewall of size 1x2)
-            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 121)
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 57)
                 firewallMoveDelay = 20;
-            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 122)
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 58)
                 firewallMoveDelay = 25;
             break;
         case 39:
@@ -40,7 +40,7 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
             movingStatus = leftMove;
             antiVirusMoveDelay = 15; //rogue Antivirus movement speed
             break;
-        case 6:
+        case 37:
             this->Type = bomb;
             gravMoveDelay = 20; // Same Fall Speed as Data-Chan
             break;
@@ -55,7 +55,7 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
 }
 
 void Enemy::update() {
-    //Boulder and Bomb Movement Logic
+    //Boulder and Bomb gravity Logic
     if (this->Type == boulder || this->Type == bomb) {
         bool bNextEnemiesIsBoulder = false;
         gravMoveCooldown--;
@@ -65,8 +65,9 @@ void Enemy::update() {
             consecMoves++;
             gravMoveCooldown = gravMoveDelay;
             return;
-        } else
-            consecMoves = 0;
+        } else if (this->Type == bomb && consecMoves >= 2 && gravMoveCooldown <= 0) {
+            explodeBomb(posX, posY);
+        }
 
         //Boulder rolling mechanic
         if (this->Type == boulder) {
@@ -354,7 +355,7 @@ bool Enemy::neighborExist360() {
     return true;
 }
 
-int Enemy::GetEnemyType(int x, int y) {
+int Enemy::getEnemyID(int x, int y) {
     int nID = 0;
     for (int i = 0; i < otherEnemies->size(); i++) {
         if ((*otherEnemies)[i].posX == x) {
@@ -364,4 +365,94 @@ int Enemy::GetEnemyType(int x, int y) {
         }
     }
     return nID;
+}
+
+EnumType Enemy::getEnemyType(int x, int y) {
+
+    for (int i = 0; i < otherEnemies->size(); i++) {
+        if ((*otherEnemies)[i].posX == x) {
+            if ((*otherEnemies)[i].posY == y) {
+                return (*otherEnemies)[i].Type;
+            }
+        }
+    }
+    return unknown;
+}
+
+void Enemy::deleteEnemy(int x, int y) {
+    for (int i = 0; i < otherEnemies->size(); i++) {
+        if ((*otherEnemies)[i].posX == x) {
+            if ((*otherEnemies)[i].posY == y &&(*otherEnemies)[i].Type!=firewall)
+                otherEnemies->erase(otherEnemies->begin() + i);
+        }
+    }
+}
+
+void Enemy::bombRemoveCover(int x, int y) {
+    int coverIndex = x + y * playerPtr->map->getSize().x;
+    if ((*covers)[coverIndex]) {
+        (*covers)[coverIndex] = false;
+    }
+}
+
+void Enemy::explodeBomb(int x, int y) {
+    //delete enemies around the bomb
+    //   ___________
+    //  |_X_|_X_|_X_|
+    //  |_X_|_O_|_X_|
+    //  |_X_|_X_|_X_|
+
+    deleteEnemy(x, y); //Bomb Location
+
+    if (getEnemyType(x - 1, y - 1) == bomb)
+        explodeBomb(x - 1, y - 1);
+    else
+        deleteEnemy(x - 1, y - 1);
+
+    if (getEnemyType(x - 1, y) == bomb)
+        explodeBomb(x - 1, y);
+    else
+        deleteEnemy(x - 1, y);
+
+    if (getEnemyType(x - 1, y + 1) == bomb)
+        explodeBomb(x - 1, y + 1);
+    else
+        deleteEnemy(x - 1, y + 1);
+
+    if (getEnemyType(x, y - 1) == bomb)
+        explodeBomb(x, y - 1);
+    else
+        deleteEnemy(x, y - 1);
+
+    if (getEnemyType(x, y + 1) == bomb)
+        explodeBomb(x, y + 1);
+    else
+        deleteEnemy(x, y + 1);
+
+    if (getEnemyType(x + 1, y - 1) == bomb)
+        explodeBomb(x + 1, y - 1);
+    else
+        deleteEnemy(x + 1, y - 1);
+
+    if (getEnemyType(x + 1, y) == bomb)
+        explodeBomb(x + 1, y);
+    else
+        deleteEnemy(x + 1, y);
+
+    if (getEnemyType(x + 1, y + 1) == bomb)
+        explodeBomb(x + 1, y + 1);
+    else
+        deleteEnemy(x + 1, y + 1);
+
+    //remove covers around the bomb
+    bombRemoveCover(x - 1, y - 1);
+    bombRemoveCover(x - 1, y);
+    bombRemoveCover(x - 1, y + 1);
+
+    bombRemoveCover(x, y - 1);
+    bombRemoveCover(x, y + 1);
+
+    bombRemoveCover(x + 1, y - 1);
+    bombRemoveCover(x + 1, y);
+    bombRemoveCover(x + 1, y + 1);
 }
