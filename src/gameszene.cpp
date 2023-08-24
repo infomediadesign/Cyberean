@@ -8,17 +8,31 @@
 void drawLayer(const std::string &layer);
 
 gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicPlayer1, MusicPlayer *musicPlayer2,
-                     MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5, SoundPlayer *soundPlayer)
-        : theplayer(soundPlayer){
+                     MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5,
+                     SoundPlayer *soundPlayer)
+        : theplayer(soundPlayer) {
     tson::Tileson t;
     //themap = t.parse("assets/level_1.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
     //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
-    themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
-    maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
-    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
-    //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
+    //themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
+    //maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
+
+
+    //Folder accessed levels:
+    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
+
+    themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
+    maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
+
+    //themap = t.parse("assets/level/level_3/green_tileset_level_3_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_viktor.png");
+
+    //themap = t.parse("assets/level/level_4/corroded_tileset_level_4_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_viktor.png");
+
 
     theplayer.map = themap.get();
     theplayer.enemies = &enemies;
@@ -202,7 +216,7 @@ void gameScene::removeCover() {
 void gameScene::increaseCollectedObjectsCount() {
     collectedObjectsCount++; // Erhöhe den Zähler für gesammelte GameObjects
     soundPlayerPtr->playerNote_sound();
-    if(collectedObjectsCount == 4 && counter == 0){
+    if (collectedObjectsCount == 4 && counter == 0) {
         //soundPlayerPtr->all4Notes();
         counter++;
     }
@@ -217,11 +231,11 @@ void gameScene::drawCollectedObjectsCount() {
 void gameScene::updateFirewallDirection() { //This algorithm checks horizontal or vertical neighbors (Firewall n; 1<n<5)
     for (int i = 0; i < enemies.size(); i++) {
         if (enemies[i].ID == 36) { // 36 is a Firewall ID
-            if (enemies[i].GetEnemyType(enemies[i].posX - 1, enemies[i].posY) == 36 ||
-                enemies[i].GetEnemyType(enemies[i].posX + 1, enemies[i].posY) == 36)
+            if (enemies[i].getEnemyID(enemies[i].posX - 1, enemies[i].posY) == 36 ||
+                    enemies[i].getEnemyID(enemies[i].posX + 1, enemies[i].posY) == 36)
                 enemies[i].movingStatus = Enemy::upMove;
-            else if (enemies[i].GetEnemyType(enemies[i].posX, enemies[i].posY - 1) == 36 ||
-                     enemies[i].GetEnemyType(enemies[i].posX, enemies[i].posY + 1) == 36)
+            else if (enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY - 1) == 36 ||
+                    enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY + 1) == 36)
                 enemies[i].movingStatus = Enemy::rightMove;
         }
     }

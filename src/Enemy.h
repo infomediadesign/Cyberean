@@ -11,6 +11,13 @@
 #include "../Library/tileson.hpp"
 #include "player.h"
 
+enum EnumType{
+    boulder,
+    firewall,
+    rogueAntivirus,
+    bomb,
+    unknown
+};
 class player;
 
 class gameScene;
@@ -20,14 +27,8 @@ public:
     Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
           std::vector<Enemy> *otherEnemies, player *playerPtr);
 
-    enum {
-        boulder,
-        firewall,
-        rogueAntivirus,
-        bomb,
-        unknown
-    } Type;
 
+    EnumType Type;
     int ID;
     int posX;
     int posY;
@@ -73,12 +74,23 @@ public:
 
     void updateGravity();
 
-    int GetEnemyType(int x, int y);
+    int getEnemyID(int x, int y);
+
+    EnumType getEnemyType(int x,int y);
 
     bool neighborExist90();
 
     bool neighborExist360();
 
+    void deleteEnemy(int posX, int posY); //kill and reset cell in a certain position.
+
+    void clearEnemyCanvas(); //clear all enemies and boulders from the canvas.
+
+    void explodeBomb(int x, int y);
+
+    void bombRemoveCover(int x, int y);
+
+    ~Enemy() {}
 
 };
 

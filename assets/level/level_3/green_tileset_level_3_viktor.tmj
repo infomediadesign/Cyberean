@@ -363,7 +363,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":30,
          "id":9,
-         "name":"Gavity",
+         "name":"Gravity",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -407,7 +407,7 @@
          "name":"Firewall Path",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":40,
          "x":0,
          "y":0
@@ -420,12 +420,8 @@
  "tileheight":32,
  "tilesets":[
         {
-         "firstgid":1,
-         "source":"green_tileset_level_3_viktor.tsj"
-        }, 
-        {
          "firstgid":65,
-         "source":"..\/level_4\/corroded_tileset_level_4_viktor.tsj"
+         "source":"green_tileset_level_3_viktor.tsj"
         }],
  "tilewidth":32,
  "type":"map",
