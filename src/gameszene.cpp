@@ -154,22 +154,22 @@ void gameScene::updateMusicPlayers() {
 
     if (collectedObjectsCount == 1) {
         musicPlayer1Ptr->SetMusicVolume(0.0f);
-        musicPlayer2Ptr->SetMusicVolume(0.7f);
+        musicPlayer2Ptr->SetMusicVolume(0.8f);
     }
 
     if (collectedObjectsCount == 2) {
         musicPlayer2Ptr->SetMusicVolume(0.0f);
-        musicPlayer3Ptr->SetMusicVolume(0.4f);
+        musicPlayer3Ptr->SetMusicVolume(0.6f);
     }
 
     if (collectedObjectsCount == 3) {
         musicPlayer3Ptr->SetMusicVolume(0.0f);
-        musicPlayer4Ptr->SetMusicVolume(0.4f);
+        musicPlayer4Ptr->SetMusicVolume(0.6f);
     }
 
     if (collectedObjectsCount == 4) {
         musicPlayer4Ptr->SetMusicVolume(0.0f);
-        musicPlayer5Ptr->SetMusicVolume(0.4);
+        musicPlayer5Ptr->SetMusicVolume(0.6f);
     }
 }
 

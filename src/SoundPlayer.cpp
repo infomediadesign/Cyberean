@@ -5,13 +5,14 @@
 #include "SoundPlayer.h"
 
 void SoundPlayer::menuControll_sound() {
-    if(mastersoundvolume == true){
+    if(mastersound == true){
         PlaySound(menucontroll);
     }
 }
 
 SoundPlayer::SoundPlayer() {
     menucontroll = LoadSound("assets/audio/sfx/menu_button_sound.wav");
+    menucontroll2 = LoadSound("assets/audio/sfx/menu_button_sound2.wav");
     menuenter = LoadSound("assets/audio/sfx/menu_enter_sound.wav");
     walk = LoadSound("assets/audio/sfx/walk.wav");
     wall = LoadSound("assets/audio/sfx/wall.wav");
@@ -27,45 +28,41 @@ SoundPlayer::~SoundPlayer() {
 }
 
 void SoundPlayer::menuEnter_sound() {
-    if(mastersoundvolume == true){
-        SetSoundVolume(menuenter, 1.0f);
-        PlaySound(menuenter);
-    }
+    SetSoundVolume(menuenter, mastersoundvolume);
+    PlaySound(menuenter);
 }
 
 void SoundPlayer::playerWalk_sound() {
-    if(mastersoundvolume == true){
-        SetSoundVolume(menuenter, 1.0f);
-        PlaySound(walk);
-    }
+    SetSoundVolume(menuenter, mastersoundvolume);
+    PlaySound(walk);
 }
 
 void SoundPlayer::playerWall_sound() {
-    if(mastersoundvolume == true){
-        PlaySound(wall);
-    }
+    SetSoundVolume(wall, mastersoundvolume);
+    PlaySound(wall);
 }
 
 void SoundPlayer::playerCover_sound() {
-    if(mastersoundvolume == true){
-        PlaySound(cover);
-    }
+    SetSoundVolume(cover, mastersoundvolume);
+    PlaySound(cover);
 }
 
 void SoundPlayer::playerNote_sound() {
-    if(mastersoundvolume == true){
-        PlaySound(note);
-    }
+    SetSoundVolume(note, mastersoundvolume);
+    PlaySound(note);
 }
 
 void SoundPlayer::playerButton_sound() {
-    if(mastersoundvolume == true){
-        PlaySound(button);
-    }
+    SetSoundVolume(button, mastersoundvolume);
+    PlaySound(button);
 }
 
 void SoundPlayer::all4Notes() {
-    if(mastersoundvolume == true){
-        PlaySound(all4notes);
-    }
+    SetSoundVolume(all4notes, mastersoundvolume);
+    PlaySound(all4notes);
+}
+
+void SoundPlayer::menuControll2_sound() {
+    SetSoundVolume(menucontroll2, mastersoundvolume);
+    PlaySound(menucontroll2);
 }

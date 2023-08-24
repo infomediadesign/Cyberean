@@ -8,7 +8,7 @@ void mainmenu::update(globalState &globalState) {
     }
     if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
         cursor--;
-        soundplayerPtr->menuControll_sound();
+        soundplayerPtr->menuControll2_sound();
     }
     if (cursor < 0) {
         cursor = 2;

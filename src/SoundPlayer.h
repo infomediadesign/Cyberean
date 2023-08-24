@@ -10,6 +10,7 @@
 class SoundPlayer {
 public:
     Sound menucontroll;
+    Sound menucontroll2;
     Sound menuenter;
     Sound walk;
     Sound wall;
@@ -17,11 +18,14 @@ public:
     Sound cover;
     Sound button;
     Sound all4notes;
-    bool mastersoundvolume = true;
+    bool mastersound = true;
+    float mastersoundvolume = 1.0f;
+
 
     SoundPlayer();
     ~SoundPlayer();
     void menuControll_sound();
+    void menuControll2_sound();
     void menuEnter_sound();
     void playerWalk_sound();
     void playerWall_sound();
