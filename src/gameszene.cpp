@@ -21,11 +21,11 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
 
 
     //Folder accessed levels:
-    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
-    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
+    themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
+    maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
 
-    themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
-    maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
+    //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
 
     //themap = t.parse("assets/level/level_3/green_tileset_level_3_viktor.tmj");
     //maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_viktor.png");
@@ -54,6 +54,7 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
 void gameScene::draw() {
     drawLayer("Background");
     drawLayer("Traces");
+    //drawLayer("Deco");
     drawLayer("Overlay");
     drawCover();
     for (Enemy e: enemies) {
