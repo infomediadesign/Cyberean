@@ -18,8 +18,17 @@ public:
 
     bool IsMusicMuted();
 
+    void musicconfig();
+
+    void soundconfig();
+
     int cursor = 0;
     bool sound = true;
+    int musicvolume = 10;
+    int soundvolume = 10;
+    bool _musicconfig = false;
+    bool _soundconfig = false;
+
     SoundPlayer *soundplayerPtr;
 
     Texture2D background = LoadTexture("assets/prototype_title_screen_selina_tech-demo.png");
@@ -33,6 +42,13 @@ public:
     Texture2D Muted_dunkel = LoadTexture("assets/screens/menu_screen/Muted_dunkel.png");
     Texture2D Unmuted = LoadTexture("assets/screens/menu_screen/unmuted.png");
     Texture2D Unmuted_dunkel = LoadTexture("assets/screens/menu_screen/unmuted_dunkel.png");
+    Texture2D music = LoadTexture("assets/screens/menu_screen/music.png");
+    Texture2D music_markiert = LoadTexture("assets/screens/menu_screen/music_markiert.png");
+    Texture2D music_markiert_ausgewaehlt = LoadTexture("assets/screens/menu_screen/music_markiert_ausgewaehlt.png");
+    Texture2D _sound = LoadTexture("assets/screens/menu_screen/sound.png");
+    Texture2D sound_markiert = LoadTexture("assets/screens/menu_screen/sound_markiert.png");
+    Texture2D sound_markiert_ausgewaehlt = LoadTexture("assets/screens/menu_screen/sound_markiert_ausgewaehlt.png");
+    Texture2D strich = LoadTexture("assets/screens/menu_screen/Strich.png");
 
 };
 

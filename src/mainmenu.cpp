@@ -2,22 +2,6 @@
 
 void mainmenu::update(globalState &globalState) {
 
-    if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
-        cursor++;
-        soundplayerPtr->menuControll_sound();
-    }
-    if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
-        cursor--;
-        soundplayerPtr->menuControll2_sound();
-    }
-    if (cursor < 0) {
-        cursor = 2;
-    }
-
-    if (cursor > 2) {
-        cursor = 0;
-    }
-
     if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
         switch (cursor) {
             case 0:
@@ -28,9 +12,69 @@ void mainmenu::update(globalState &globalState) {
             case 1:
                 CloseWindow();
             case 2:
+                if(_musicconfig == false){
+                    _musicconfig = true;
+                }else{
+                    _musicconfig = false;
+                }
+
+                break;
+            case 3:
+                if(_soundconfig == false){
+                    _soundconfig = true;
+                }else{
+                    _soundconfig = false;
+                }
                 break;
         }
     }
+
+
+    if(_musicconfig == true){
+        musicconfig();
+    }
+
+    if(_soundconfig == true){
+        soundconfig();
+    }
+
+    if(_musicconfig == false && _soundconfig == false){
+        if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
+            cursor++;
+            soundplayerPtr->menuControll_sound();
+        }
+        if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
+            cursor--;
+            soundplayerPtr->menuControll2_sound();
+        }
+        if (cursor < 0) {
+            cursor = 3;
+        }
+
+        if (cursor > 3) {
+            cursor = 0;
+        }
+
+        if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+            if (cursor == 2) {
+                cursor = 3;
+                soundplayerPtr->menuControll_sound();
+            } else if (cursor == 3) {
+                cursor = 2;
+                soundplayerPtr->menuControll_sound();
+            }
+        } else if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+            if (cursor == 2) {
+                cursor = 3;
+                soundplayerPtr->menuControll2_sound();
+            } else if (cursor == 3) {
+                cursor = 2;
+                soundplayerPtr->menuControll2_sound();
+            }
+        }
+    }
+
+
 }
 
 void mainmenu::draw() {
@@ -45,11 +89,13 @@ bool mainmenu::IsMusicMuted() {
 void mainmenu::buttons() {
     DrawTexture(Start, 368, 500, WHITE);
     DrawTexture(Exit, 368, 600, WHITE);
-    if (sound == true) {
+    DrawTexture(music,0, 750,WHITE);
+    DrawTexture(_sound,650, 750,WHITE);
+    /*if (sound == true) {
         DrawTexture(Unmuted_dunkel, 368, 700, WHITE);
     } else {
         DrawTexture(Muted_dunkel, 368, 700, WHITE);
-    }
+    }*/
     switch (cursor) {
         case 0:
             DrawTexture(Start_markiert, 368, 500, WHITE);
@@ -58,7 +104,12 @@ void mainmenu::buttons() {
             DrawTexture(Exit_markiert, 368, 600, WHITE);
             break;
         case 2:
-            switch (sound) {
+            if(_musicconfig){
+                DrawTexture(music_markiert_ausgewaehlt,0, 750,WHITE);
+            }else{
+                DrawTexture(music_markiert,0, 750,WHITE);
+            }
+            /*switch (sound) {
                 case (true):
                     DrawTexture(Unmuted, 368, 700, WHITE);
                     if (IsKeyPressed(KEY_ENTER) && sound == true) {
@@ -71,10 +122,50 @@ void mainmenu::buttons() {
                         sound = true;
                     }
                     break;
+            }*/
+            break;
+        case 3:
+            if(_soundconfig){
+                DrawTexture(sound_markiert_ausgewaehlt,650, 750,WHITE);
+            }else{
+                DrawTexture(sound_markiert,650, 750,WHITE);
             }
+            break;
+        default:
+            break;
     }
+    DrawTexture(strich,342 + ((musicvolume * 2) * 7), 771,WHITE);
+    DrawTexture(strich,992 + ((soundvolume * 2) * 7), 771,WHITE);
 }
 
 mainmenu::mainmenu(SoundPlayer *soundplayer) {
     soundplayerPtr = soundplayer;
+}
+
+void mainmenu::musicconfig() {
+    if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+        if(musicvolume > 0){
+            musicvolume--;
+        }
+    }
+
+    if(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+        if(musicvolume < 10){
+            musicvolume++;
+        }
+    }
+}
+
+void mainmenu::soundconfig() {
+    if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+        if(soundvolume > 0){
+            soundvolume--;
+        }
+    }
+
+    if(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+        if(soundvolume < 10){
+            soundvolume++;
+        }
+    }
 }
