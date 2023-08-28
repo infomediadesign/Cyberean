@@ -5,9 +5,8 @@
 #include "SoundPlayer.h"
 
 void SoundPlayer::menuControll_sound() {
-    if(mastersound == true){
-        PlaySound(menucontroll);
-    }
+    SetSoundVolume(menucontroll, masterSoundControl);
+    PlaySound(menucontroll);
 }
 
 SoundPlayer::SoundPlayer() {
@@ -28,41 +27,41 @@ SoundPlayer::~SoundPlayer() {
 }
 
 void SoundPlayer::menuEnter_sound() {
-    SetSoundVolume(menuenter, mastersoundvolume);
+    SetSoundVolume(menuenter, masterSoundControl);
     PlaySound(menuenter);
 }
 
 void SoundPlayer::playerWalk_sound() {
-    SetSoundVolume(menuenter, mastersoundvolume);
+    SetSoundVolume(walk, masterSoundControl);
     PlaySound(walk);
 }
 
 void SoundPlayer::playerWall_sound() {
-    SetSoundVolume(wall, mastersoundvolume);
+    SetSoundVolume(wall, masterSoundControl);
     PlaySound(wall);
 }
 
 void SoundPlayer::playerCover_sound() {
-    SetSoundVolume(cover, mastersoundvolume);
+    SetSoundVolume(cover, masterSoundControl);
     PlaySound(cover);
 }
 
 void SoundPlayer::playerNote_sound() {
-    SetSoundVolume(note, mastersoundvolume);
+    SetSoundVolume(note, masterSoundControl);
     PlaySound(note);
 }
 
 void SoundPlayer::playerButton_sound() {
-    SetSoundVolume(button, mastersoundvolume);
+    SetSoundVolume(button, masterSoundControl);
     PlaySound(button);
 }
 
 void SoundPlayer::all4Notes() {
-    SetSoundVolume(all4notes, mastersoundvolume);
+    SetSoundVolume(all4notes, masterSoundControl);
     PlaySound(all4notes);
 }
 
 void SoundPlayer::menuControll2_sound() {
-    SetSoundVolume(menucontroll2, mastersoundvolume);
+    SetSoundVolume(menucontroll2, masterSoundControl);
     PlaySound(menucontroll2);
 }

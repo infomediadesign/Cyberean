@@ -2,15 +2,17 @@
 // Created by selina on 05/07/2023.
 //
 
-#ifndef RAYLIBSTARTER_PAUSESCREEN_H
-#define RAYLIBSTARTER_PAUSESCREEN_H
+#pragma once
 
 #include "masterhead.h"
-
+#include "SoundPlayer.h"
+#include "mastervolumecontroll.h"
 
 class pausescreen {
 public:
-    void update(globalState &globalState);
+    pausescreen();
+
+    void update();
 
     void draw();
 
@@ -18,18 +20,35 @@ public:
 
     bool IsMusicMuted();
 
+    void musicconfig();
+
+    void soundconfig();
+
     int cursor = 0;
     bool sound = true;
+    bool _musicconfig = false;
+    bool _soundconfig = false;
 
-    Texture2D Exit = LoadTexture("assets/screens/menu_screen/Exit.png");
-    Texture2D Exit_markiert = LoadTexture("assets/screens/menu_screen/Exit_markiert.png");
-    Texture2D Start = LoadTexture("assets/screens/menu_screen/Start.png");
-    Texture2D Start_markiert = LoadTexture("assets/screens/menu_screen/Start_markiert.png");
-    Texture2D Muted = LoadTexture("assets/screens/menu_screen/muted.png");
-    Texture2D Muted_dunkel = LoadTexture("assets/screens/menu_screen/Muted_dunkel.png");
-    Texture2D Unmuted = LoadTexture("assets/screens/menu_screen/unmuted.png");
-    Texture2D Unmuted_dunkel = LoadTexture("assets/screens/menu_screen/unmuted_dunkel.png");
+    SoundPlayer *soundplayerPtr;
+
+    Texture2D background = LoadTexture("assets/screens/pause_screen/background_pause2.png");
+    //Texture2D windowsoli = LoadTexture("assets/phenster.png");
+
+    Texture2D mainmenu = LoadTexture("assets/screens/pause_screen/mainmenu.png");
+    Texture2D mainmenu_markiert = LoadTexture("assets/screens/pause_screen/mainmenu_markiert.png");
+    Texture2D pause = LoadTexture("assets/screens/pause_screen/pause.png");
+    Texture2D restart = LoadTexture("assets/screens/pause_screen/restart.png");
+    Texture2D restart_markiert = LoadTexture("assets/screens/pause_screen/restart_markiert.png");
+    Texture2D resume = LoadTexture("assets/screens/pause_screen/resume.png");
+    Texture2D resume_markiert = LoadTexture("assets/screens/pause_screen/resume_markiert.png");
+
+
+    Texture2D music = LoadTexture("assets/screens/menu_screen/music.png");
+    Texture2D music_markiert = LoadTexture("assets/screens/menu_screen/music_markiert.png");
+    Texture2D music_markiert_ausgewaehlt = LoadTexture("assets/screens/menu_screen/music_markiert_ausgewaehlt.png");
+    Texture2D _sound = LoadTexture("assets/screens/menu_screen/sound.png");
+    Texture2D sound_markiert = LoadTexture("assets/screens/menu_screen/sound_markiert.png");
+    Texture2D sound_markiert_ausgewaehlt = LoadTexture("assets/screens/menu_screen/sound_markiert_ausgewaehlt.png");
+    Texture2D strich = LoadTexture("assets/screens/menu_screen/Strich.png");
+
 };
-
-
-#endif //RAYLIBSTARTER_PAUSESCREEN_H

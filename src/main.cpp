@@ -10,6 +10,7 @@
 #include "musicplayer.h"
 #include "gameszene.h"
 #include "SoundPlayer.h"
+#include "mastervolumecontroll.h"
 
 int main() {
     // Raylib initialization
@@ -110,6 +111,7 @@ int main() {
                     themenu.draw();
                     themenu.buttons();
                     currentState = MusicState::MainMenu;
+                    musicPlayermenu.SetMusicVolume(masterMusicControl);
                     break;
                 case gameplay:
                     gs.draw();

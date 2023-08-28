@@ -14,6 +14,10 @@
 #include "../Library/tileson.hpp"
 #include "musicplayer.h"
 #include "SoundPlayer.h"
+#include "mastervolumecontroll.h"
+#include "pausescreen.h"
+
+class pausescreen;
 
 class gameScene {
 public:
@@ -32,6 +36,10 @@ public:
     MusicPlayer *musicPlayer4Ptr;
     MusicPlayer *musicPlayer5Ptr;
     SoundPlayer *soundPlayerPtr;
+
+    pausescreen mypause;
+
+    bool pause = false;
 
     int counter = 0;
     bool switchSoundPlayed = false;

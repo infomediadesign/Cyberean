@@ -5,6 +5,7 @@
 
 #include "masterhead.h"
 #include "SoundPlayer.h"
+#include "mastervolumecontroll.h"
 
 class mainmenu {
 public:
@@ -24,8 +25,6 @@ public:
 
     int cursor = 0;
     bool sound = true;
-    int musicvolume = 10;
-    int soundvolume = 10;
     bool _musicconfig = false;
     bool _soundconfig = false;
 

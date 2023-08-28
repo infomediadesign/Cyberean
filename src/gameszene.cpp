@@ -13,8 +13,8 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
         : theplayer(soundPlayer) {
     tson::Tileson t;
     //themap = t.parse("assets/level_1.tmj");
-    //maptext = LoadTexture("assets/blue_tileset_level_1_selina.png");
-    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
+    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
+    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
     //themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
@@ -65,6 +65,11 @@ void gameScene::draw() {
     }
     theplayer.draw();
     drawCollectedObjectsCount();
+
+    if(pause == true){
+        mypause.draw();
+        mypause.buttons();
+    }
 }
 
 void gameScene::drawLayer(const std::string &layer) {
@@ -123,28 +128,43 @@ void gameScene::populategameobjects() {
 }
 
 void gameScene::update(globalState &globalstate) {
-    theplayer.update();
-    for (int i = 0; i < enemies.size(); i++) {
-        enemies[i].update();
-    }
-    for (int i = 0; i < thegameobject.size(); i++) {
-        if (thegameobject[i].playerOnSwitch && !thegameobject[i].switchsoundplayed) {
-            soundPlayerPtr->playerButton_sound();
-            thegameobject[i].switchsoundplayed = true;
-        } else if (!thegameobject[i].playerOnSwitch) {
-            thegameobject[i].switchsoundplayed = false; // Setze die Variable zurück, wenn der Spieler den Schalter verlässt
-        }
-        thegameobject[i].update(*this);
-    }
-    removeCover();
-    //Updates the gravity of the enemies if the player stood on a gravity switch
-    if (themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 33) {
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies[i].updateGravity();
+
+    if(IsKeyPressed(KEY_P)){
+        if(pause) {
+            pause = false;
+        } else {
+            pause = true;
         }
     }
 
+    if(pause == false){
+        theplayer.update();
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies[i].update();
+        }
+        for (int i = 0; i < thegameobject.size(); i++) {
+            if (thegameobject[i].playerOnSwitch && !thegameobject[i].switchsoundplayed) {
+                soundPlayerPtr->playerButton_sound();
+                thegameobject[i].switchsoundplayed = true;
+            } else if (!thegameobject[i].playerOnSwitch) {
+                thegameobject[i].switchsoundplayed = false; // Setze die Variable zurück, wenn der Spieler den Schalter verlässt
+            }
+            thegameobject[i].update(*this);
+        }
+        removeCover();
+        //Updates the gravity of the enemies if the player stood on a gravity switch
+        if (themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 33) {
+            for (int i = 0; i < enemies.size(); i++) {
+                enemies[i].updateGravity();
+            }
+        }
+
+    }else{
+        mypause.update();
+    }
+
     updateMusicPlayers();
+
 }
 
 void gameScene::updateMusicPlayers() {
@@ -153,7 +173,7 @@ void gameScene::updateMusicPlayers() {
         musicPlayer->StopMusic();
 
         // Entmute alle anderen MusicPlayer-Instanzen
-        musicPlayer1Ptr->SetMusicVolume(0.9f);
+        musicPlayer1Ptr->SetMusicVolume(0.9f * masterMusicControl);
         musicPlayer2Ptr->SetMusicVolume(0.0f);
         musicPlayer3Ptr->SetMusicVolume(0.0f);
         musicPlayer4Ptr->SetMusicVolume(0.0f);
@@ -169,22 +189,22 @@ void gameScene::updateMusicPlayers() {
 
     if (collectedObjectsCount == 1) {
         musicPlayer1Ptr->SetMusicVolume(0.0f);
-        musicPlayer2Ptr->SetMusicVolume(0.8f);
+        musicPlayer2Ptr->SetMusicVolume(0.8f * masterMusicControl);
     }
 
     if (collectedObjectsCount == 2) {
         musicPlayer2Ptr->SetMusicVolume(0.0f);
-        musicPlayer3Ptr->SetMusicVolume(0.6f);
+        musicPlayer3Ptr->SetMusicVolume(0.6f * masterMusicControl);
     }
 
     if (collectedObjectsCount == 3) {
         musicPlayer3Ptr->SetMusicVolume(0.0f);
-        musicPlayer4Ptr->SetMusicVolume(0.6f);
+        musicPlayer4Ptr->SetMusicVolume(0.6f * masterMusicControl);
     }
 
     if (collectedObjectsCount == 4) {
         musicPlayer4Ptr->SetMusicVolume(0.0f);
-        musicPlayer5Ptr->SetMusicVolume(0.6f);
+        musicPlayer5Ptr->SetMusicVolume(0.6f * masterMusicControl);
     }
 }
 

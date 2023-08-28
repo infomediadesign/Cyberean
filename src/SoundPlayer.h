@@ -6,6 +6,7 @@
 #define RAYLIBSTARTER_SOUNDPLAYER_H
 
 #include "raylib.h"
+#include "mastervolumecontroll.h"
 
 class SoundPlayer {
 public:

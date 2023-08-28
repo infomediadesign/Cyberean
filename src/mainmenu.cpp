@@ -17,6 +17,7 @@ void mainmenu::update(globalState &globalState) {
                 }else{
                     _musicconfig = false;
                 }
+                soundplayerPtr->menuEnter_sound();
 
                 break;
             case 3:
@@ -25,6 +26,7 @@ void mainmenu::update(globalState &globalState) {
                 }else{
                     _soundconfig = false;
                 }
+                soundplayerPtr->menuEnter_sound();
                 break;
         }
     }
@@ -134,8 +136,8 @@ void mainmenu::buttons() {
         default:
             break;
     }
-    DrawTexture(strich,342 + ((musicvolume * 2) * 7), 771,WHITE);
-    DrawTexture(strich,992 + ((soundvolume * 2) * 7), 771,WHITE);
+    DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 771,WHITE);
+    DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 771,WHITE);
 }
 
 mainmenu::mainmenu(SoundPlayer *soundplayer) {
@@ -144,28 +146,32 @@ mainmenu::mainmenu(SoundPlayer *soundplayer) {
 
 void mainmenu::musicconfig() {
     if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
-        if(musicvolume > 0){
-            musicvolume--;
+        if(masterMusicControl > 0){
+            masterMusicControl = masterMusicControl - 0.1;
+            soundplayerPtr->menuControll_sound();
         }
     }
 
     if(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
-        if(musicvolume < 10){
-            musicvolume++;
+        if(masterMusicControl < 1.0){
+            masterMusicControl = masterMusicControl + 0.1;
+            soundplayerPtr->menuControll2_sound();
         }
     }
 }
 
 void mainmenu::soundconfig() {
     if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
-        if(soundvolume > 0){
-            soundvolume--;
+        if(masterSoundControl > 0){
+            masterSoundControl = masterSoundControl - 0.1;
+            soundplayerPtr->menuControll_sound();
         }
     }
 
     if(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
-        if(soundvolume < 10){
-            soundvolume++;
+        if(masterSoundControl < 1.0){
+            masterSoundControl = masterSoundControl + 0.1;
+            soundplayerPtr->menuControll2_sound();
         }
     }
 }
