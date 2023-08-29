@@ -161,6 +161,26 @@ void gameScene::update(globalState &globalstate) {
 
     }else{
         mypause.update();
+        switch(mypause.state){
+            case 0:
+                break;
+            case 1:
+                pause = false;
+                mypause.state = 0;
+                break;
+            case 2:
+                break;
+            case 3:
+                mypause.state = 0;
+                pause = false;
+                musicPlayer1Ptr->StopMusic();
+                musicPlayer2Ptr->StopMusic();
+                musicPlayer3Ptr->StopMusic();
+                musicPlayer4Ptr->StopMusic();
+                musicPlayer5Ptr->StopMusic();
+                musicPlayer->PlayMusic(MusicState::MainMenu);
+                globalstate = mainMenu;
+        }
     }
 
     updateMusicPlayers();

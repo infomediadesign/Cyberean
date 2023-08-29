@@ -6,11 +6,14 @@ void pausescreen::update() {
         switch (cursor) {
             case 0:
                 //soundplayerPtr->menuEnter_sound();
+                state = 1; // (1) resume
                 break;
             case 1:
+                state = 2; // (2) restart
                 break;
 
             case 2:
+                state = 3; // (3) mainmenu
                 break;
 
             case 3:
@@ -77,8 +80,6 @@ void pausescreen::update() {
             }
         }
     }
-
-
 }
 
 void pausescreen::draw() {

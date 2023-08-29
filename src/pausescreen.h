@@ -10,6 +10,8 @@
 
 class pausescreen {
 public:
+
+    int state = 0;
     pausescreen();
 
     void update();
