@@ -47,7 +47,7 @@ void gameobject::draw(Texture2D texture) {
 }
 
 void gameobject::update(gameScene &scene) {
-    if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 28) {
+    if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 12) {
         for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it) {
             if (&(*it) == this) {
                 scene.increaseCollectedObjectsCount();
@@ -57,15 +57,15 @@ void gameobject::update(gameScene &scene) {
         }
     }
     //Check if player is still standing on the gravity switch
-    if (playerPtr->posX != posX || playerPtr->posY != posY || ID != 32) {
+    if (playerPtr->posX != posX || playerPtr->posY != posY || ID != 8) {
         playerOnSwitch = false;
     }
     //Activate/Deactivate Gravity Switch
-    if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 32 && playerOnSwitch == false) {
+    if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 8 && playerOnSwitch == false) {
         if (isActive == false) {
             isActive = true;
             for (auto& otherSwitch : *gameObjects) {
-                if (&otherSwitch != this && otherSwitch.ID == 32) {
+                if (&otherSwitch != this && otherSwitch.ID == 8) {
                     otherSwitch.isActive = isActive;
                     break;
                 }
@@ -73,7 +73,7 @@ void gameobject::update(gameScene &scene) {
         } else {
             isActive = false;
             for (auto& otherSwitch : *gameObjects) {
-                if (&otherSwitch != this && otherSwitch.ID == 32) {
+                if (&otherSwitch != this && otherSwitch.ID == 8) {
                     otherSwitch.isActive = isActive;
                     break;
                 }
@@ -81,18 +81,18 @@ void gameobject::update(gameScene &scene) {
         }
         playerOnSwitch = true;
         int gravityVal = playerPtr->map->getLayer("Gravity")->getData()[posX + posY * playerPtr->map->getSize().x];
-        if (gravityVal > 50) {
+        if (gravityVal > 0) {
             switch (gravityVal) {
-                case 55:
+                case 16:
                     playerPtr->gravitySwitchStatusRight = isActive; // Right
                     break;
-                case 52:
+                case 15:
                     playerPtr->gravitySwitchStatusUp = isActive; // Up
                     break;
-                case 54:
+                case 18:
                     playerPtr->gravitySwitchStatusLeft = isActive; //Left
                     break;
-                case 53:
+                case 17:
                 default:
                     playerPtr->gravitySwitchStatusDown = isActive; // Down
             }

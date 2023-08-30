@@ -22,25 +22,25 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
     textureSource.height = 32;
 
     switch (this->ID) {
-        case 27:
+        case 3:
             this->Type = boulder;
             gravMoveDelay = 20; // Boulder Falling Speed (Higher Number = Slower)
             break;
-        case 36:
+        case 7:
             this->Type = firewall;
-            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 56)
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 19)
                 firewallMoveDelay = 15; //firewall movement speed (Fastest firewall of size 1x2)
-            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 57)
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 20)
                 firewallMoveDelay = 20;
-            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 58)
+            if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 21)
                 firewallMoveDelay = 25;
             break;
-        case 39:
+        case 4:
             this->Type = rogueAntivirus;
             movingStatus = leftMove;
             antiVirusMoveDelay = 15; //rogue Antivirus movement speed
             break;
-        case 37:
+        case 5:
             this->Type = bomb;
             gravMoveDelay = 20; // Same Fall Speed as Data-Chan
             break;
@@ -255,7 +255,7 @@ void Enemy::draw(Texture2D texture) {
 
 bool Enemy::canMoveTo(int x, int y) { // NOLINT(*-make-member-function-const)
     int gravityVal = theMap->getLayer("Gravity")->getData()[posX + posY * theMap->getSize().x];
-    if (gravityVal <= 50 || gravityVal >= 56)
+    if (gravityVal <= 14 || gravityVal >= 19)
         return false;
     int tileData = theMap->getLayer("Collision")->getData()[x + y * theMap->getSize().x];
     if (tileData != 0) {
@@ -302,27 +302,27 @@ void Enemy::switchGravity(int direction) {
 
 void Enemy::updateGravity() {
     int gravityVal = theMap->getLayer("Gravity")->getData()[posX + posY * theMap->getSize().x];
-    if (gravityVal > 50) {
+    if (gravityVal > 14) {
         switch (gravityVal) {
-            case 54:
+            case 18:
                 if (playerPtr->gravitySwitchStatusRight)
                     switchGravity(3);
                 else
                     switchGravity(1); // Right
                 break;
-            case 52:
+            case 15:
                 if (playerPtr->gravitySwitchStatusUp)
                     switchGravity(0);
                 else
                     switchGravity(2); // Up
                 break;
-            case 53:
+            case 17:
                 if (playerPtr->gravitySwitchStatusLeft)
                     switchGravity(1);
                 else
                     switchGravity(3); // Left
                 break;
-            case 55:
+            case 16:
             default:
                 if (playerPtr->gravitySwitchStatusDown)
                     switchGravity(2);

@@ -13,16 +13,16 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
         : theplayer(soundPlayer) {
     tson::Tileson t;
     //themap = t.parse("assets/level_1.tmj");
-    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
-    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
+    themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
+    maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
     //themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
 
 
     //Folder accessed levels:
-    themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
-    maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
+    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
+    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
 
     //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
     //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
@@ -153,7 +153,7 @@ void gameScene::update(globalState &globalstate) {
         }
         removeCover();
         //Updates the gravity of the enemies if the player stood on a gravity switch
-        if (themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 33) {
+        if (themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 9) {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies[i].updateGravity();
             }
@@ -233,7 +233,6 @@ void gameScene::fillCoverMatrix() {
         covers.push_back(themap->getLayer("Cover")->getData()[i]);
 
     };
-    return;
 }
 
 void gameScene::drawCover() {
@@ -266,17 +265,17 @@ void gameScene::increaseCollectedObjectsCount() {
 void gameScene::drawCollectedObjectsCount() {
     std::string countText = "Collected Notes: " + std::to_string(collectedObjectsCount);
     DrawText(countText.c_str(), 50, GetScreenHeight() - 75, 20,
-             WHITE); // Zeichnet die aktuelle Anzahl gesammelter GameObjects
+             WHITE); // Draw the number of collected objects
 }
 
 void gameScene::updateFirewallDirection() { //This algorithm checks horizontal or vertical neighbors (Firewall n; 1<n<5)
     for (int i = 0; i < enemies.size(); i++) {
-        if (enemies[i].ID == 36) { // 36 is a Firewall ID
-            if (enemies[i].getEnemyID(enemies[i].posX - 1, enemies[i].posY) == 36 ||
-                    enemies[i].getEnemyID(enemies[i].posX + 1, enemies[i].posY) == 36)
+        if (enemies[i].ID == 7) { // 7 is a Firewall ID
+            if (enemies[i].getEnemyID(enemies[i].posX - 1, enemies[i].posY) == 7 ||
+                    enemies[i].getEnemyID(enemies[i].posX + 1, enemies[i].posY) == 7)
                 enemies[i].movingStatus = Enemy::upMove;
-            else if (enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY - 1) == 36 ||
-                    enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY + 1) == 36)
+            else if (enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY - 1) == 7 ||
+                    enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY + 1) == 7)
                 enemies[i].movingStatus = Enemy::rightMove;
         }
     }
