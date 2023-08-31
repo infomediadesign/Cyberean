@@ -41,7 +41,8 @@ gameobject::gameobject(int ID, int posX, int posY, player *playerPtr, std::vecto
 void gameobject::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
     if (isActive) {
-        DrawTextureRec(texture, Rectangle{32, 256, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+        //DrawTextureRec(texture, Rectangle{32, 256, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+        DrawTexture(overlayTexture,posX*32,posY*32,WHITE);
     }
 
 }
