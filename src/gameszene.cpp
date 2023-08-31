@@ -13,25 +13,25 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
         : theplayer(soundPlayer) {
     tson::Tileson t;
     //themap = t.parse("assets/level_1.tmj");
-    themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
-    maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
+    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
+    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
     //themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
     //maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
 
 
     //Folder accessed levels:
-    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_viktor.tmj");
-    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
+    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
+    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
 
-    //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_viktor.tmj");
-    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_viktor.png");
+    themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
+    maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_selina.png");
 
-    //themap = t.parse("assets/level/level_3/green_tileset_level_3_viktor.tmj");
-    //maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_viktor.png");
+    //themap = t.parse("assets/level/level_3/green_tileset_level_3_selina.tmj");
+    //maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_selina.png");
 
-    //themap = t.parse("assets/level/level_4/corroded_tileset_level_4_viktor.tmj");
-    //maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_viktor.png");
+    //themap = t.parse("assets/level/level_4/corroded_tileset_level_4_selina.tmj");
+    //maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_selina.png");
 
 
     theplayer.map = themap.get();
@@ -153,7 +153,8 @@ void gameScene::update(globalState &globalstate) {
         }
         removeCover();
         //Updates the gravity of the enemies if the player stood on a gravity switch
-        if (themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x] == 9) {
+        int itemID = themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x];
+        if (itemID >= 9 && itemID <= 12) {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies[i].updateGravity();
             }

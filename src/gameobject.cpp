@@ -47,6 +47,7 @@ void gameobject::draw(Texture2D texture) {
 }
 
 void gameobject::update(gameScene &scene) {
+    //remove note and increase collectable count when the player is on a note.
     if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 12) {
         for (auto it = gameObjects->begin(); it != gameObjects->end(); ++it) {
             if (&(*it) == this) {
@@ -56,43 +57,110 @@ void gameobject::update(gameScene &scene) {
             }
         }
     }
+
     //Check if player is still standing on the gravity switch
-    if (playerPtr->posX != posX || playerPtr->posY != posY || ID != 8) {
+    if (playerPtr->posX != posX || playerPtr->posY != posY) {
         playerOnSwitch = false;
     }
+
     //Activate/Deactivate Gravity Switch
-    if (playerPtr->posX == posX && playerPtr->posY == posY && ID == 8 && playerOnSwitch == false) {
-        if (isActive == false) {
-            isActive = true;
-            for (auto& otherSwitch : *gameObjects) {
-                if (&otherSwitch != this && otherSwitch.ID == 8) {
-                    otherSwitch.isActive = isActive;
-                    break;
+    if (playerPtr->posX == posX && playerPtr->posY == posY && playerOnSwitch == false && ID >= 8 && ID <= 11) {
+        switch (ID) {
+            case 8:{
+                if (isActive == false) {
+                    isActive = true;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 8) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
+                } else {
+                    isActive = false;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 8) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
                 }
+                break;
             }
-        } else {
-            isActive = false;
-            for (auto& otherSwitch : *gameObjects) {
-                if (&otherSwitch != this && otherSwitch.ID == 8) {
-                    otherSwitch.isActive = isActive;
-                    break;
+            case 9:{
+                if (isActive == false) {
+                    isActive = true;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 9) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
+                } else {
+                    isActive = false;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 9) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
                 }
+                break;
+            }
+            case 10:{
+                if (isActive == false) {
+                    isActive = true;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 10) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
+                } else {
+                    isActive = false;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 10) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+            case 11:{
+                if (isActive == false) {
+                    isActive = true;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 11) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
+                } else {
+                    isActive = false;
+                    for (auto &otherSwitch: *gameObjects) {
+                        if (&otherSwitch != this && otherSwitch.ID == 11) {
+                            otherSwitch.isActive = isActive;
+                            break;
+                        }
+                    }
+                }
+                break;
             }
         }
         playerOnSwitch = true;
         int gravityVal = playerPtr->map->getLayer("Gravity")->getData()[posX + posY * playerPtr->map->getSize().x];
         if (gravityVal > 0) {
             switch (gravityVal) {
-                case 16:
+                case 18:
                     playerPtr->gravitySwitchStatusRight = isActive; // Right
                     break;
                 case 15:
                     playerPtr->gravitySwitchStatusUp = isActive; // Up
                     break;
-                case 18:
+                case 17:
                     playerPtr->gravitySwitchStatusLeft = isActive; //Left
                     break;
-                case 17:
+                case 16:
                 default:
                     playerPtr->gravitySwitchStatusDown = isActive; // Down
             }
