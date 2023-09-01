@@ -150,7 +150,7 @@ void gameScene::populategameobjects() {
 
 void gameScene::update(globalState &globalstate) {
 
-    if(IsKeyPressed(KEY_P)){
+    if(IsKeyPressed(KEY_P) || IsKeyPressed(KEY_ESCAPE)){
         if(pause) {
             pause = false;
         } else {

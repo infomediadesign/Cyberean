@@ -71,6 +71,10 @@ void levelselect::update(globalState &globalState) {
         }
 
     }
+
+    if(IsKeyPressed(KEY_ESCAPE)){
+        globalState = mainMenu;
+    }
 }
 
 levelselect::levelselect(SoundPlayer *soundplayer) {
