@@ -191,6 +191,7 @@ void gameScene::update(globalState &globalstate) {
                 mypause.state = 0;
                 break;
             case 2:
+                restart = true;
                 break;
             case 3:
                 mypause.state = 0;

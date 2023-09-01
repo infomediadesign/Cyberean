@@ -32,7 +32,7 @@ void SoundPlayer::menuEnter_sound() {
 }
 
 void SoundPlayer::playerWalk_sound() {
-    SetSoundVolume(walk, masterSoundControl);
+    SetSoundVolume(walk, masterSoundControl * 0.8);
     PlaySound(walk);
 }
 

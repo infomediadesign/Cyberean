@@ -90,6 +90,11 @@ int main() {
                     gs = new gameScene(thelevelselect.level, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4,
                                        &musicPlayer5, &soundPlayer);
                 }
+                if(gs->restart == true){
+                    gs = nullptr;
+                    gs = new gameScene(thelevelselect.level, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4,
+                                       &musicPlayer5, &soundPlayer);
+                }
                 gs->update(state);
                 break;
             case levelselection:

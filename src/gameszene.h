@@ -43,6 +43,7 @@ public:
 
     int counter = 0;
     bool switchSoundPlayed = false;
+    bool restart = false;
 
     gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicPlayer1, MusicPlayer *musicPlayer2,
               MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5, SoundPlayer *soundPlayer);
