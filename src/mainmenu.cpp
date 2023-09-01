@@ -6,7 +6,7 @@ void mainmenu::update(globalState &globalState) {
         switch (cursor) {
             case 0:
                 soundplayerPtr->menuEnter_sound();
-                globalState = gameplay;
+                globalState = levelselection;
 
                 break;
             case 1:

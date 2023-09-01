@@ -11,7 +11,7 @@ void toDrawOnScreen(tson::Map *theMap, Texture &mapTex);
 enum globalState {
     mainMenu,
     gameplay,
-    settings,
+    levelselection,
     pause
 };
 

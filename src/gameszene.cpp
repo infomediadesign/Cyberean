@@ -12,6 +12,27 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
                      SoundPlayer *soundPlayer)
         : theplayer(soundPlayer) {
     tson::Tileson t;
+
+    std::cout << "bruh" << std::endl;
+
+    switch(Level){
+        case 0:
+            themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
+            maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
+            break;
+        case 1:
+            themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
+            maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_selina.png");
+            break;
+        case 2:
+            themap = t.parse("assets/level/level_3/green_tileset_level_3_selina.tmj");
+            maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_selina.png");
+            break;
+        case 3:
+            themap = t.parse("assets/level/level_4/corroded_tileset_level_4_selina.tmj");
+            maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_selina.png");
+
+    }
     //themap = t.parse("assets/level_1.tmj");
     //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
@@ -24,8 +45,8 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
     //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
     //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
 
-    themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
-    maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_selina.png");
+    //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
+    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_selina.png");
 
     //themap = t.parse("assets/level/level_3/green_tileset_level_3_selina.tmj");
     //maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_selina.png");

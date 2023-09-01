@@ -11,6 +11,7 @@
 #include "gameszene.h"
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
+#include "levelselect.h"
 
 int main() {
     // Raylib initialization
@@ -40,6 +41,7 @@ int main() {
     SoundPlayer soundPlayer;
 
     mainmenu themenu(&soundPlayer);
+    levelselect thelevelselect(&soundPlayer);
 
     MusicPlayer musicPlayermenu;
     MusicPlayer musicPlayer1;
@@ -63,7 +65,8 @@ int main() {
     MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
     //musicPlayermenu.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
-    gameScene gs(0, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4, &musicPlayer5, &soundPlayer);
+    gameScene* gs = nullptr;
+    //gameScene gs(0, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4, &musicPlayer5, &soundPlayer);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -83,20 +86,22 @@ int main() {
                 themenu.update(state);
                 break;
             case gameplay:
-                gs.update(state);
+                if (gs == nullptr) {
+                    gs = new gameScene(thelevelselect.level, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4,
+                                       &musicPlayer5, &soundPlayer);
+                }
+                gs->update(state);
                 break;
-            case settings:
-                // settings();
+            case levelselection:
+                thelevelselect.update(state);
                 break;
             case pause:
                 //pause();
                 break;
         }
 
-        if (!themenu.IsMusicMuted()) { //Mute Möglichkeit
-            musicPlayermenu.SetMusicVolume(0.0f);
-        } else {
-            musicPlayermenu.SetMusicVolume(1.0f); //auf 1.0f einstellen um die Musik zu hören
+        if (state == mainMenu && gs != nullptr) {
+                gs = nullptr;
         }
 
 
@@ -114,7 +119,15 @@ int main() {
                     musicPlayermenu.SetMusicVolume(masterMusicControl);
                     break;
                 case gameplay:
-                    gs.draw();
+                    if (gs != nullptr && state == gameplay) {
+                        gs->draw();
+                    }
+                    if (gs == nullptr && state == gameplay) {
+                        thelevelselect.draw();
+                    }
+                    break;
+                case levelselection:
+                    thelevelselect.draw();
                     break;
                 case pause:
                     break;
@@ -134,11 +147,6 @@ int main() {
                        renderRec,
                        {}, 0, WHITE);
         EndDrawing();
-
-        if (currentState != previousState) { //beim ändern des states wird ein anderes Lied abgespielt
-            musicPlayermenu.PlayMusic(currentState);
-            previousState = currentState;
-        }
 
         musicPlayermenu.Update();
         musicPlayer1.Update();
