@@ -17,6 +17,7 @@ void player::update() {
 
     if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) // Move Left
     {
+        checkIfBombShovable(1);
         if (canMoveTo(posX - 1, posY))
             posX--;
 
@@ -33,8 +34,9 @@ void player::update() {
         }
     }
 
-    if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) //Move Up
+    if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))//Move Up
     {
+        checkIfBombShovable(3);
         if (canMoveTo(posX, posY - 1))
             posY--;
     } else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
@@ -52,6 +54,7 @@ void player::update() {
 
     if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D)) //Move Right
     {
+        checkIfBombShovable(0);
         if (canMoveTo(posX + 1, posY))
             posX++;
     } else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
@@ -68,6 +71,7 @@ void player::update() {
     }
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) //Move Down
     {
+        checkIfBombShovable(2);
         if (canMoveTo(posX, posY + 1))
             posY++;
     } else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
@@ -83,10 +87,10 @@ void player::update() {
         }
     }
 
-    if(previousX != posX){
+    if (previousX != posX) {
         soundplayerPtr->playerWalk_sound();
     }
-    if(previousY != posY){
+    if (previousY != posY) {
         soundplayerPtr->playerWalk_sound();
     }
 }
@@ -109,6 +113,9 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
     for (int i = 0; i < enemies->size(); i++) {
         Enemy enemy = (*enemies)[i];
         if (enemy.posX == x && enemy.posY == y) {
+            //ADD LOGIC TO KILL THE PLAYER IN THE CASE BELOW!!!
+            if (enemy.Type == rogueAntivirus || enemy.Type == firewall)
+                return true;
             soundplayerPtr->playerWall_sound();
             return false;
         }
@@ -118,4 +125,63 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
 
 player::player(SoundPlayer *soundPlayer) {
     soundplayerPtr = soundPlayer;
+}
+
+void player::checkIfBombShovable(int direction) {
+    switch (direction) {
+        //Right
+        case 0: {
+            for (int i = 0; i < enemies->size(); i++) {
+                Enemy enemy = (*enemies)[i];
+                if (enemy.posX == posX + 1 && enemy.posY == posY && enemy.Type == bomb)
+                    if (enemy.canMoveTo(posX + 2, posY)) {
+                        (*enemies)[i].posX++;
+                        (*enemies)[i].consecMoves = 0;
+                        posX++;
+                    }
+
+            }
+            break;
+        }
+            //LEFT
+        case 1: {
+            for (int i = 0; i < enemies->size(); i++) {
+                Enemy enemy = (*enemies)[i];
+                if (enemy.posX == posX - 1 && enemy.posY == posY && enemy.Type == bomb)
+                    if (enemy.canMoveTo(posX - 2, posY)) {
+                        (*enemies)[i].posX--;
+                        (*enemies)[i].consecMoves = 0;
+                        posX--;
+                    }
+            }
+            break;
+        }
+            //DOWN
+        case 2: {
+            for (int i = 0; i < enemies->size(); i++) {
+                Enemy enemy = (*enemies)[i];
+                if (enemy.posX == posX && enemy.posY == posY + 1 && enemy.Type == bomb)
+                    if (enemy.canMoveTo(posX, posY + 2)) {
+                        (*enemies)[i].posY++;
+                        (*enemies)[i].consecMoves = 0;
+                        posY++;
+                    }
+
+            }
+            break;
+        }
+            //UP
+        case 3: {
+            for (int i = 0; i < enemies->size(); i++) {
+                Enemy enemy = (*enemies)[i];
+                if (enemy.posX == posX && enemy.posY == posY - 1 && enemy.Type == bomb)
+                    if (enemy.canMoveTo(posX, posY - 2)) {
+                        (*enemies)[i].posY--;
+                        (*enemies)[i].consecMoves = 0;
+                        posY--;
+                    }
+            }
+            break;
+        }
+    }
 }

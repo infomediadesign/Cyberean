@@ -65,6 +65,8 @@ void Enemy::update() {
             consecMoves++;
             gravMoveCooldown = gravMoveDelay;
             return;
+        } else if ((this->Type == bomb && consecMoves == 1 && gravMoveCooldown <= 0)) {
+            consecMoves = 0;
         } else if (this->Type == bomb && consecMoves >= 2 && gravMoveCooldown <= 0) {
             explodeBomb(posX, posY);
         }
@@ -382,7 +384,7 @@ EnumType Enemy::getEnemyType(int x, int y) {
 void Enemy::deleteEnemy(int x, int y) {
     for (int i = 0; i < otherEnemies->size(); i++) {
         if ((*otherEnemies)[i].posX == x) {
-            if ((*otherEnemies)[i].posY == y &&(*otherEnemies)[i].Type!=firewall)
+            if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type != firewall)
                 otherEnemies->erase(otherEnemies->begin() + i);
         }
     }

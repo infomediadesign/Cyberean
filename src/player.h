@@ -62,6 +62,8 @@ public:
 
     player(SoundPlayer *soundPlayer);
     SoundPlayer *soundplayerPtr;
+
+    void checkIfBombShovable(int direction);
 };
 
 
