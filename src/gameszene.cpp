@@ -280,7 +280,7 @@ void gameScene::increaseCollectedObjectsCount() {
     collectedObjectsCount++; // Erhöhe den Zähler für gesammelte GameObjects
     soundPlayerPtr->playerNote_sound();
     if (collectedObjectsCount == 4 && counter == 0) {
-        //soundPlayerPtr->all4Notes();
+        soundPlayerPtr->all4Notes();
         counter++;
     }
 }

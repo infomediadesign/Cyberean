@@ -57,7 +57,7 @@ void SoundPlayer::playerButton_sound() {
 }
 
 void SoundPlayer::all4Notes() {
-    SetSoundVolume(all4notes, masterSoundControl);
+    SetSoundVolume(all4notes, masterSoundControl * 3.0);
     PlaySound(all4notes);
 }
 
