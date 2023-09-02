@@ -136,7 +136,6 @@ void player::checkIfBombShovable(int direction) {
                 if (enemy.posX == posX + 1 && enemy.posY == posY && enemy.Type == bomb)
                     if (enemy.canMoveTo(posX + 2, posY)) {
                         (*enemies)[i].posX++;
-                        (*enemies)[i].consecMoves = 0;
                         posX++;
                     }
 
@@ -150,7 +149,6 @@ void player::checkIfBombShovable(int direction) {
                 if (enemy.posX == posX - 1 && enemy.posY == posY && enemy.Type == bomb)
                     if (enemy.canMoveTo(posX - 2, posY)) {
                         (*enemies)[i].posX--;
-                        (*enemies)[i].consecMoves = 0;
                         posX--;
                     }
             }
@@ -163,7 +161,6 @@ void player::checkIfBombShovable(int direction) {
                 if (enemy.posX == posX && enemy.posY == posY + 1 && enemy.Type == bomb)
                     if (enemy.canMoveTo(posX, posY + 2)) {
                         (*enemies)[i].posY++;
-                        (*enemies)[i].consecMoves = 0;
                         posY++;
                     }
 
@@ -177,7 +174,6 @@ void player::checkIfBombShovable(int direction) {
                 if (enemy.posX == posX && enemy.posY == posY - 1 && enemy.Type == bomb)
                     if (enemy.canMoveTo(posX, posY - 2)) {
                         (*enemies)[i].posY--;
-                        (*enemies)[i].consecMoves = 0;
                         posY--;
                     }
             }
