@@ -92,6 +92,12 @@ void levelselect::update(globalState &globalState) {
     if(IsKeyPressed(KEY_ESCAPE)){
         globalState = mainMenu;
     }
+
+    if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_3 || musicPlayerPtr->GetCurrentMusicState() == MusicState::part_2){
+        musicPlayerPtr->SetMusicVolume(masterMusicControl * 0.7);
+    }else{
+        musicPlayerPtr->SetMusicVolume(masterMusicControl);
+    }
 }
 
 levelselect::levelselect(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
@@ -133,5 +139,27 @@ void levelselect::draw() {
         default:
             break;
 
+    }
+
+    if(musicPlayerPtr->GetCurrentMusicState() != MusicState::MainMenu){
+        switch(currentnote){
+            case 0:
+                DrawTexture(note1,1080,40,WHITE);
+                break;
+            case 1:
+                DrawTexture(note2,1080,40,WHITE);
+                break;
+            default:
+                break;
+        }
+
+        counter++;
+        if(counter == 30){
+            currentnote++;
+            if(currentnote == 2){
+                currentnote = 0;
+            }
+            counter = 0;
+        }
     }
 }

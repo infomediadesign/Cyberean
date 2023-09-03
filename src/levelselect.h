@@ -19,6 +19,7 @@ public:
     int level = 0;
 
     int counter = 0;
+    int currentnote = 0;
 
     bool song1 = false;
     bool song2 = false;
@@ -41,9 +42,8 @@ public:
     Texture2D levelselect7 = LoadTexture("assets/screens/level_select_screen/level_select_7.png");
     Texture2D levelselect8 = LoadTexture("assets/screens/level_select_screen/level_select_8.png");
 
-    Texture2D note1 = LoadTexture("assets/screens/level_select_screen/note_1.png");
-    Texture2D note2 = LoadTexture("assets/screens/level_select_screen/note_2.png");
-    Texture2D note3 = LoadTexture("assets/screens/level_select_screen/note_3.png");
+    Texture2D note1 = LoadTexture("assets/screens/level_select_screen/notes_1.png");
+    Texture2D note2 = LoadTexture("assets/screens/level_select_screen/notes_2.png");
 
 
 };

@@ -122,7 +122,6 @@ int main() {
                     break;
                 case levelselection:
                     thelevelselect.draw();
-                    musicPlayermenu.SetAllMusicVolume(masterMusicControl);
                     break;
                 case pause:
                     break;
