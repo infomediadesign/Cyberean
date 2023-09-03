@@ -99,30 +99,46 @@ void Enemy::update() {
                 return;
             if (gravityX != 0) {
                 if (canMoveTo(posX, posY + 1) && canMoveTo(posX + gravityX, posY + 1) && gravMoveCooldown <= 0) {
-                    if (getGravityVal(posX, posY + 1 != 15)) {
+                    if ((getGravityVal(posX, posY + 1) == 15 && !playerPtr->gravitySwitchStatusUp) ||
+                        (getGravityVal(posX, posY + 1) == 16 && playerPtr->gravitySwitchStatusDown))
+                        return;
+                    else {
                         posY += 1;
                         gravMoveCooldown = gravMoveDelay;
                         //Insert animation for data chan (counter clock wise) here:
+
                     }
                 } else if (canMoveTo(posX, posY - 1) && canMoveTo(posX + gravityX, posY - 1) && gravMoveCooldown <= 0) {
-                    if (getGravityVal(posX, posY - 1) != 16) {
+                    if ((getGravityVal(posX, posY + 1) == 15 && playerPtr->gravitySwitchStatusUp) ||
+                        (getGravityVal(posX, posY + 1) == 16 && !playerPtr->gravitySwitchStatusDown))
+                        return;
+                    else {
                         posY -= 1;
                         gravMoveCooldown = gravMoveDelay;
                         //Insert animation for data chan (clock wise) here:
+
                     }
                 }
             } else if (gravityY != 0) {
                 if (canMoveTo(posX + 1, posY) && canMoveTo(posX + 1, posY + gravityY) && gravMoveCooldown <= 0) {
-                    if (getGravityVal(posX + 1, posY) != 17) {
+                    if ((getGravityVal(posX + 1, posY) == 18 && playerPtr->gravitySwitchStatusRight) ||
+                        (getGravityVal(posX + 1, posY) == 17 && !playerPtr->gravitySwitchStatusLeft))
+                        return;
+                    else {
                         posX += 1;
                         gravMoveCooldown = gravMoveDelay;
                         //Insert animation for data chan (clock wise) here:
+
                     }
                 } else if (canMoveTo(posX - 1, posY) && canMoveTo(posX - 1, posY + gravityY) && gravMoveCooldown <= 0) {
-                    if (getGravityVal(posX - 1, posY) != 18) {
+                    if ((getGravityVal(posX - 1, posY) == 18 && !playerPtr->gravitySwitchStatusRight) ||
+                        (getGravityVal(posX - 1, posY) == 17 && playerPtr->gravitySwitchStatusLeft))
+                        return;
+                    else {
                         posX -= 1;
                         gravMoveCooldown = gravMoveDelay;
                         //Insert animation for data chan (counter clock wise) here:
+
                     }
                 }
             }
@@ -276,7 +292,7 @@ void Enemy::draw(Texture2D texture) {
 
 }
 
-bool Enemy::canMoveTo(int x, int y) { // NOLINT(*-make-member-function-const)
+bool Enemy::canMoveTo(int x, int y) {
     int gravityVal = theMap->getLayer("Gravity")->getData()[posX + posY * theMap->getSize().x];
     if (gravityVal <= 14 || gravityVal >= 19)
         return false;
@@ -294,9 +310,21 @@ bool Enemy::canMoveTo(int x, int y) { // NOLINT(*-make-member-function-const)
             }
         }
     }
-    if (x == playerPtr->posX && y == playerPtr->posY) {
-        return false;
+    /*Enemy to player contact:
+    if (this->Type == rogueAntivirus) {
+        if (x == playerPtr->posX && y == playerPtr->posY)
+            return true;
     }
+    if (this->Type == boulder) {
+        if (x == playerPtr->posX && y == playerPtr->posY && consecMoves == 0)
+            return false;
+    }
+    if (this->Type == bomb) {
+        if (x == playerPtr->posX && y == playerPtr->posY)
+            return false;
+    }*/
+    if (x == playerPtr->posX && y == playerPtr->posY)
+        return false;
     return true;
 }
 
