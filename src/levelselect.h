@@ -10,6 +10,7 @@
 #include "masterhead.h"
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
+#include "musicplayer.h"
 
 class levelselect {
 public:
@@ -25,10 +26,11 @@ public:
     bool song4 = false;
 
     SoundPlayer *soundplayerPtr;
+    MusicPlayer *musicPlayerPtr;
 
     void update(globalState &globalState);
     void draw();
-    levelselect(SoundPlayer *soundplayer);
+    levelselect(SoundPlayer *soundplayer, MusicPlayer *musicPlayer);
 
     Texture2D levelselect1 = LoadTexture("assets/screens/level_select_screen/level_select_1.png");
     Texture2D levelselect2 = LoadTexture("assets/screens/level_select_screen/level_select_2.png");

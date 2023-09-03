@@ -30,23 +30,28 @@ public:
     player *playerPtr;
     int collectedObjectsCount = 0;
     MusicPlayer *musicPlayer;
-    MusicPlayer *musicPlayer1Ptr;
-    MusicPlayer *musicPlayer2Ptr;
-    MusicPlayer *musicPlayer3Ptr;
-    MusicPlayer *musicPlayer4Ptr;
-    MusicPlayer *musicPlayer5Ptr;
     SoundPlayer *soundPlayerPtr;
 
     pausescreen mypause;
 
     bool pause = false;
 
+    int level = 0;
+
     int counter = 0;
     bool switchSoundPlayed = false;
     bool restart = false;
+    bool init = false;
 
-    gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicPlayer1, MusicPlayer *musicPlayer2,
-              MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5, SoundPlayer *soundPlayer);
+    MusicPlayer musicPlayer1;
+    MusicPlayer musicPlayer2;
+    MusicPlayer musicPlayer3;
+    MusicPlayer musicPlayer4;
+    MusicPlayer musicPlayer5;
+
+    gameScene(int Level, MusicPlayer *musicPlayerPtr, SoundPlayer *soundPlayer);
+
+    ~gameScene();
 
     void update(globalState &globalstate);
 
@@ -70,6 +75,10 @@ public:
 
     void increaseCollectedObjectsCount(); // Increases the number of collected game objects
     void drawCollectedObjectsCount(); // draws the counter of collected game objects
+
+    void loadmusic(int _level);
+
+    float volumeLevels[5] = {0.0f};
 };
 
 

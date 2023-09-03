@@ -6,56 +6,72 @@
 
 void levelselect::update(globalState &globalState) {
     if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+        soundplayerPtr->menuEnter_sound();
         switch (cursor) {
             case 0:
                 level = 0;
+                musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
                 break;
             case 1:
-                song1 = true;
-                song2 = false;
-                song3 = false;
-                song4 = false;
+                if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_1) {
+                    musicPlayerPtr->PlayMusic(MusicState::MainMenu);
+                    break;
+                }
+                musicPlayerPtr->StopAllMusicExceptMainMenu();
+                musicPlayerPtr->PlayMusic(MusicState::part_1);
                 break;
 
             case 2:
                 level = 1;
+                musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
                 break;
 
             case 3:
-                song1 = false;
-                song2 = true;
-                song3 = false;
-                song4 = false;
+                if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_2) {
+                    musicPlayerPtr->PlayMusic(MusicState::MainMenu);
+                    break;
+                }
+                musicPlayerPtr->StopAllMusicExceptMainMenu();
+                musicPlayerPtr->PlayMusic(MusicState::part_2);
                 break;
             case 4:
                 level = 2;
+                musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
 
                 break;
             case 5:
-                song1 = false;
-                song2 = false;
-                song3 = true;
-                song4 = false;
+                if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_3) {
+                    musicPlayerPtr->PlayMusic(MusicState::MainMenu);
+                    break;
+                }
+                musicPlayerPtr->StopAllMusicExceptMainMenu();
+                musicPlayerPtr->PlayMusic(MusicState::part_3);
                 break;
             case 6:
                 level = 3;
+                musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
                 break;
             case 7:
-                song1 = false;
-                song2 = false;
-                song3 = false;
-                song4 = true;
+                if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_4) {
+                    musicPlayerPtr->PlayMusic(MusicState::MainMenu);
+                    break;
+                }
+                musicPlayerPtr->StopAllMusicExceptMainMenu();
+                musicPlayerPtr->PlayMusic(MusicState::part_4);
                 break;
             default:
                 break;
         }
+
+
     }
 
     if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+        soundplayerPtr->menuControll_sound();
         if(cursor > 0){
             cursor--;
         }else if(cursor == 0){
@@ -64,6 +80,7 @@ void levelselect::update(globalState &globalState) {
 
     }
     if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+        soundplayerPtr->menuControll2_sound();
         if(cursor < 7){
             cursor++;
         }else if(cursor == 7){
@@ -77,8 +94,14 @@ void levelselect::update(globalState &globalState) {
     }
 }
 
-levelselect::levelselect(SoundPlayer *soundplayer) {
+levelselect::levelselect(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     soundplayerPtr = soundplayer;
+    musicPlayerPtr = musicPlayer;
+
+    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part5.wav", MusicState::part_1);
+    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part5.wav", MusicState::part_2);
+    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_3/cyberean_lvl3_part5.wav", MusicState::part_3);
+    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part5.wav", MusicState::part_4);
 }
 
 void levelselect::draw() {

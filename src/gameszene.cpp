@@ -7,15 +7,16 @@
 
 void drawLayer(const std::string &layer);
 
-gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicPlayer1, MusicPlayer *musicPlayer2,
-                     MusicPlayer *musicPlayer3, MusicPlayer *musicPlayer4, MusicPlayer *musicPlayer5,
+gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
                      SoundPlayer *soundPlayer)
         : theplayer(soundPlayer) {
     tson::Tileson t;
 
-    std::cout << "bruh" << std::endl;
 
-    switch(Level){
+    this->level = Level;
+    std::cout << level << std::endl;
+
+    switch(level){
         case 0:
             themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
             maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
@@ -63,12 +64,10 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr, MusicPlayer *musicP
     updateFirewallDirection();
     playerPtr = &theplayer;
     musicPlayer = musicPlayerPtr;
-    musicPlayer1Ptr = musicPlayer1;
-    musicPlayer2Ptr = musicPlayer2;
-    musicPlayer3Ptr = musicPlayer3;
-    musicPlayer4Ptr = musicPlayer4;
-    musicPlayer5Ptr = musicPlayer5;
+
     soundPlayerPtr = soundPlayer;
+
+    loadmusic(level);
 
 }
 
@@ -196,58 +195,58 @@ void gameScene::update(globalState &globalstate) {
             case 3:
                 mypause.state = 0;
                 pause = false;
-                musicPlayer1Ptr->StopMusic();
-                musicPlayer2Ptr->StopMusic();
-                musicPlayer3Ptr->StopMusic();
-                musicPlayer4Ptr->StopMusic();
-                musicPlayer5Ptr->StopMusic();
-                musicPlayer->PlayMusic(MusicState::MainMenu);
                 globalstate = mainMenu;
         }
     }
 
     updateMusicPlayers();
-
+    musicPlayer1.Update();
+    musicPlayer2.Update();
+    musicPlayer3.Update();
+    musicPlayer4.Update();
+    musicPlayer5.Update();
 }
 
 void gameScene::updateMusicPlayers() {
-    if (musicPlayer->GetCurrentMusicState() == MusicState::MainMenu) {
-
-        musicPlayer->StopMusic();
+    if (musicPlayer->GetCurrentMusicState() == MusicState::MainMenu ||
+            musicPlayer->GetCurrentMusicState() == MusicState::part_1 ||
+            musicPlayer->GetCurrentMusicState() == MusicState::part_2 ||
+            musicPlayer->GetCurrentMusicState() == MusicState::part_3 ||
+            musicPlayer->GetCurrentMusicState() == MusicState::part_4) {
 
         // Entmute alle anderen MusicPlayer-Instanzen
-        musicPlayer1Ptr->SetMusicVolume(0.9f * masterMusicControl);
-        musicPlayer2Ptr->SetMusicVolume(0.0f);
-        musicPlayer3Ptr->SetMusicVolume(0.0f);
-        musicPlayer4Ptr->SetMusicVolume(0.0f);
-        musicPlayer5Ptr->SetMusicVolume(0.0f);
+        musicPlayer1.SetMusicVolume(volumeLevels[0] * masterMusicControl);
+        musicPlayer2.SetMusicVolume(0.0f);
+        musicPlayer3.SetMusicVolume(0.0f);
+        musicPlayer4.SetMusicVolume(0.0f);
+        musicPlayer5.SetMusicVolume(0.0f);
 
         // Spiele die Musik der anderen Level ab
-        musicPlayer1Ptr->PlayMusic(MusicState::Lvl1_part1);
-        musicPlayer2Ptr->PlayMusic(MusicState::Lvl1_part2);
-        musicPlayer3Ptr->PlayMusic(MusicState::Lvl1_part3);
-        musicPlayer4Ptr->PlayMusic(MusicState::Lvl1_part4);
-        musicPlayer5Ptr->PlayMusic(MusicState::Lvl1_part5);
+        musicPlayer1.PlayMusic(MusicState::part_1);
+        musicPlayer2.PlayMusic(MusicState::part_2);
+        musicPlayer3.PlayMusic(MusicState::part_3);
+        musicPlayer4.PlayMusic(MusicState::part_4);
+        musicPlayer5.PlayMusic(MusicState::part_5);
     }
 
     if (collectedObjectsCount == 1) {
-        musicPlayer1Ptr->SetMusicVolume(0.0f);
-        musicPlayer2Ptr->SetMusicVolume(0.8f * masterMusicControl);
+        musicPlayer1.SetMusicVolume(0.0f);
+        musicPlayer2.SetMusicVolume(volumeLevels[1] * masterMusicControl);
     }
 
     if (collectedObjectsCount == 2) {
-        musicPlayer2Ptr->SetMusicVolume(0.0f);
-        musicPlayer3Ptr->SetMusicVolume(0.6f * masterMusicControl);
+        musicPlayer2.SetMusicVolume(0.0f);
+        musicPlayer3.SetMusicVolume(volumeLevels[2] * masterMusicControl);
     }
 
     if (collectedObjectsCount == 3) {
-        musicPlayer3Ptr->SetMusicVolume(0.0f);
-        musicPlayer4Ptr->SetMusicVolume(0.6f * masterMusicControl);
+        musicPlayer3.SetMusicVolume(0.0f);
+        musicPlayer4.SetMusicVolume(volumeLevels[3] * masterMusicControl);
     }
 
     if (collectedObjectsCount == 4) {
-        musicPlayer4Ptr->SetMusicVolume(0.0f);
-        musicPlayer5Ptr->SetMusicVolume(0.6f * masterMusicControl);
+        musicPlayer4.SetMusicVolume(0.0f);
+        musicPlayer5.SetMusicVolume(volumeLevels[4] * masterMusicControl);
     }
 }
 
@@ -301,5 +300,68 @@ void gameScene::updateFirewallDirection() { //This algorithm checks horizontal o
                     enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY + 1) == 7)
                 enemies[i].movingStatus = Enemy::rightMove;
         }
+    }
+}
+
+gameScene::~gameScene() {
+    UnloadTexture(maptext);
+    //musicPlayer1.UnLoadMusic();
+    //musicPlayer2.UnLoadMusic();
+    //musicPlayer3.UnLoadMusic();
+    //musicPlayer4.UnLoadMusic();
+    //musicPlayer5.UnLoadMusic();
+}
+
+void gameScene::loadmusic(int _level) {
+
+    switch(_level){
+        case 0:
+            musicPlayer1.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part1.wav", MusicState::part_1);
+            musicPlayer2.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part2.wav", MusicState::part_2);
+            musicPlayer3.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part3.wav", MusicState::part_3);
+            musicPlayer4.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part4.wav", MusicState::part_4);
+            musicPlayer5.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part5.wav", MusicState::part_5);
+            volumeLevels[0] = 0.9f;
+            volumeLevels[1] = 0.8f;
+            volumeLevels[2] = 0.6f;
+            volumeLevels[3] = 0.6f;
+            volumeLevels[4] = 0.6f;
+            break;
+        case 1:
+            musicPlayer1.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part1.wav", MusicState::part_1);
+            musicPlayer2.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part2.wav", MusicState::part_2);
+            musicPlayer3.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part3.wav", MusicState::part_3);
+            musicPlayer4.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part4.wav", MusicState::part_4);
+            musicPlayer5.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part5.wav", MusicState::part_5);
+            volumeLevels[0] = 0.9f;
+            volumeLevels[1] = 0.8f;
+            volumeLevels[2] = 0.6f;
+            volumeLevels[3] = 0.6f;
+            volumeLevels[4] = 0.6f;
+            break;
+        case 2:
+            musicPlayer1.LoadMusic("assets/audio/tracks/level_3/cyberean_lvl3_part1.wav", MusicState::part_1);
+            musicPlayer2.LoadMusic("assets/audio/tracks/level_3/cyberean_lvl3_part2.wav", MusicState::part_2);
+            musicPlayer3.LoadMusic("assets/audio/tracks/level_3/cyberean_lvl3_part3.wav", MusicState::part_3);
+            musicPlayer4.LoadMusic("assets/audio/tracks/level_3/cyberean_lvl3_part4.wav", MusicState::part_4);
+            musicPlayer5.LoadMusic("assets/audio/tracks/level_3/cyberean_lvl3_part5.wav", MusicState::part_5);
+            volumeLevels[0] = 0.9f;
+            volumeLevels[1] = 0.8f;
+            volumeLevels[2] = 0.7f;
+            volumeLevels[3] = 0.7f;
+            volumeLevels[4] = 0.7f;
+            break;
+        case 3:
+            musicPlayer1.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part1.wav", MusicState::part_1);
+            musicPlayer2.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part2.wav", MusicState::part_2);
+            musicPlayer3.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part3.wav", MusicState::part_3);
+            musicPlayer4.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part4.wav", MusicState::part_4);
+            musicPlayer5.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part5.wav", MusicState::part_5);
+            volumeLevels[0] = 0.9f;
+            volumeLevels[1] = 0.8f;
+            volumeLevels[2] = 0.7f;
+            volumeLevels[3] = 0.7f;
+            volumeLevels[4] = 0.7f;
+            break;
     }
 }

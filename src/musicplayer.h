@@ -15,6 +15,11 @@ enum class MusicState {
     Lvl1_part3,
     Lvl1_part4,
     Lvl1_part5,
+    part_1,
+    part_2,
+    part_3,
+    part_4,
+    part_5,
     // Weitere Zustände hier hinzufügen, wenn nötig
 };
 
@@ -26,11 +31,19 @@ public:
 
     void LoadMusic(const std::string &filename, MusicState state);
 
+    void UnLoadMusic();
+
     void PlayMusic(MusicState state);
 
     void StopMusic();
 
+    void StopAllMusic();
+
+    void StopAllMusicExceptMainMenu();
+
     void SetMusicVolume(float volume);
+
+    void SetAllMusicVolume(float volume);
 
     void Update();
 

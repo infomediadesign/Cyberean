@@ -41,31 +41,20 @@ int main() {
     SoundPlayer soundPlayer;
 
     mainmenu themenu(&soundPlayer);
-    levelselect thelevelselect(&soundPlayer);
 
     MusicPlayer musicPlayermenu;
-    MusicPlayer musicPlayer1;
-    MusicPlayer musicPlayer2;
-    MusicPlayer musicPlayer3;
-    MusicPlayer musicPlayer4;
-    MusicPlayer musicPlayer5;
 
-    musicPlayermenu.LoadMusic("assets/audio/tracks/cyberean_mainmenu.wav", MusicState::MainMenu);
-    musicPlayermenu.LoadMusic("assets/audio/tracks/cyberean_lvl_1.wav", MusicState::Lvl1);
+    levelselect thelevelselect(&soundPlayer, &musicPlayermenu);
+
+    musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cyberean_mainmenu.wav", MusicState::MainMenu);
+
     musicPlayermenu.PlayMusic(MusicState::MainMenu);
-
-    musicPlayer1.LoadMusic("assets/audio/tracks/cyberean_lvl1_part1.wav", MusicState::Lvl1_part1);
-    musicPlayer2.LoadMusic("assets/audio/tracks/cyberean_lvl1_part2.wav", MusicState::Lvl1_part2);
-    musicPlayer3.LoadMusic("assets/audio/tracks/cyberean_lvl1_part3.wav", MusicState::Lvl1_part3);
-    musicPlayer4.LoadMusic("assets/audio/tracks/cyberean_lvl1_part4.wav", MusicState::Lvl1_part4);
-    musicPlayer5.LoadMusic("assets/audio/tracks/cyberean_lvl1_part5.wav", MusicState::Lvl1_part5);
-
 
     MusicState previousState = MusicState::MainMenu; // Variable zum Speichern des vorherigen Zustands
     MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
     //musicPlayermenu.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
 
-    gameScene* gs = nullptr;
+    std::unique_ptr<gameScene> gs = nullptr;
     //gameScene gs(0, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4, &musicPlayer5, &soundPlayer);
 
     // Main game loop
@@ -84,16 +73,16 @@ int main() {
         switch (state) {
             case mainMenu:
                 themenu.update(state);
+                musicPlayermenu.PlayMusic(MusicState::MainMenu);
+
                 break;
             case gameplay:
                 if (gs == nullptr) {
-                    gs = new gameScene(thelevelselect.level, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4,
-                                       &musicPlayer5, &soundPlayer);
+                    gs = std::make_unique<gameScene>(thelevelselect.level, &musicPlayermenu, &soundPlayer);
                 }
                 if(gs->restart == true){
                     gs = nullptr;
-                    gs = new gameScene(thelevelselect.level, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4,
-                                       &musicPlayer5, &soundPlayer);
+                    gs = std::make_unique<gameScene>(thelevelselect.level, &musicPlayermenu,  &soundPlayer);
                 }
                 gs->update(state);
                 break;
@@ -121,7 +110,7 @@ int main() {
                     themenu.draw();
                     themenu.buttons();
                     currentState = MusicState::MainMenu;
-                    musicPlayermenu.SetMusicVolume(masterMusicControl);
+                    musicPlayermenu.SetAllMusicVolume(masterMusicControl);
                     break;
                 case gameplay:
                     if (gs != nullptr && state == gameplay) {
@@ -133,6 +122,7 @@ int main() {
                     break;
                 case levelselection:
                     thelevelselect.draw();
+                    musicPlayermenu.SetAllMusicVolume(masterMusicControl);
                     break;
                 case pause:
                     break;
@@ -154,11 +144,7 @@ int main() {
         EndDrawing();
 
         musicPlayermenu.Update();
-        musicPlayer1.Update();
-        musicPlayer2.Update();
-        musicPlayer3.Update();
-        musicPlayer4.Update();
-        musicPlayer5.Update();
+
 
     } // Main game loop end
 
@@ -170,11 +156,6 @@ int main() {
     // Close window and OpenGL context
     CloseWindow();
     musicPlayermenu.StopMusic();
-    musicPlayer1.StopMusic();
-    musicPlayer2.StopMusic();
-    musicPlayer3.StopMusic();
-    musicPlayer4.StopMusic();
-    musicPlayer5.StopMusic();
 
     CloseAudioDevice();
 
