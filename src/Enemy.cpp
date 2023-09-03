@@ -58,6 +58,7 @@ void Enemy::update() {
     //Boulder and Bomb gravity Logic
     if (this->Type == boulder || this->Type == bomb) {
         bool bNextEnemiesIsBoulder = false;
+        bool bAboveBoulderIsEnemy = false;
         gravMoveCooldown--;
         if (canMoveTo(posX + gravityX, posY + gravityY) && gravMoveCooldown <= 0) {
             posY += gravityY;
@@ -74,15 +75,28 @@ void Enemy::update() {
         //Boulder rolling mechanic
         if (this->Type == boulder) {
             //Check if the enemy next to the boulder (in direction of gravity) is a boulder.
-            for (int i = 0; i < otherEnemies->size(); i++)
-                if ((*otherEnemies)[i].posX == posX + gravityX && (*otherEnemies)[i].posY == posY + gravityY &&
-                    (*otherEnemies)[i].Type == boulder) {
+            for (auto &otherEnemy: *otherEnemies) {
+                if (otherEnemy.posX == posX + gravityX && otherEnemy.posY == posY + gravityY &&
+                    otherEnemy.Type == boulder) {
                     bNextEnemiesIsBoulder = true;
                     break;
                 }
+            }
+            //Check if the boulder has an enemy above it of type: boulder , bomb
+            for (auto &otherEnemy: *otherEnemies) {
+                if (otherEnemy.posX == posX - gravityX && otherEnemy.posY == posY - gravityY &&
+                    (otherEnemy.Type == boulder || otherEnemy.Type == bomb)) {
+                    bAboveBoulderIsEnemy = true;
+                    break;
+                }
+            }
             //if next enemy is not a boulder -> don't fall next to it.
-            if (!bNextEnemiesIsBoulder) return;
-
+            //Stacks only when it falls on a boulder.
+            if (!bNextEnemiesIsBoulder)
+                return;
+            //Don't stack if there is a boulder or bomb above you.
+            if (bAboveBoulderIsEnemy)
+                return;
             if (gravityX != 0) {
                 if (canMoveTo(posX, posY + 1) && canMoveTo(posX + gravityX, posY + 1) && gravMoveCooldown <= 0) {
                     posY += 1;
