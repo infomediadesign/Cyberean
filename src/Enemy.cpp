@@ -99,28 +99,31 @@ void Enemy::update() {
                 return;
             if (gravityX != 0) {
                 if (canMoveTo(posX, posY + 1) && canMoveTo(posX + gravityX, posY + 1) && gravMoveCooldown <= 0) {
-                    posY += 1;
-                    gravMoveCooldown = gravMoveDelay;
-                    //Insert animation for data chan (counter clock wise) here:
-
+                    if (getGravityVal(posX, posY + 1 != 15)) {
+                        posY += 1;
+                        gravMoveCooldown = gravMoveDelay;
+                        //Insert animation for data chan (counter clock wise) here:
+                    }
                 } else if (canMoveTo(posX, posY - 1) && canMoveTo(posX + gravityX, posY - 1) && gravMoveCooldown <= 0) {
-                    posY -= 1;
-                    //Insert animation for data chan (clock wise) here:
-
-                    gravMoveCooldown = gravMoveDelay;
+                    if (getGravityVal(posX, posY - 1) != 16) {
+                        posY -= 1;
+                        gravMoveCooldown = gravMoveDelay;
+                        //Insert animation for data chan (clock wise) here:
+                    }
                 }
-
             } else if (gravityY != 0) {
                 if (canMoveTo(posX + 1, posY) && canMoveTo(posX + 1, posY + gravityY) && gravMoveCooldown <= 0) {
-                    posX += 1;
-                    //Insert animation for data chan (clock wise) here:
-
-                    gravMoveCooldown = gravMoveDelay;
+                    if (getGravityVal(posX + 1, posY) != 17) {
+                        posX += 1;
+                        gravMoveCooldown = gravMoveDelay;
+                        //Insert animation for data chan (clock wise) here:
+                    }
                 } else if (canMoveTo(posX - 1, posY) && canMoveTo(posX - 1, posY + gravityY) && gravMoveCooldown <= 0) {
-                    posX -= 1;
-                    //Insert animation for data chan (counter clock wise) here:
-
-                    gravMoveCooldown = gravMoveDelay;
+                    if (getGravityVal(posX - 1, posY) != 18) {
+                        posX -= 1;
+                        gravMoveCooldown = gravMoveDelay;
+                        //Insert animation for data chan (counter clock wise) here:
+                    }
                 }
             }
         }
@@ -138,10 +141,14 @@ void Enemy::update() {
                         if (!canMoveTo(posX + 1, posY - 1)) {
                             posY--;
                             movingStatus = upMove;
-                        } else {
-                            posY++;
-                            movingStatus = downMove;
-                        }
+                        } else if (canMoveTo(posX, posY + 1)) {
+                            if (!canMoveTo(posX + 1, posY + 1)) {
+                                posY++;
+                                movingStatus = downMove;
+                            } else
+                                movingStatus = lookingLeftForWall;
+                        } else
+                            movingStatus = lookingLeftForWall;
                     } else if (canMoveTo(posX - 1, posY)) {
                         posX--;
                         movingStatus = leftMove;
@@ -471,4 +478,8 @@ void Enemy::explodeBomb(int x, int y) {
     bombRemoveCover(x + 1, y - 1);
     bombRemoveCover(x + 1, y);
     bombRemoveCover(x + 1, y + 1);
+}
+
+int Enemy::getGravityVal(int x, int y) {
+    return theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x];
 }
