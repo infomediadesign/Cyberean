@@ -3,11 +3,9 @@
 void cutscene::update(globalState &globalState) {
     if (currentTextIndex < currentFullText.length()) {
         if (IsKeyPressed(KEY_ENTER)) {
-            // Wenn Enter gedrückt wird, zeigen Sie den gesamten Text auf einmal an.
             currentText = currentFullText;
             currentTextIndex = currentFullText.length();
         } else if (textTimer >= textSpeed) {
-            // Ansonsten zeigen Sie den Text buchstabenweise an.
             currentText += currentFullText[currentTextIndex];
             currentTextIndex++;
             textTimer = 0;
@@ -15,11 +13,8 @@ void cutscene::update(globalState &globalState) {
             textTimer++;
         }
     } else {
-        // Die Cutscene ist abgeschlossen.
         if (IsKeyPressed(KEY_ENTER)) {
-            // Hier können Sie zur nächsten Szene wechseln oder das Spiel starten, je nach Bedarf.
             if (whichcutscene == 0) {
-                // Wechseln zur zweiten Cutscene
                 whichcutscene++;
                 currentFullText = fullText;
                 ResetCutscene();
@@ -28,7 +23,6 @@ void cutscene::update(globalState &globalState) {
                 currentFullText = fullText2;
                 ResetCutscene();
             }else if(whichcutscene == 2){
-                // Wechseln zur nächsten Szene oder zum Hauptmenü
                 globalState = mainMenu;
             }
         }
@@ -36,8 +30,6 @@ void cutscene::update(globalState &globalState) {
 }
 
 void cutscene::draw() {
-    // Zeichnen Sie hier den Hintergrund (textbox_1.png) und den aktuellen Text.
-    // Sie können die Zeichenposition und -größe entsprechend anpassen.
     DrawTexture(background, 0, 0, WHITE);
     DrawText(currentText.c_str(), textX, textY, fontSize, textColor);
 }
@@ -54,17 +46,14 @@ cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     musicPlayerPtr = musicPlayer;
 
     musicPlayerPtr->StopMusic();
-    // Laden Sie hier alle erforderlichen Ressourcen für Ihre Cutscenes.
-    // Zum Beispiel: Hintergründe, Texte, etc.
+
     background = LoadTexture("assets/screens/cutscene_screen/Textbox_1.png");
     fontSize = 24;
     textColor = WHITE;
 
-    // Initialisieren Sie die Cutscene-Steuerung.
     whichcutscene = 0;
     cutsceneFinished = false;
 
-    // Hier legen Sie den Text für die erste Cutscene fest.
     currentFullText =
             "*BZZZ* *BZZZ* *BZZZ*\n"
             "The uncomfy sound of your antiquated alarm clock puts an end to your\n"
@@ -93,7 +82,7 @@ cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     textX = 200;
     textY = 660;
     currentText = "";
-    textSpeed = 1; // Geschwindigkeit, mit der der Text erscheint (Buchstabe pro Frame).
+    textSpeed = 1;
 
     currentTextIndex = 0;
     textTimer = 0;
