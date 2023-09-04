@@ -34,6 +34,8 @@ int main() {
     float renderScale{}; //those two are relevant to drawing and code-cleanliness
     Rectangle renderRec{};
 
+    SetExitKey(0);
+
     bool isMusicPlaying = false;
 
     globalState state = mainMenu;
@@ -127,7 +129,11 @@ int main() {
                         gs->draw();
                     }
                     if (gs == nullptr && state == gameplay) {
-                        thelevelselect.draw();
+                        if(thecutscene.cutsceneaktiv == false){
+                            thelevelselect.draw();
+                        }else{
+                            thecutscene.draw();
+                        }
                     }
                     break;
                 case levelselection:

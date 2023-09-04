@@ -22,15 +22,41 @@ public:
     SoundPlayer *soundplayerPtr;
     MusicPlayer *musicPlayerPtr;
 
-    Texture2D background;
+    Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/Textbox_1.png");
+    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/Textbox_2.png");
+    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/Textbox_3.png");
+    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/Textbox_4.png");
+
+    Texture2D Igor = LoadTexture("assets/screens/cutscene_screen/Igor.png");
+    Texture2D Igor_name = LoadTexture("assets/screens/cutscene_screen/Igor_name.png");
+    Texture2D Vasily = LoadTexture("assets/screens/cutscene_screen/vasily.png");
+    Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");
+
+
     int fontSize;
     Color textColor;
 
-    int whichcutscene;
-    bool cutsceneFinished;
+    int textpart;
+    int background = 1;
+    bool igorname = false;
+    bool vasilyname = false;
+    bool igor = false;
+    bool vasily = true;
+    bool cutsceneaktiv = false;
 
     std::string fullText;
     std::string fullText2;
+    std::string fullText3;
+    std::string fullText4;
+    std::string fullText5;
+    std::string fullText6;
+    std::string fullText7;
+    std::string fullText8;
+    std::string fullText9;
+    std::string fullText10;
+    std::string fullText11;
+    std::string fullText12;
+
     std::string currentText;
     std::string currentFullText;
     int textX, textY;
