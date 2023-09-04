@@ -84,11 +84,11 @@ public:
 
     void deleteEnemy(int posX, int posY); //kill and reset cell in a certain position.
 
-    void clearEnemyCanvas(); //clear all enemies and boulders from the canvas.
-
     void explodeBomb(int x, int y);
 
     void bombRemoveCover(int x, int y);
+
+    int getGravityVal(int x, int y);
 
     ~Enemy() {}
 

@@ -66,10 +66,10 @@ void gameobject::update(gameScene &scene) {
     }
 
     //Activate/Deactivate Gravity Switch
-    if (playerPtr->posX == posX && playerPtr->posY == posY && playerOnSwitch == false && ID >= 8 && ID <= 11) {
+    if (playerPtr->posX == posX && playerPtr->posY == posY && !playerOnSwitch && ID >= 8 && ID <= 11) {
         switch (ID) {
             case 8:{
-                if (isActive == false) {
+                if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
                         if (&otherSwitch != this && otherSwitch.ID == 8) {
@@ -89,7 +89,7 @@ void gameobject::update(gameScene &scene) {
                 break;
             }
             case 9:{
-                if (isActive == false) {
+                if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
                         if (&otherSwitch != this && otherSwitch.ID == 9) {
@@ -109,7 +109,7 @@ void gameobject::update(gameScene &scene) {
                 break;
             }
             case 10:{
-                if (isActive == false) {
+                if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
                         if (&otherSwitch != this && otherSwitch.ID == 10) {
@@ -129,7 +129,7 @@ void gameobject::update(gameScene &scene) {
                 break;
             }
             case 11:{
-                if (isActive == false) {
+                if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
                         if (&otherSwitch != this && otherSwitch.ID == 11) {

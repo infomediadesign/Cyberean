@@ -34,13 +34,6 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_selina.png");
 
     }
-    //themap = t.parse("assets/level_1.tmj");
-    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
-    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
-    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_viktor.png");
-    //themap = t.parse("assets/blue_tileset_level_1_viktor.tmj");
-    //maptext = LoadTexture("assets/blue_tileset_level_1_viktor.png");
-
 
     //Folder accessed levels:
     //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
