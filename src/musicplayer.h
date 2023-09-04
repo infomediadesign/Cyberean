@@ -9,17 +9,12 @@
 
 enum class MusicState {
     MainMenu,
-    Lvl1,
-    Lvl1_part1,
-    Lvl1_part2,
-    Lvl1_part3,
-    Lvl1_part4,
-    Lvl1_part5,
     part_1,
     part_2,
     part_3,
     part_4,
     part_5,
+    credits,
     // Weitere Zustände hier hinzufügen, wenn nötig
 };
 

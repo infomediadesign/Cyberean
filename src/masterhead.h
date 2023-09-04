@@ -12,7 +12,9 @@ enum globalState {
     mainMenu,
     gameplay,
     levelselection,
-    pause
+    pause,
+    creditsscreen,
+    cutscenescreen
 };
 
 #endif //RAYLIBSTARTER_MASTERHEAD_H

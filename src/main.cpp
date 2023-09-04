@@ -12,6 +12,8 @@
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
 #include "levelselect.h"
+#include "credits.h"
+#include "cutscene.h"
 
 int main() {
     // Raylib initialization
@@ -45,8 +47,11 @@ int main() {
     MusicPlayer musicPlayermenu;
 
     levelselect thelevelselect(&soundPlayer, &musicPlayermenu);
+    credits thecredits(&soundPlayer, &musicPlayermenu);
+    cutscene thecutscene(&soundPlayer, &musicPlayermenu);
 
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cyberean_mainmenu.wav", MusicState::MainMenu);
+    musicPlayermenu.LoadMusic("assets/audio/tracks/misc/credits.wav", MusicState::credits);
 
     musicPlayermenu.PlayMusic(MusicState::MainMenu);
 
@@ -89,8 +94,13 @@ int main() {
             case levelselection:
                 thelevelselect.update(state);
                 break;
-            case pause:
-                //pause();
+            case creditsscreen:
+                thecredits.update(state);
+                break;
+            case cutscenescreen:
+                thecutscene.update(state);
+                break;
+            default:
                 break;
         }
 
@@ -104,7 +114,7 @@ int main() {
         // For the letterbox we draw on canvas instead
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas.
-            ClearBackground(ColorFromHSV(time(nullptr), 1, 1));
+            ClearBackground(BLACK);
             switch (state) {
                 case mainMenu:
                     themenu.draw();
@@ -123,7 +133,13 @@ int main() {
                 case levelselection:
                     thelevelselect.draw();
                     break;
-                case pause:
+                case creditsscreen:
+                    thecredits.draw();
+                    break;
+                case cutscenescreen:
+                    thecutscene.draw();
+                    break;
+                default:
                     break;
             }
         }

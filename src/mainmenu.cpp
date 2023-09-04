@@ -3,34 +3,39 @@
 void mainmenu::update(globalState &globalState) {
 
     if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+        soundplayerPtr->menuEnter_sound();
         switch (cursor) {
             case 0:
-                soundplayerPtr->menuEnter_sound();
-                globalState = levelselection;
-
+                globalState = cutscenescreen;
                 break;
             case 1:
-                CloseWindow();
+                globalState = levelselection;
+                break;
             case 2:
+                globalState = creditsscreen;
+
+                break;
+            case 3:
+                CloseWindow();
+                break;
+            case 4:
                 if(_musicconfig == false){
                     _musicconfig = true;
                 }else{
                     _musicconfig = false;
                 }
-                soundplayerPtr->menuEnter_sound();
-
                 break;
-            case 3:
+            case 5:
                 if(_soundconfig == false){
                     _soundconfig = true;
                 }else{
                     _soundconfig = false;
                 }
-                soundplayerPtr->menuEnter_sound();
+                break;
+            default:
                 break;
         }
     }
-
 
     if(_musicconfig == true){
         musicconfig();
@@ -50,27 +55,27 @@ void mainmenu::update(globalState &globalState) {
             soundplayerPtr->menuControll2_sound();
         }
         if (cursor < 0) {
-            cursor = 3;
+            cursor = 5;
         }
 
-        if (cursor > 3) {
+        if (cursor > 5) {
             cursor = 0;
         }
 
         if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
-            if (cursor == 2) {
-                cursor = 3;
+            if (cursor == 4) {
+                cursor = 5;
                 soundplayerPtr->menuControll_sound();
-            } else if (cursor == 3) {
-                cursor = 2;
+            } else if (cursor == 5) {
+                cursor = 4;
                 soundplayerPtr->menuControll_sound();
             }
         } else if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
-            if (cursor == 2) {
-                cursor = 3;
+            if (cursor == 4) {
+                cursor = 5;
                 soundplayerPtr->menuControll2_sound();
-            } else if (cursor == 3) {
-                cursor = 2;
+            } else if (cursor == 5) {
+                cursor = 4;
                 soundplayerPtr->menuControll2_sound();
             }
         }
@@ -80,7 +85,7 @@ void mainmenu::update(globalState &globalState) {
 }
 
 void mainmenu::draw() {
-    DrawTexture(background, 0, 0, WHITE);
+    DrawTexture(background, 0, -50, WHITE);
     //DrawTexture(windowsoli,0,0,WHITE);
 }
 
@@ -89,10 +94,12 @@ bool mainmenu::IsMusicMuted() {
 }
 
 void mainmenu::buttons() {
-    DrawTexture(Start, 368, 500, WHITE);
-    DrawTexture(Exit, 368, 600, WHITE);
-    DrawTexture(music,0, 750,WHITE);
-    DrawTexture(_sound,650, 750,WHITE);
+    DrawTexture(Start, 368, 400, WHITE);
+    DrawTexture(level_select,335, 500, WHITE);
+    DrawTexture(credits,337,610,WHITE);
+    DrawTexture(Exit, 368, 722, WHITE);
+    DrawTexture(music,0, 850,WHITE);
+    DrawTexture(_sound,650, 850,WHITE);
     /*if (sound == true) {
         DrawTexture(Unmuted_dunkel, 368, 700, WHITE);
     } else {
@@ -100,44 +107,36 @@ void mainmenu::buttons() {
     }*/
     switch (cursor) {
         case 0:
-            DrawTexture(Start_markiert, 368, 500, WHITE);
+            DrawTexture(Start_markiert, 368, 400, WHITE);
             break;
         case 1:
-            DrawTexture(Exit_markiert, 368, 600, WHITE);
+            DrawTexture(level_select_markiert, 335, 500, WHITE);
             break;
         case 2:
-            if(_musicconfig){
-                DrawTexture(music_markiert_ausgewaehlt,0, 750,WHITE);
-            }else{
-                DrawTexture(music_markiert,0, 750,WHITE);
-            }
-            /*switch (sound) {
-                case (true):
-                    DrawTexture(Unmuted, 368, 700, WHITE);
-                    if (IsKeyPressed(KEY_ENTER) && sound == true) {
-                        sound = false;
-                    }
-                    break;
-                case (false):
-                    DrawTexture(Muted, 368, 700, WHITE);
-                    if (IsKeyPressed(KEY_ENTER) && sound == false) {
-                        sound = true;
-                    }
-                    break;
-            }*/
+            DrawTexture(credits_markiert,337,610,WHITE);
             break;
         case 3:
-            if(_soundconfig){
-                DrawTexture(sound_markiert_ausgewaehlt,650, 750,WHITE);
+            DrawTexture(Exit_markiert, 368, 722, WHITE);
+            break;
+        case 4:
+            if(_musicconfig){
+                DrawTexture(music_markiert_ausgewaehlt,0, 850,WHITE);
             }else{
-                DrawTexture(sound_markiert,650, 750,WHITE);
+                DrawTexture(music_markiert,0, 850,WHITE);
+            }
+            break;
+        case 5:
+            if(_soundconfig){
+                DrawTexture(sound_markiert_ausgewaehlt,650, 850,WHITE);
+            }else{
+                DrawTexture(sound_markiert,650, 850,WHITE);
             }
             break;
         default:
             break;
     }
-    DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 771,WHITE);
-    DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 771,WHITE);
+    DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 871,WHITE);
+    DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 871,WHITE);
 }
 
 mainmenu::mainmenu(SoundPlayer *soundplayer) {
@@ -158,6 +157,7 @@ void mainmenu::musicconfig() {
             soundplayerPtr->menuControll2_sound();
         }
     }
+
 }
 
 void mainmenu::soundconfig() {

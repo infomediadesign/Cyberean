@@ -48,6 +48,10 @@ public:
     Texture2D sound_markiert = LoadTexture("assets/screens/menu_screen/sound_markiert.png");
     Texture2D sound_markiert_ausgewaehlt = LoadTexture("assets/screens/menu_screen/sound_markiert_ausgewaehlt.png");
     Texture2D strich = LoadTexture("assets/screens/menu_screen/Strich.png");
+    Texture2D credits = LoadTexture("assets/screens/menu_screen/Credits.png");
+    Texture2D credits_markiert = LoadTexture("assets/screens/menu_screen/Credits_markiert.png");
+    Texture2D level_select = LoadTexture("assets/screens/menu_screen/Level_select.png");
+    Texture2D level_select_markiert = LoadTexture("assets/screens/menu_screen/Level_select_markiert.png");
 
 };
 
