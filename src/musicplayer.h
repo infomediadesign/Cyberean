@@ -15,6 +15,7 @@ enum class MusicState {
     part_4,
     part_5,
     credits,
+    cutscene,
     // Weitere Zustände hier hinzufügen, wenn nötig
 };
 

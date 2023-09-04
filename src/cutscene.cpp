@@ -1,6 +1,8 @@
 #include "cutscene.h"
 
 void cutscene::update(globalState &globalState) {
+    musicPlayerPtr->PlayMusic(MusicState::cutscene);
+
     if (currentTextIndex < currentFullText.length()) {
         if (IsKeyPressed(KEY_ENTER)) {
             currentText = currentFullText;
@@ -84,7 +86,8 @@ void cutscene::update(globalState &globalState) {
                     break;
                 case 12:
                     textpart = 0;
-
+                    musicPlayerPtr->PlayMusic(MusicState::MainMenu);
+                    musicPlayerPtr->StopMusic();
                     globalState = gameplay;
                     break;
                 default:
@@ -99,6 +102,7 @@ void cutscene::update(globalState &globalState) {
             }*/
         }
     }
+    musicPlayerPtr->Update();
 }
 
 void cutscene::draw() {
@@ -146,8 +150,6 @@ void cutscene::ResetCutscene() {
 cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     soundplayerPtr = soundplayer;
     musicPlayerPtr = musicPlayer;
-
-    musicPlayerPtr->StopMusic();
 
     fontSize = 24;
     textColor = WHITE;

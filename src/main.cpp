@@ -54,6 +54,8 @@ int main() {
 
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cyberean_mainmenu.wav", MusicState::MainMenu);
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/credits.wav", MusicState::credits);
+    musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cutscenes.wav", MusicState::cutscene);
+
 
     musicPlayermenu.PlayMusic(MusicState::MainMenu);
 
