@@ -131,16 +131,16 @@ player::player(SoundPlayer *soundPlayer) {
             posY = 12;
             break;
         case 1:
-            posX = 19;
-            posY = 14;
+            posX = 18;
+            posY = 12;
             break;
         case 2:
-            posX = 19;
-            posY = 14;
+            posX = 14;
+            posY = 13;
             break;
         case 3:
-            posX = 19;
-            posY = 14;
+            posX = 16;
+            posY = 15;
             break;
     }
 }
