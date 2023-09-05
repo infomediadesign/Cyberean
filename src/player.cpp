@@ -125,6 +125,24 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
 
 player::player(SoundPlayer *soundPlayer) {
     soundplayerPtr = soundPlayer;
+    switch(masterlevel){
+        case 0:
+            posX = 19;
+            posY = 12;
+            break;
+        case 1:
+            posX = 19;
+            posY = 14;
+            break;
+        case 2:
+            posX = 19;
+            posY = 14;
+            break;
+        case 3:
+            posX = 19;
+            posY = 14;
+            break;
+    }
 }
 
 void player::checkIfBombShovable(int direction) {

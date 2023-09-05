@@ -9,7 +9,7 @@ void levelselect::update(globalState &globalState) {
         soundplayerPtr->menuEnter_sound();
         switch (cursor) {
             case 0:
-                level = 0;
+                masterlevel = 0;
                 musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
                 break;
@@ -23,7 +23,7 @@ void levelselect::update(globalState &globalState) {
                 break;
 
             case 2:
-                level = 1;
+                masterlevel = 1;
                 musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
                 break;
@@ -37,7 +37,7 @@ void levelselect::update(globalState &globalState) {
                 musicPlayerPtr->PlayMusic(MusicState::part_2);
                 break;
             case 4:
-                level = 2;
+                masterlevel = 2;
                 musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
 
@@ -51,7 +51,7 @@ void levelselect::update(globalState &globalState) {
                 musicPlayerPtr->PlayMusic(MusicState::part_3);
                 break;
             case 6:
-                level = 3;
+                masterlevel = 3;
                 musicPlayerPtr->StopAllMusic();
                 globalState = gameplay;
                 break;

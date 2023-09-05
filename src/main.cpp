@@ -87,11 +87,11 @@ int main() {
                 break;
             case gameplay:
                 if (gs == nullptr) {
-                    gs = std::make_unique<gameScene>(thelevelselect.level, &musicPlayermenu, &soundPlayer);
+                    gs = std::make_unique<gameScene>(masterlevel, &musicPlayermenu, &soundPlayer);
                 }
                 if(gs->restart == true){
                     gs = nullptr;
-                    gs = std::make_unique<gameScene>(thelevelselect.level, &musicPlayermenu,  &soundPlayer);
+                    gs = std::make_unique<gameScene>(masterlevel, &musicPlayermenu,  &soundPlayer);
                 }
                 gs->update(state);
                 break;

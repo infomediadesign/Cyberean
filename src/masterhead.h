@@ -17,4 +17,6 @@ enum globalState {
     cutscenescreen
 };
 
+extern int masterlevel;
+
 #endif //RAYLIBSTARTER_MASTERHEAD_H
