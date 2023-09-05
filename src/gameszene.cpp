@@ -67,7 +67,7 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
 void gameScene::draw() {
     drawLayer("Background");
     drawLayer("Traces");
-    //drawLayer("Deco");
+    drawLayer("Deco");
     drawLayer("Overlay");
     drawCover();
     for (Enemy e: enemies) {
@@ -272,7 +272,7 @@ void gameScene::increaseCollectedObjectsCount() {
     collectedObjectsCount++; // Erhöhe den Zähler für gesammelte GameObjects
     soundPlayerPtr->playerNote_sound();
     if (collectedObjectsCount == 4 && counter == 0) {
-        //soundPlayerPtr->all4Notes();
+        soundPlayerPtr->all4Notes();
         counter++;
     }
 }

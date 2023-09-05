@@ -23,7 +23,7 @@ class player {
 public:
     int life = 3;
     int posX = 19;
-    int posY = 14;
+    int posY = 12;
 
     float age = 0; //Frame counter
 

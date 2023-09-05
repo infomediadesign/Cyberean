@@ -21,7 +21,7 @@ gameobject::gameobject(int ID, int posX, int posY, player *playerPtr, std::vecto
     textureSource.width = 32;
     textureSource.height = 32;
 
-    overlayTexture = LoadTexture("assets/switch_gravity_down.png");
+    overlayTexture = LoadTexture("assets/gravity/gravity_button_down.png");
 
     /*switch(ID)
     {
