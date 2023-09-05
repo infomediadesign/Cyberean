@@ -1,6 +1,8 @@
 #include "cutscene.h"
 
 void cutscene::update(globalState &globalState) {
+    musicPlayerPtr->PlayMusic(MusicState::cutscene);
+
     if (currentTextIndex < currentFullText.length()) {
         if (IsKeyPressed(KEY_ENTER)) {
             currentText = currentFullText;
@@ -14,23 +16,128 @@ void cutscene::update(globalState &globalState) {
         }
     } else {
         if (IsKeyPressed(KEY_ENTER)) {
-            if (whichcutscene == 0) {
-                whichcutscene++;
-                currentFullText = fullText;
-                ResetCutscene();
-            } else if (whichcutscene == 1) {
-                whichcutscene++;
-                currentFullText = fullText2;
-                ResetCutscene();
-            }else if(whichcutscene == 2){
-                globalState = mainMenu;
+            switch(textpart){
+                case 0:
+                    textpart++;
+                    currentFullText = fullText;
+                    ResetCutscene();
+                    break;
+                case 1:
+                    textpart++;
+                    currentFullText = fullText2;
+                    ResetCutscene();
+                    cutsceneaktiv = true;
+                    break;
+                case 2:
+                    textpart++;
+                    currentFullText = fullText3;
+                    ResetCutscene();
+                    break;
+                case 3:
+                    textpart++;
+                    currentFullText = fullText4;
+                    ResetCutscene();
+                    break;
+                case 4:
+                    textpart++;
+                    currentFullText = fullText5;
+                    igor = true;
+                    igorname = true;
+                    background = 3;
+                    ResetCutscene();
+                    break;
+                case 5:
+                    textpart++;
+                    currentFullText = fullText6;
+                    ResetCutscene();
+                    break;
+                case 6:
+                    textpart++;
+                    currentFullText = fullText7;
+                    ResetCutscene();
+                    break;
+                case 7:
+                    textpart++;
+                    currentFullText = fullText8;
+                    ResetCutscene();
+                    break;
+                case 8:
+                    textpart++;
+                    currentFullText = fullText9;
+                    ResetCutscene();
+                    break;
+                case 9:
+                    textpart++;
+                    currentFullText = fullText10;
+                    igor = false;
+                    igorname = false;
+                    background = 1;
+                    ResetCutscene();
+                    break;
+                case 10:
+                    textpart++;
+                    currentFullText = fullText11;
+                    ResetCutscene();
+                    break;
+                case 11:
+                    textpart++;
+                    currentFullText = fullText12;
+                    ResetCutscene();
+                    break;
+                case 12:
+                    textpart = 0;
+                    musicPlayerPtr->PlayMusic(MusicState::MainMenu);
+                    musicPlayerPtr->StopMusic();
+                    globalState = gameplay;
+                    break;
+                default:
+                    break;
             }
+            /*if (textpart == 0) {
+
+            } else if (textpart == 1) {
+
+            }else if(textpart == 2){
+
+            }*/
         }
     }
+    musicPlayerPtr->Update();
 }
 
 void cutscene::draw() {
-    DrawTexture(background, 0, 0, WHITE);
+    switch(background){
+        case 0:
+            DrawTexture(background_1, 0, 0, WHITE);
+            break;
+        case 1:
+            DrawTexture(background_2, 0, 0, WHITE);
+            break;
+        case 2:
+            DrawTexture(background_3, 0, 0, WHITE);
+            break;
+        case 3:
+            DrawTexture(background_4, 0, 0, WHITE);
+            break;
+        default:
+            break;
+    }
+    if(vasilyname){
+       DrawTexture(Vasily_name, 217, 585, WHITE);
+    }
+
+    if(igorname){
+        DrawTexture(Igor_name, 217, 585, WHITE);
+    }
+
+    if(vasily){
+        DrawTexture(Vasily, 230, 220, WHITE);
+    }
+
+    if(igor){
+        DrawTexture(Igor, 860, 220, WHITE);
+    }
+
     DrawText(currentText.c_str(), textX, textY, fontSize, textColor);
 }
 
@@ -38,21 +145,16 @@ void cutscene::ResetCutscene() {
     currentText = "";
     textTimer = 0;
     currentTextIndex = 0;
-    cutsceneFinished = false;
 }
 
 cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     soundplayerPtr = soundplayer;
     musicPlayerPtr = musicPlayer;
 
-    musicPlayerPtr->StopMusic();
-
-    background = LoadTexture("assets/screens/cutscene_screen/Textbox_1.png");
     fontSize = 24;
     textColor = WHITE;
 
-    whichcutscene = 0;
-    cutsceneFinished = false;
+    textpart = 0;
 
     currentFullText =
             "*BZZZ* *BZZZ* *BZZZ*\n"
@@ -77,7 +179,64 @@ cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
             "You get up, force yourself to grab some cereal from the kitchen.\n"
             "A message has made it through your multi-layered anti-spam filter.\n"
             "But yeah, something's definitely off today.";
-
+    fullText3 =
+            "Anyways, you decide to reward the effort by actually reading the mail\n"
+            "this time...It's from Igor...Somehow.\n"
+            "You hadn't heard from your old mate in years.\n"
+            "A quick glance over to one of the old band posters scattered all over\n"
+            "your wall of - now accursed - memorabilia reminds you of how he used\n"
+            "to be; used to look like. What could he want after all that time?";
+    fullText4 =
+            " - - - ";
+    fullText5 =
+            "Vasily\n"
+            "\n"
+            "It's been a while, comrade.\n"
+            "Things between all of us got complicated, I do know that.\n"
+            "But I think to know you, deep down, are a good man and friend, Vasily.\n"
+            "That's why I come to you now.";
+    fullText6 =
+            "Maybe you listen to our old songs sometimes.\n"
+            "You can't anymore.\n"
+            "They were wiped from the net earlier this week.";
+    fullText7 =
+            "And I haven't found anything regarding the others since then, either.\n"
+            "Only you got your fan mail account still running it seems.\n"
+            "You know me; I can handle my own matters.\n"
+            "But the others and you might be in trouble.\n"
+            "I'd like to have you by my side now.\n"
+            "And then maybe we can find the others.";
+    fullText8 =
+            "I got a friend of mine to create a this little something for me.\n"
+            "You can link yourself up into cyberspace and follow the trails to find me.\n"
+            "If you do still care, Vasya.\n"
+            "(Threw some music in for old time's sake.)";
+    fullText9 =
+            "Hope to see you soon,\n"
+            "Igor\n"
+            "\n"
+            "\n"
+            "- - -";
+    fullText10 =
+            "Well, that at least explains what was missing earlier.Now you realise\n"
+            "that your band's tracks were all gone from your playlists.\n"
+            "\n"
+            "But what to do now?\n"
+            "Follow Igor's trail?";
+    fullText11 =
+            "Directly entering whatever was left by now of the cyberspace is not\n"
+            "what one would consider `safe` - for various reasons.\n"
+            "The government had run down a multitude of things,\n"
+            "including the grand virtual spaces of old. You even know - or knew - some\n"
+            "of the guys responsible for its current state...You glance over to the\n"
+            "band posters again, Koshka on them hiding behind his mask as always...";
+    fullText12 =
+            "And maybe you do still care.\n"
+            "After all.\n"
+            "Another night in cyberspace it is...\n"
+            "\n"
+            "\n"
+            ">>> FOLLOW IGOR'S TRAIL <<<";
 
     textX = 200;
     textY = 660;

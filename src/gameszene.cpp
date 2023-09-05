@@ -61,7 +61,7 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
     soundPlayerPtr = soundPlayer;
 
     loadmusic(level);
-
+    musicPlayerPtr->StopMusic();
 }
 
 void gameScene::draw() {

@@ -34,6 +34,8 @@ int main() {
     float renderScale{}; //those two are relevant to drawing and code-cleanliness
     Rectangle renderRec{};
 
+    SetExitKey(0);
+
     bool isMusicPlaying = false;
 
     globalState state = mainMenu;
@@ -52,6 +54,8 @@ int main() {
 
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cyberean_mainmenu.wav", MusicState::MainMenu);
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/credits.wav", MusicState::credits);
+    musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cutscenes.wav", MusicState::cutscene);
+
 
     musicPlayermenu.PlayMusic(MusicState::MainMenu);
 
@@ -127,7 +131,11 @@ int main() {
                         gs->draw();
                     }
                     if (gs == nullptr && state == gameplay) {
-                        thelevelselect.draw();
+                        if(thecutscene.cutsceneaktiv == false){
+                            thelevelselect.draw();
+                        }else{
+                            thecutscene.draw();
+                        }
                     }
                     break;
                 case levelselection:
