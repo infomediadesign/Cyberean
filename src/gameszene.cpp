@@ -100,13 +100,14 @@ void gameScene::draw() {
     }
     theplayer.draw();
     drawCollectedObjectsCount();
+    DrawTexture(levelnumber,528,862,WHITE);
+    DrawTexture(threelives, 960, 862, WHITE);
 
     if(pause == true){
         mypause.draw();
         mypause.buttons();
     }
-    DrawTexture(levelnumber,528,862,WHITE);
-    DrawTexture(threelives, 960, 862, WHITE);
+
 }
 
 void gameScene::drawLayer(const std::string &layer) {
