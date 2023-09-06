@@ -49,6 +49,16 @@ public:
     MusicPlayer musicPlayer4;
     MusicPlayer musicPlayer5;
 
+    Texture2D onelives;
+    Texture2D twolives;
+    Texture2D threelives;
+    Texture2D zeronotes;
+    Texture2D onenotes;
+    Texture2D twonotes;
+    Texture2D threenotes;
+    Texture2D fournotes;
+    Texture2D levelnumber;
+
     gameScene(int Level, MusicPlayer *musicPlayerPtr, SoundPlayer *soundPlayer);
 
     ~gameScene();
