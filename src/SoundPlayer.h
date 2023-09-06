@@ -19,6 +19,7 @@ public:
     Sound cover;
     Sound button;
     Sound all4notes;
+    Sound death;
     bool mastersound = true;
     float mastersoundvolume = 1.0f;
 
@@ -33,6 +34,7 @@ public:
     void playerNote_sound();
     void playerCover_sound();
     void playerButton_sound();
+    void playerDeath_sound();
     void all4Notes();
 };
 

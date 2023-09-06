@@ -16,6 +16,7 @@ enum EnumType{
     firewall,
     rogueAntivirus,
     bomb,
+    malware,
     unknown
 };
 class player;
@@ -83,6 +84,8 @@ public:
     bool neighborExist360();
 
     void deleteEnemy(int posX, int posY); //kill and reset cell in a certain position.
+
+    bool checkExplosionCell(int x,int y);
 
     void explodeBomb(int x, int y);
 

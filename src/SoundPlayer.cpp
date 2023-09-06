@@ -19,6 +19,7 @@ SoundPlayer::SoundPlayer() {
     note = LoadSound("assets/audio/sfx/note.wav");
     button = LoadSound("assets/audio/sfx/button.wav");
     all4notes = LoadSound("assets/audio/sfx/allnotes.wav");
+    death = LoadSound("assets/audio/sfx/death.wav");
 }
 
 SoundPlayer::~SoundPlayer() {
@@ -64,4 +65,8 @@ void SoundPlayer::all4Notes() {
 void SoundPlayer::menuControll2_sound() {
     SetSoundVolume(menucontroll2, masterSoundControl);
     PlaySound(menucontroll2);
+}
+void SoundPlayer::playerDeath_sound() {
+    SetSoundVolume(death,masterSoundControl);
+    PlaySound(death);
 }

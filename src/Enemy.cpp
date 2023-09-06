@@ -31,9 +31,9 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
             if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 19)
                 firewallMoveDelay = 15; //firewall movement speed (Fastest firewall of size 1x2)
             if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 20)
-                firewallMoveDelay = 20;
+                firewallMoveDelay = 20; //firewall size 1x3
             if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 21)
-                firewallMoveDelay = 25;
+                firewallMoveDelay = 25; //firewall size 1x4
             break;
         case 4:
             this->Type = rogueAntivirus;
@@ -65,8 +65,10 @@ void Enemy::update() {
             posX += gravityX;
             consecMoves++;
             gravMoveCooldown = gravMoveDelay;
-            return;
-        } else if ((this->Type == bomb && consecMoves == 1 && gravMoveCooldown <= 0)) {
+            //return;
+        } else if (this->Type == boulder && consecMoves >= 1 && gravMoveCooldown <= 0) {
+            consecMoves = 0;
+        } else if (this->Type == bomb && consecMoves == 1 && gravMoveCooldown <= 0) {
             consecMoves = 0;
         } else if (this->Type == bomb && consecMoves >= 2 && gravMoveCooldown <= 0) {
             explodeBomb(posX, posY);
@@ -283,6 +285,8 @@ void Enemy::update() {
                     break;
             }
             firewallMoveCooldown = firewallMoveDelay;
+            if (posX == playerPtr->posX && posY == playerPtr->posY && playerPtr->vulnerable)
+                playerPtr->playerDead = true;
         }
     }
 }
@@ -310,19 +314,47 @@ bool Enemy::canMoveTo(int x, int y) {
             }
         }
     }
-    /*Enemy to player contact:
+    //Enemy-> player and enemy contact:
     if (this->Type == rogueAntivirus) {
-        if (x == playerPtr->posX && y == playerPtr->posY)
+        if (x == playerPtr->posX && y == playerPtr->posY && playerPtr->vulnerable) {
+            playerPtr->playerDead = true;
             return true;
+        }
+        for (int i = 0; i < otherEnemies->size(); i++) {
+            if ((*otherEnemies)[i].posX == x) {
+                if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type != firewall) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     if (this->Type == boulder) {
-        if (x == playerPtr->posX && y == playerPtr->posY && consecMoves == 0)
-            return false;
+        if (x == playerPtr->posX && y == playerPtr->posY) {
+            if (this->consecMoves >= 1 && playerPtr->vulnerable) {
+                playerPtr->playerDead = true;
+                return true;
+            } else return false;
+        }
+        for (int i = 0; i < otherEnemies->size(); i++) {
+            if ((*otherEnemies)[i].posX == x) {
+                if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type != firewall) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     if (this->Type == bomb) {
-        if (x == playerPtr->posX && y == playerPtr->posY)
-            return false;
-    }*/
+        for (int i = 0; i < otherEnemies->size(); i++) {
+            if ((*otherEnemies)[i].posX == x) {
+                if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type != firewall) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     if (x == playerPtr->posX && y == playerPtr->posY)
         return false;
     return true;
@@ -446,6 +478,18 @@ void Enemy::bombRemoveCover(int x, int y) {
     }
 }
 
+bool Enemy::checkExplosionCell(int x, int y) {
+    if (playerPtr->posX == x && playerPtr->posY == y && playerPtr->vulnerable) {
+        playerPtr->playerDead = true;
+        return true;
+    }
+    if (getEnemyType(x, y) == bomb)
+        explodeBomb(x, y); //recursive check and detonations of bombs affected by other bombs
+    else deleteEnemy(x, y);
+    bombRemoveCover(x, y); //remove covers affected by the bomb
+    return false;
+}
+
 void Enemy::explodeBomb(int x, int y) {
     //delete enemies around the bomb
     //   ___________
@@ -455,57 +499,22 @@ void Enemy::explodeBomb(int x, int y) {
 
     deleteEnemy(x, y); //Bomb Location
 
-    if (getEnemyType(x - 1, y - 1) == bomb)
-        explodeBomb(x - 1, y - 1);
-    else
-        deleteEnemy(x - 1, y - 1);
-
-    if (getEnemyType(x - 1, y) == bomb)
-        explodeBomb(x - 1, y);
-    else
-        deleteEnemy(x - 1, y);
-
-    if (getEnemyType(x - 1, y + 1) == bomb)
-        explodeBomb(x - 1, y + 1);
-    else
-        deleteEnemy(x - 1, y + 1);
-
-    if (getEnemyType(x, y - 1) == bomb)
-        explodeBomb(x, y - 1);
-    else
-        deleteEnemy(x, y - 1);
-
-    if (getEnemyType(x, y + 1) == bomb)
-        explodeBomb(x, y + 1);
-    else
-        deleteEnemy(x, y + 1);
-
-    if (getEnemyType(x + 1, y - 1) == bomb)
-        explodeBomb(x + 1, y - 1);
-    else
-        deleteEnemy(x + 1, y - 1);
-
-    if (getEnemyType(x + 1, y) == bomb)
-        explodeBomb(x + 1, y);
-    else
-        deleteEnemy(x + 1, y);
-
-    if (getEnemyType(x + 1, y + 1) == bomb)
-        explodeBomb(x + 1, y + 1);
-    else
-        deleteEnemy(x + 1, y + 1);
-
-    //remove covers around the bomb
-    bombRemoveCover(x - 1, y - 1);
-    bombRemoveCover(x - 1, y);
-    bombRemoveCover(x - 1, y + 1);
-
-    bombRemoveCover(x, y - 1);
-    bombRemoveCover(x, y + 1);
-
-    bombRemoveCover(x + 1, y - 1);
-    bombRemoveCover(x + 1, y);
-    bombRemoveCover(x + 1, y + 1);
+    if (checkExplosionCell(x - 1, y - 1))
+        return;
+    if (checkExplosionCell(x - 1, y))
+        return;
+    if (checkExplosionCell(x - 1, y + 1))
+        return;
+    if (checkExplosionCell(x, y - 1))
+        return;
+    if (checkExplosionCell(x, y + 1))
+        return;
+    if (checkExplosionCell(x + 1, y - 1))
+        return;
+    if (checkExplosionCell(x + 1, y))
+        return;
+    if (checkExplosionCell(x + 1, y + 1))
+        return;
 }
 
 int Enemy::getGravityVal(int x, int y) {

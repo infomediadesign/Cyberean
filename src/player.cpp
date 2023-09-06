@@ -14,6 +14,8 @@ void player::update() {
     age++;
     previousX = posX;
     previousY = posY;
+    if (playerDead)
+        playerDied();
 
     if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) // Move Left
     {
@@ -96,9 +98,10 @@ void player::update() {
 }
 
 void player::draw() {
+    if (!vulnerable) {
+    }
     DrawTextureRec(texture, Rectangle{age * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
                    WHITE);
-
 }
 
 bool player::canMoveTo(int x, int y) {// checks if the player can move to adjacent Tile
@@ -109,13 +112,28 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
         soundplayerPtr->playerWall_sound();
         return false;
     }
+    //Player can walk anywhere when he is in an invulnerable state
+    if (!vulnerable) {
+        bool EnemyFound = false;
+        for (int i = 0; i < enemies->size(); i++) {
+            Enemy enemy = (*enemies)[i];
+            if (enemy.posX == x && enemy.posY == y)
+                         EnemyFound = true;
+        }
+        if (!EnemyFound) vulnerable = true;
+
+
+        return true;
+    }
     //Collision with enemies
     for (int i = 0; i < enemies->size(); i++) {
         Enemy enemy = (*enemies)[i];
         if (enemy.posX == x && enemy.posY == y) {
             //ADD LOGIC TO KILL THE PLAYER IN THE CASE BELOW!!!
-            if (enemy.Type == rogueAntivirus || enemy.Type == firewall)
+            if (enemy.Type == rogueAntivirus || enemy.Type == firewall || enemy.Type == malware) {
+                playerDead = true;
                 return true;
+            }
             soundplayerPtr->playerWall_sound();
             return false;
         }
@@ -125,7 +143,11 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
 
 player::player(SoundPlayer *soundPlayer) {
     soundplayerPtr = soundPlayer;
-    switch(masterlevel){
+    playerStartPos(masterlevel);
+}
+
+void player::playerStartPos(int level) {
+    switch (level) {
         case 0:
             posX = 19;
             posY = 12;
@@ -198,4 +220,17 @@ void player::checkIfBombShovable(int direction) {
             break;
         }
     }
+}
+
+void player::playerDied() {
+    soundplayerPtr->playerDeath_sound();
+    if (life == 1) {
+        life--;
+        playerDead = false;
+        //gameOver();
+    }
+    life--;
+    vulnerable = false;
+    playerDead = false;
+    playerStartPos(masterlevel);
 }

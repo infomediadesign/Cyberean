@@ -21,9 +21,12 @@ class gameScene;
 
 class player {
 public:
-    int life = 3;
     int posX = 19;
     int posY = 12;
+
+    int life = 3;
+    bool playerDead = false;
+    bool vulnerable = true;
 
     float age = 0; //Frame counter
 
@@ -63,7 +66,11 @@ public:
     player(SoundPlayer *soundPlayer);
     SoundPlayer *soundplayerPtr;
 
+    void playerStartPos(int level);
+
     void checkIfBombShovable(int direction);
+
+    void playerDied();
 };
 
 
