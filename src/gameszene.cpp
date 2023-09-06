@@ -12,7 +12,6 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
         : theplayer(soundPlayer) {
     tson::Tileson t;
 
-
     this->level = Level;
     std::cout << level << std::endl;
 
@@ -20,34 +19,57 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
         case 0:
             themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
             maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
+            onelives = LoadTexture("assets/level/level_1/ui/blue_1_lives.png");
+            twolives = LoadTexture("assets/level/level_1/ui/blue_2_lives.png");
+            threelives = LoadTexture("assets/level/level_1/ui/blue_3_lives.png");
+            zeronotes = LoadTexture("assets/level/level_1/ui/yellow_0_notes.png");
+            onenotes = LoadTexture("assets/level/level_1/ui/yellow_1_notes.png");
+            twonotes = LoadTexture("assets/level/level_1/ui/yellow_2_notes.png");
+            threenotes = LoadTexture("assets/level/level_1/ui/yellow_3_notes.png");
+            fournotes = LoadTexture("assets/level/level_1/ui/yellow_4_notes.png");
+            levelnumber = LoadTexture("assets/level/level_1/ui/level_1.png");
             break;
         case 1:
             themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
             maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_selina.png");
+            onelives = LoadTexture("assets/level/level_2/ui/magenta_1_lives.png");
+            twolives = LoadTexture("assets/level/level_2/ui/magenta_2_lives.png");
+            threelives = LoadTexture("assets/level/level_2/ui/magenta_3_lives.png");
+            zeronotes = LoadTexture("assets/level/level_2/ui/green_0_notes.png");
+            onenotes = LoadTexture("assets/level/level_2/ui/green_1_notes.png");
+            twonotes = LoadTexture("assets/level/level_2/ui/green_2_notes.png");
+            threenotes = LoadTexture("assets/level/level_2/ui/green_3_notes.png");
+            fournotes = LoadTexture("assets/level/level_2/ui/green_4_notes.png");
+            levelnumber = LoadTexture("assets/level/level_2/ui/level_2.png");
             break;
         case 2:
             themap = t.parse("assets/level/level_3/green_tileset_level_3_selina.tmj");
             maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_selina.png");
+            onelives = LoadTexture("assets/level/level_3/ui/yellow_1_lives.png");
+            twolives = LoadTexture("assets/level/level_3/ui/yellow_2_lives.png");
+            threelives = LoadTexture("assets/level/level_3/ui/yellow_3_lives.png");
+            zeronotes = LoadTexture("assets/level/level_3/ui/silver_0_notes.png");
+            onenotes = LoadTexture("assets/level/level_3/ui/silver_1_notes.png");
+            twonotes = LoadTexture("assets/level/level_3/ui/silver_2_notes.png");
+            threenotes = LoadTexture("assets/level/level_3/ui/silver_3_notes.png");
+            fournotes = LoadTexture("assets/level/level_3/ui/silver_4_notes.png");
+            levelnumber = LoadTexture("assets/level/level_3/ui/level_3.png");
             break;
         case 3:
             themap = t.parse("assets/level/level_4/corroded_tileset_level_4_selina.tmj");
             maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_selina.png");
+            onelives = LoadTexture("assets/level/level_4/ui/green_1_lives.png");
+            twolives = LoadTexture("assets/level/level_4/ui/green_2_lives.png");
+            threelives = LoadTexture("assets/level/level_4/ui/green_3_lives.png");
+            zeronotes = LoadTexture("assets/level/level_4/ui/purple_0_notes.png");
+            onenotes = LoadTexture("assets/level/level_4/ui/purple_1_notes.png");
+            twonotes = LoadTexture("assets/level/level_4/ui/purple_2_notes.png");
+            threenotes = LoadTexture("assets/level/level_4/ui/purple_3_notes.png");
+            fournotes = LoadTexture("assets/level/level_4/ui/purple_4_notes.png");
+            levelnumber = LoadTexture("assets/level/level_4/ui/level_4.png");
+            break;
 
     }
-
-    //Folder accessed levels:
-    //themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
-    //maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
-
-    //themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
-    //maptext = LoadTexture("assets/level/level_2/magenta_tileset_level_2_selina.png");
-
-    //themap = t.parse("assets/level/level_3/green_tileset_level_3_selina.tmj");
-    //maptext = LoadTexture("assets/level/level_3/green_tileset_level_3_selina.png");
-
-    //themap = t.parse("assets/level/level_4/corroded_tileset_level_4_selina.tmj");
-    //maptext = LoadTexture("assets/level/level_4/corroded_tileset_level_4_selina.png");
-
 
     theplayer.map = themap.get();
     theplayer.enemies = &enemies;
@@ -83,6 +105,8 @@ void gameScene::draw() {
         mypause.draw();
         mypause.buttons();
     }
+    DrawTexture(levelnumber,528,862,WHITE);
+    DrawTexture(threelives, 960, 862, WHITE);
 }
 
 void gameScene::drawLayer(const std::string &layer) {
@@ -278,9 +302,23 @@ void gameScene::increaseCollectedObjectsCount() {
 }
 
 void gameScene::drawCollectedObjectsCount() {
-    std::string countText = "Collected Notes: " + std::to_string(collectedObjectsCount);
-    DrawText(countText.c_str(), 50, GetScreenHeight() - 75, 20,
-             WHITE); // Draw the number of collected objects
+    switch(collectedObjectsCount){
+        case 0:
+            DrawTexture(zeronotes,64,862,WHITE);
+            break;
+        case 1:
+            DrawTexture(onenotes,64,862,WHITE);
+            break;
+        case 2:
+            DrawTexture(twonotes,64,862,WHITE);
+            break;
+        case 3:
+            DrawTexture(threenotes,64,862,WHITE);
+            break;
+        case 4:
+            DrawTexture(fournotes,64,862,WHITE);
+            break;
+    }
 }
 
 void gameScene::updateFirewallDirection() { //This algorithm checks horizontal or vertical neighbors (Firewall n; 1<n<5)
