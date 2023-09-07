@@ -14,8 +14,8 @@ void player::update() {
     age++;
     previousX = posX;
     previousY = posY;
-    if (playerDead)
-        playerDied();
+    //if (playerDead)
+    //  playerDied();
 
     if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) // Move Left
     {
@@ -98,12 +98,28 @@ void player::update() {
 }
 
 void player::draw() {
-    //Blink if player is invulnerable444
-    if (!vulnerable) {
+
+    //Blink if player is invulnerable
+    if (playerDead) {
+        deathAnimationCounter++;
+        if (deathAnimationCounter > 70) { //Divided by 70 to slow the death animation
+            playerDied();
+            playerDead = false;
+            if(life >= 1)
+                playerStartPos(masterlevel);
+            deathAnimationCounter = 0;
+        } else
+            DrawTextureRec(playerDeathAnim, Rectangle{(float) (deathAnimationCounter / 10) * 32, 0, 32, 32},
+                           Vector2{(float) posX * 32, (float) posY * 32},
+                           WHITE);
+    } else if (life <= 0) {
+        DrawTextureRec(playerDeathAnim, Rectangle{7 * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
+                       WHITE);
+    } else if (!vulnerable) {
         blinkCounter++;
         if (blinkCounter == blinkDuration)
             blinkCounter = 0;
-        if(blinkCounter<blinkDuration/2)
+        if (blinkCounter < blinkDuration / 2)
             DrawTextureRec(texture, Rectangle{age * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
                            WHITE);
     } else
@@ -238,6 +254,6 @@ void player::playerDied() {
     }
     life--;
     vulnerable = false;
-    playerDead = false;
-    playerStartPos(masterlevel);
+    //playerDead = false;
+    //playerStartPos(masterlevel);
 }

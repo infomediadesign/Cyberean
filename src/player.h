@@ -31,6 +31,7 @@ public:
     //player draw variables:
     bool vulnerable = true;
     float age = 0; //Frame counter
+    int deathAnimationCounter = 0;
     int blinkCounter = 0;
     int blinkDuration = 20;
     bool isBlinking = false;
@@ -59,6 +60,7 @@ public:
                                          0, 0};
 
     Texture2D texture = LoadTexture("assets/animations/avatar/avatar_bopping_glasses_anim_1.1.png");
+    Texture2D playerDeathAnim = LoadTexture("assets/animations/avatar/avatar_melt.png");
     tson::Map *map;
     std::vector<Enemy> *enemies;
 
