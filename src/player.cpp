@@ -98,10 +98,17 @@ void player::update() {
 }
 
 void player::draw() {
+    //Blink if player is invulnerable444
     if (!vulnerable) {
-    }
-    DrawTextureRec(texture, Rectangle{age * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
-                   WHITE);
+        blinkCounter++;
+        if (blinkCounter == blinkDuration)
+            blinkCounter = 0;
+        if(blinkCounter<blinkDuration/2)
+            DrawTextureRec(texture, Rectangle{age * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
+                           WHITE);
+    } else
+        DrawTextureRec(texture, Rectangle{age * 32, 0, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32},
+                       WHITE);
 }
 
 bool player::canMoveTo(int x, int y) {// checks if the player can move to adjacent Tile

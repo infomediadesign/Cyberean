@@ -353,7 +353,6 @@ bool Enemy::canMoveTo(int x, int y) {
                 }
             }
         }
-        return true;
     }
     if (x == playerPtr->posX && y == playerPtr->posY)
         return false;

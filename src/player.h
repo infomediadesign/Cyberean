@@ -21,15 +21,19 @@ class gameScene;
 
 class player {
 public:
+    //player update variables:
     int posX = 19;
     int posY = 12;
-
     int life = 3;
     bool playerDead = false;
-    bool vulnerable = true;
     bool gameOver = false;
 
+    //player draw variables:
+    bool vulnerable = true;
     float age = 0; //Frame counter
+    int blinkCounter = 0;
+    int blinkDuration = 20;
+    bool isBlinking = false;
 
     int previousX = 0;
     int previousY = 0;
