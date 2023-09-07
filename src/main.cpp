@@ -89,9 +89,9 @@ int main() {
                 if (gs == nullptr) {
                     gs = std::make_unique<gameScene>(masterlevel, &musicPlayermenu, &soundPlayer);
                 }
-                if(gs->restart == true){
+                if (gs->restart == true) {
                     gs = nullptr;
-                    gs = std::make_unique<gameScene>(masterlevel, &musicPlayermenu,  &soundPlayer);
+                    gs = std::make_unique<gameScene>(masterlevel, &musicPlayermenu, &soundPlayer);
                 }
                 gs->update(state);
                 break;
@@ -109,7 +109,7 @@ int main() {
         }
 
         if (state == mainMenu && gs != nullptr) {
-                gs = nullptr;
+            gs = nullptr;
         }
 
 
@@ -131,9 +131,9 @@ int main() {
                         gs->draw();
                     }
                     if (gs == nullptr && state == gameplay) {
-                        if(thecutscene.cutsceneaktiv == false){
+                        if (thecutscene.cutsceneaktiv == false) {
                             thelevelselect.draw();
-                        }else{
+                        } else {
                             thecutscene.draw();
                         }
                     }
@@ -183,25 +183,4 @@ int main() {
     CloseAudioDevice();
 
     return EXIT_SUCCESS;
-}
-
-void toDrawOnScreen(tson::Map *theMap, Texture &mapTex) {
-    Rectangle sourceRec{};
-    sourceRec.width = 32;
-    sourceRec.height = 32;
-    Vector2 destVec{};
-    int tilesetColumns = 8;
-    float tileSize = 32;
-    int tileMapColumns = theMap->getSize().x;
-    int tileMapRows = theMap->getSize().y;
-    for (int y = 0; y < tileMapRows; y++) {
-        for (int x = 0; x < tileMapColumns; x++) {
-            int tileData = theMap->getLayer("main")->getTileData(x, y)->getId() - 1; //-1 because tiled does stuff >:(
-            sourceRec.x = (tileData % tilesetColumns) * tileSize;
-            sourceRec.y = (tileData / tilesetColumns) * tileSize;
-            destVec.x = x * tileSize;
-            destVec.y = y * tileSize;
-            DrawTextureRec(mapTex, sourceRec, destVec, WHITE);
-        }
-    }
 }

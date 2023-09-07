@@ -15,7 +15,7 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
     this->level = Level;
     std::cout << level << std::endl;
 
-    switch(level){
+    switch (level) {
         case 0:
             themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
             maptext = LoadTexture("assets/level/level_1/blue_tileset_level_1_selina.png");
@@ -100,14 +100,27 @@ void gameScene::draw() {
     }
     theplayer.draw();
     drawCollectedObjectsCount();
-    DrawTexture(levelnumber,528,862,WHITE);
-    DrawTexture(threelives, 960, 862, WHITE);
+    DrawTexture(levelnumber, 528, 862, WHITE);
+    switch (playerPtr->life) {
+        case 3:
+            DrawTexture(threelives, 960, 862, WHITE);
+            break;
+        case 2:
+            DrawTexture(twolives, 960, 862, WHITE);
+            break;
+        case 1:
+            DrawTexture(onelives, 960, 862, WHITE);
+            break;
+    }
 
-    if(pause == true){
+    if (pause == true) {
         mypause.draw();
         mypause.buttons();
     }
-
+    if (playerPtr->gameOver == true) {
+        myGameOverScreen.draw();
+        myGameOverScreen.buttons();
+    }
 }
 
 void gameScene::drawLayer(const std::string &layer) {
@@ -167,15 +180,15 @@ void gameScene::populategameobjects() {
 
 void gameScene::update(globalState &globalstate) {
 
-    if(IsKeyPressed(KEY_P) || IsKeyPressed(KEY_ESCAPE)){
-        if(pause) {
+    if (IsKeyPressed(KEY_P) || IsKeyPressed(KEY_ESCAPE)) {
+        if (pause) {
             pause = false;
         } else {
             pause = true;
         }
     }
 
-    if(pause == false){
+    if (pause == false && playerPtr->gameOver == false) {
         theplayer.update();
         for (int i = 0; i < enemies.size(); i++) {
             enemies[i].update();
@@ -191,16 +204,17 @@ void gameScene::update(globalState &globalstate) {
         }
         removeCover();
         //Updates the gravity of the enemies if the player stood on a gravity switch
-        int itemID = themap.get()->getLayer("Items")->getData()[playerPtr->posX + playerPtr->posY * themap->getSize().x];
+        int itemID = themap.get()->getLayer("Items")->getData()[playerPtr->posX +
+                                                                playerPtr->posY * themap->getSize().x];
         if (itemID >= 9 && itemID <= 12) {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies[i].updateGravity();
             }
         }
 
-    }else{
+    } else if (pause == true) {
         mypause.update();
-        switch(mypause.state){
+        switch (mypause.state) {
             case 0:
                 break;
             case 1:
@@ -215,6 +229,21 @@ void gameScene::update(globalState &globalstate) {
                 pause = false;
                 globalstate = mainMenu;
         }
+    } else if (playerPtr->gameOver == true) {
+        myGameOverScreen.update();
+        switch (myGameOverScreen.state) {
+            case 1:
+                restart = true;
+                break;
+            case 2:
+                mypause.state = 0;
+                pause = false;
+                globalstate = mainMenu;;
+                break;
+            case 3:
+                CloseWindow();
+                break;
+        }
     }
 
     updateMusicPlayers();
@@ -227,10 +256,10 @@ void gameScene::update(globalState &globalstate) {
 
 void gameScene::updateMusicPlayers() {
     if (musicPlayer->GetCurrentMusicState() == MusicState::MainMenu ||
-            musicPlayer->GetCurrentMusicState() == MusicState::part_1 ||
-            musicPlayer->GetCurrentMusicState() == MusicState::part_2 ||
-            musicPlayer->GetCurrentMusicState() == MusicState::part_3 ||
-            musicPlayer->GetCurrentMusicState() == MusicState::part_4) {
+        musicPlayer->GetCurrentMusicState() == MusicState::part_1 ||
+        musicPlayer->GetCurrentMusicState() == MusicState::part_2 ||
+        musicPlayer->GetCurrentMusicState() == MusicState::part_3 ||
+        musicPlayer->GetCurrentMusicState() == MusicState::part_4) {
 
         // Entmute alle anderen MusicPlayer-Instanzen
         musicPlayer1.SetMusicVolume(volumeLevels[0] * masterMusicControl);
@@ -303,21 +332,21 @@ void gameScene::increaseCollectedObjectsCount() {
 }
 
 void gameScene::drawCollectedObjectsCount() {
-    switch(collectedObjectsCount){
+    switch (collectedObjectsCount) {
         case 0:
-            DrawTexture(zeronotes,64,862,WHITE);
+            DrawTexture(zeronotes, 64, 862, WHITE);
             break;
         case 1:
-            DrawTexture(onenotes,64,862,WHITE);
+            DrawTexture(onenotes, 64, 862, WHITE);
             break;
         case 2:
-            DrawTexture(twonotes,64,862,WHITE);
+            DrawTexture(twonotes, 64, 862, WHITE);
             break;
         case 3:
-            DrawTexture(threenotes,64,862,WHITE);
+            DrawTexture(threenotes, 64, 862, WHITE);
             break;
         case 4:
-            DrawTexture(fournotes,64,862,WHITE);
+            DrawTexture(fournotes, 64, 862, WHITE);
             break;
     }
 }
@@ -326,10 +355,10 @@ void gameScene::updateFirewallDirection() { //This algorithm checks horizontal o
     for (int i = 0; i < enemies.size(); i++) {
         if (enemies[i].ID == 7) { // 7 is a Firewall ID
             if (enemies[i].getEnemyID(enemies[i].posX - 1, enemies[i].posY) == 7 ||
-                    enemies[i].getEnemyID(enemies[i].posX + 1, enemies[i].posY) == 7)
+                enemies[i].getEnemyID(enemies[i].posX + 1, enemies[i].posY) == 7)
                 enemies[i].movingStatus = Enemy::upMove;
             else if (enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY - 1) == 7 ||
-                    enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY + 1) == 7)
+                     enemies[i].getEnemyID(enemies[i].posX, enemies[i].posY + 1) == 7)
                 enemies[i].movingStatus = Enemy::rightMove;
         }
     }
@@ -346,7 +375,7 @@ gameScene::~gameScene() {
 
 void gameScene::loadmusic(int _level) {
 
-    switch(_level){
+    switch (_level) {
         case 0:
             musicPlayer1.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part1.wav", MusicState::part_1);
             musicPlayer2.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part2.wav", MusicState::part_2);

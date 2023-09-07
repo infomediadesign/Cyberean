@@ -27,6 +27,7 @@ public:
     int life = 3;
     bool playerDead = false;
     bool vulnerable = true;
+    bool gameOver = false;
 
     float age = 0; //Frame counter
 
@@ -64,6 +65,7 @@ public:
     bool canMoveTo(int x, int y);
 
     player(SoundPlayer *soundPlayer);
+
     SoundPlayer *soundplayerPtr;
 
     void playerStartPos(int level);

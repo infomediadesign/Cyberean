@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include "masterhead.h"
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
 
@@ -17,6 +16,7 @@ class gameoverscreen {
 public:
 
     int state = 0;
+
     gameoverscreen();
 
     void update();
@@ -25,7 +25,7 @@ public:
 
     void buttons();
 
-    bool IsMusicMuted();
+    //bool IsMusicMuted();
 
     int cursor = 0;
 

@@ -16,8 +16,11 @@
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
 #include "pausescreen.h"
+#include "gameoverscreen.h"
 
 class pausescreen;
+
+class gameoverscreen;
 
 class gameScene {
 public:
@@ -33,6 +36,8 @@ public:
     SoundPlayer *soundPlayerPtr;
 
     pausescreen mypause;
+
+    gameoverscreen myGameOverScreen;
 
     bool pause = false;
 

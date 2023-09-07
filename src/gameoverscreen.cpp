@@ -9,14 +9,13 @@ void gameoverscreen::update() {
         switch (cursor) {
             case 0:
                 //soundplayerPtr->menuEnter_sound();
-                state = 1; // (1) retry
+                state = 1; // (0) retry
                 break;
             case 1:
-                state = 2; // (2) mainmenu
+                state = 2; // (1) main menu
                 break;
-
             case 2:
-                state = 3; // (3) exit
+                state = 3; // (2) exit
                 break;
         }
     }
@@ -39,34 +38,23 @@ void gameoverscreen::update() {
 
 void gameoverscreen::draw() {
     DrawTexture(background, 0, 0, WHITE);
-    DrawTexture(pause, 410, 100, WHITE);
-    //DrawTexture(windowsoli,0,0,WHITE);
-}
-
-bool gameoverscreen::IsMusicMuted() {
-    return sound;
+    DrawTexture(gameover, 410, 100, WHITE);
 }
 
 void gameoverscreen::buttons() {
-    DrawTexture(resume, 334, 400, WHITE);
-    DrawTexture(restart, 334, 500, WHITE);
-    DrawTexture(mainmenu, 334, 600, WHITE);
-    DrawTexture(music, 0, 750, WHITE);
-    DrawTexture(_sound, 650, 750, WHITE);
-    /*if (sound == true) {
-        DrawTexture(Unmuted_dunkel, 368, 700, WHITE);
-    } else {
-        DrawTexture(Muted_dunkel, 368, 700, WHITE);
-    }*/
+    DrawTexture(retry, 334, 400, WHITE);
+    DrawTexture(mainmenu, 334, 500, WHITE);
+    DrawTexture(exit, 334, 600, WHITE);
+
     switch (cursor) {
         case 0:
-            DrawTexture(resume_markiert, 334, 400, WHITE);
+            DrawTexture(retry_markiert, 334, 400, WHITE);
             break;
         case 1:
-            DrawTexture(restart_markiert, 334, 500, WHITE);
+            DrawTexture(mainmenu_markiert, 334, 500, WHITE);
             break;
         case 2:
-            DrawTexture(mainmenu_markiert, 334, 600, WHITE);
+            DrawTexture(exit_markiert, 334, 600, WHITE);
             break;
         default:
             break;

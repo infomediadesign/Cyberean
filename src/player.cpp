@@ -118,7 +118,7 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
         for (int i = 0; i < enemies->size(); i++) {
             Enemy enemy = (*enemies)[i];
             if (enemy.posX == x && enemy.posY == y)
-                         EnemyFound = true;
+                EnemyFound = true;
         }
         if (!EnemyFound) vulnerable = true;
 
@@ -227,7 +227,7 @@ void player::playerDied() {
     if (life == 1) {
         life--;
         playerDead = false;
-        //gameOver();
+        gameOver = true;
     }
     life--;
     vulnerable = false;
