@@ -47,6 +47,8 @@ public:
     bool switchSoundPlayed = false;
     bool restart = false;
     bool init = false;
+    int cposX;
+    int cposY;
 
     MusicPlayer musicPlayer1;
     MusicPlayer musicPlayer2;
@@ -63,6 +65,8 @@ public:
     Texture2D threenotes;
     Texture2D fournotes;
     Texture2D levelnumber;
+
+    Texture2D character;
 
     gameScene(int Level, MusicPlayer *musicPlayerPtr, SoundPlayer *soundPlayer);
 
@@ -87,6 +91,9 @@ public:
     void populategameobjects();
 
     void updateFirewallDirection();
+
+    bool all4notescollected();
+
 
     void increaseCollectedObjectsCount(); // Increases the number of collected game objects
     void drawCollectedObjectsCount(); // draws the counter of collected game objects

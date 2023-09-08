@@ -28,6 +28,9 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             threenotes = LoadTexture("assets/level/level_1/ui/yellow_3_notes.png");
             fournotes = LoadTexture("assets/level/level_1/ui/yellow_4_notes.png");
             levelnumber = LoadTexture("assets/level/level_1/ui/level_1.png");
+            character = LoadTexture("assets/characters/igor_level_1.png");
+            cposX = 640;
+            cposY = 448;
             break;
         case 1:
             themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
@@ -41,6 +44,9 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             threenotes = LoadTexture("assets/level/level_2/ui/green_3_notes.png");
             fournotes = LoadTexture("assets/level/level_2/ui/green_4_notes.png");
             levelnumber = LoadTexture("assets/level/level_2/ui/level_2.png");
+            character = LoadTexture("assets/characters/anastasia_level_2.png");
+            cposX = 672;
+            cposY = 384;
             break;
         case 2:
             themap = t.parse("assets/level/level_3/green_tileset_level_3_selina.tmj");
@@ -54,6 +60,9 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             threenotes = LoadTexture("assets/level/level_3/ui/silver_3_notes.png");
             fournotes = LoadTexture("assets/level/level_3/ui/silver_4_notes.png");
             levelnumber = LoadTexture("assets/level/level_3/ui/level_3.png");
+            character = LoadTexture("assets/characters/alexey_level_3.png");
+            cposX = 544;
+            cposY = 448;
             break;
         case 3:
             themap = t.parse("assets/level/level_4/corroded_tileset_level_4_selina.tmj");
@@ -67,6 +76,9 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             threenotes = LoadTexture("assets/level/level_4/ui/purple_3_notes.png");
             fournotes = LoadTexture("assets/level/level_4/ui/purple_4_notes.png");
             levelnumber = LoadTexture("assets/level/level_4/ui/level_4.png");
+            character = LoadTexture("assets/characters/koshka_level_4.png");
+            cposX = 640;
+            cposY = 448;
             break;
 
     }
@@ -97,6 +109,9 @@ void gameScene::draw() {
     }
     for (gameobject e: thegameobject) {
         e.draw(maptext);
+    }
+    if(collectedObjectsCount == 4){
+        DrawTexture(character,cposX,cposY,WHITE);
     }
     theplayer.draw();
     drawCollectedObjectsCount();
@@ -244,6 +259,10 @@ void gameScene::update(globalState &globalstate) {
                 CloseWindow();
                 break;
         }
+    }
+
+    if((playerPtr->posX * 32) == cposX && (playerPtr->posY * 32) == cposY && collectedObjectsCount == 4){
+        globalstate = mainMenu;
     }
 
     updateMusicPlayers();
