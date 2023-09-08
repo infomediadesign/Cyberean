@@ -27,9 +27,13 @@ public:
     Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/Textbox_3.png");
     Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/Textbox_4.png");
 
-    Texture2D Igor = LoadTexture("assets/screens/cutscene_screen/Igor.png");
+    /*Texture2D Igor = LoadTexture("assets/screens/cutscene_screen/Igor.png");
     Texture2D Igor_name = LoadTexture("assets/screens/cutscene_screen/Igor_name.png");
     Texture2D Vasily = LoadTexture("assets/screens/cutscene_screen/vasily.png");
+    Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");*/
+    Texture2D Igor = LoadTexture("assets/screens/cutscene_screen/character/igor600.png");
+    Texture2D Igor_name = LoadTexture("assets/screens/cutscene_screen/Igor_name.png");
+    Texture2D Vasily = LoadTexture("assets/screens/cutscene_screen/character/vasily600.png");
     Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");
 
 
