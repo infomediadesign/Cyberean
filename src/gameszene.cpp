@@ -264,8 +264,8 @@ void gameScene::update(globalState &globalstate) {
     std::cout << playerPtr->posX << std::endl;
     std::cout << cposX << std::endl;
 
-    if((playerPtr->posX * 32) == cposX && (playerPtr->posY * 32) == cposY){
-        globalstate = levelselection;
+    if((playerPtr->posX * 32) == cposX && (playerPtr->posY * 32) == cposY && collectedObjectsCount == 4){
+        globalstate = mainMenu;
     }
 
     updateMusicPlayers();
