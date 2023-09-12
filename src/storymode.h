@@ -18,6 +18,11 @@
 #include "levelselect.h"
 #include "credits.h"
 #include "cutscene.h"
+#include "cutscene2.h"
+#include "cutscene3.h"
+#include "cutscene4.h"
+#include "cutscene5.h"
+
 
 class storymode {
 public:
@@ -28,7 +33,12 @@ public:
 
     std::unique_ptr<gameScene> gs = nullptr;
 
-    std::unique_ptr<cutscene> mycutscene;
+    std::unique_ptr<cutscene> thecutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayer);
+    std::unique_ptr<cutscene2> thecutscene2 = std::make_unique<cutscene2>(&soundPlayer, &musicPlayer);
+    std::unique_ptr<cutscene3> thecutscene3 = std::make_unique<cutscene3>(&soundPlayer, &musicPlayer);
+    std::unique_ptr<cutscene4> thecutscene4 = std::make_unique<cutscene4>(&soundPlayer, &musicPlayer);
+    std::unique_ptr<cutscene5> thecutscene5 = std::make_unique<cutscene5>(&soundPlayer, &musicPlayer);
+
 
     globalState state2;
 
@@ -39,9 +49,6 @@ public:
     void draw();
     void update(globalState &globalstate);
     storymode();
-    void fadein();
-    void fadeout();
-
 };
 
 

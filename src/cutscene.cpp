@@ -21,6 +21,7 @@ void cutscene::update(globalState &globalState) {
             textpart = 0;
             musicPlayerPtr->StopMusic();
             globalState = storymodesection;
+            storystate++;
         }
     }
 
@@ -109,14 +110,9 @@ void cutscene::update(globalState &globalState) {
                     fadeout = true;
                     break;
                 case 13:
-                    textpart = 0;
                     musicPlayerPtr->PlayMusic(MusicState::MainMenu);
                     musicPlayerPtr->StopMusic();
-                    if(storymodeactive){
-                        globalState = storymodesection;
-                    }else{
-                        globalState = gameplay;
-                    }
+                    storystate++;
                     break;
                 default:
                     break;

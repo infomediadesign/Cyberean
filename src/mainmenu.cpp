@@ -14,6 +14,7 @@ void mainmenu::update(globalState &globalState) {
                     fadeeffect = false;
                     alpha = 0.0f;
                     storymodeactive = true;
+
                     globalState = storymodesection;
                 }
                 break;

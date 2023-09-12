@@ -55,6 +55,7 @@ void cutscene2::update(globalState &globalState) {
                     currentFullText = fullText2;
                     ResetCutscene();
                     cutsceneaktiv = true;
+                    fadeout = true;
                     globalState = storymodesection;
                     break;
                 case 2:

@@ -4,30 +4,32 @@
 
 #include "storymode.h"
 
-storymode::storymode() : mycutscene(nullptr) {
+storymode::storymode(){
     state2 = gameplay;
     musicPlayer.StopMusic();
     storymodeactive = true;
     musicPlayer.LoadMusic("assets/audio/tracks/misc/cutscenes.wav", MusicState::cutscene);
-    if (!mycutscene)
-    {
-        mycutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayer);
-    }
-
 }
 
 void storymode::update(globalState &globalstate) {
+    std::cout << storystate << std::endl;
+    std::cout << thecutscene->textpart << std::endl;
+    storymodeactive = true;
+
     switch(storystate){
         case 0:
-            mycutscene->update(state2);
+            thecutscene->update(state2);
             break;
         case 1:
+            musicPlayer.StopMusic();
+            std::cout << "bruh" << std::endl;
             if (gs == nullptr) {
-                gs = std::make_unique<gameScene>(0, &musicPlayer, &soundPlayer);
+                masterlevel = 0;
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
             }
             if (gs->restart == true) {
                 gs = nullptr;
-                gs = std::make_unique<gameScene>(0, &musicPlayer, &soundPlayer);
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
             }
             gs->update(state2);
             if(state2 == mainMenu){
@@ -36,10 +38,71 @@ void storymode::update(globalState &globalstate) {
             }
             break;
         case 2:
+            gs = nullptr;
+            thecutscene2->update(state2);
             break;
         case 3:
+            musicPlayer.StopMusic();
+            if (gs == nullptr) {
+                masterlevel = 1;
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
+            }
+            if (gs->restart == true) {
+                gs = nullptr;
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
+            }
+            gs->update(state2);
+            if(state2 == mainMenu){
+                globalstate = mainMenu;
+                state2 = gameplay;
+            }
             break;
         case 4:
+            gs = nullptr;
+            thecutscene3->update(state2);
+            break;
+        case 5:
+            musicPlayer.StopMusic();
+            if (gs == nullptr) {
+                masterlevel = 2;
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
+            }
+            if (gs->restart == true) {
+                gs = nullptr;
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
+            }
+            gs->update(state2);
+            if(state2 == mainMenu){
+                globalstate = mainMenu;
+                state2 = gameplay;
+            }
+            break;
+        case 6:
+            gs = nullptr;
+            thecutscene4->update(state2);
+            break;
+        case 7:
+            musicPlayer.StopMusic();
+            if (gs == nullptr) {
+                masterlevel = 3;
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
+            }
+            if (gs->restart == true) {
+                gs = nullptr;
+                gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
+            }
+            gs->update(state2);
+            if(state2 == mainMenu){
+                globalstate = mainMenu;
+                state2 = gameplay;
+            }
+            break;
+        case 8:
+            gs = nullptr;
+            thecutscene5->update(state2);
+            break;
+        case 9:
+            globalstate = creditsscreen;
             break;
         default:
             break;
@@ -49,7 +112,7 @@ void storymode::update(globalState &globalstate) {
 void storymode::draw() {
     switch(storystate){
         case 0:
-            mycutscene->draw();
+            thecutscene->draw();
             break;
         case 1:
             if (gs != nullptr) {
@@ -57,58 +120,35 @@ void storymode::draw() {
             }
             break;
         case 2:
+            thecutscene2->draw();
             break;
         case 3:
+            if (gs != nullptr) {
+                gs->draw();
+            }
             break;
         case 4:
+            thecutscene3->draw();
+            break;
+        case 5:
+            if (gs != nullptr) {
+                gs->draw();
+            }
+            break;
+        case 6:
+            thecutscene4->draw();
+            break;
+        case 7:
+            if (gs != nullptr) {
+                gs->draw();
+            }
+            break;
+        case 8:
+            thecutscene5->draw();
+            break;
+        case 9:
             break;
         default:
             break;
     }
-}
-
-void storymode::fadein() {
-    if(fadeeffectout == true){
-        for (float alpha = 1.0f; alpha > 0.0f; alpha -= fadeSpeed * GetFrameTime()) {
-            switch(storystate){
-                case 0:
-                    mycutscene->update(state2);
-                    mycutscene->draw();
-                    break;
-                default:
-                    break;
-            }
-            // Draw the black PNG with fading alpha
-            DrawTexturePro(fadeTexture,
-                           Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
-                           Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
-                           {}, 0, Fade(WHITE, alpha));
-
-        }
-    }
-    fadeeffectout = false;
-    fadeAlpha = 0.0f;
-}
-
-void storymode::fadeout() {
-    if(fadeeffectin == true){
-        for (float alpha = 0.0f; alpha < 1.0f; alpha += fadeSpeed * GetFrameTime()) {
-            switch(storystate){
-                case 0:
-                    mycutscene->draw();
-                    break;
-                default:
-                    break;
-            }
-            // Draw the black PNG with fading alpha
-            DrawTexturePro(fadeTexture,
-                           Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
-                           Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
-                           {}, 0, Fade(WHITE, alpha));
-
-            EndDrawing();
-        }
-    }
-    fadeeffectin = false;
-    fadeAlpha = 0.0f;
 }

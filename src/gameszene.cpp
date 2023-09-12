@@ -305,6 +305,7 @@ void gameScene::update(globalState &globalstate) {
             alpha = 1.0f;
 
             if(storymodeactive){
+                storystate++;
                 globalstate = storymodesection;
             }else{
                 globalstate = mainMenu;

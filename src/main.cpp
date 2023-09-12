@@ -61,11 +61,6 @@ int main() {
 
     levelselect thelevelselect(&soundPlayer, &musicPlayermenu);
     credits thecredits(&soundPlayer, &musicPlayermenu);
-    std::unique_ptr<cutscene> thecutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayermenu);
-    std::unique_ptr<cutscene2> thecutscene2 = std::make_unique<cutscene2>(&soundPlayer, &musicPlayermenu);
-    std::unique_ptr<cutscene3> thecutscene3 = std::make_unique<cutscene3>(&soundPlayer, &musicPlayermenu);
-    std::unique_ptr<cutscene4> thecutscene4 = std::make_unique<cutscene4>(&soundPlayer, &musicPlayermenu);
-    std::unique_ptr<cutscene5> thecutscene5 = std::make_unique<cutscene5>(&soundPlayer, &musicPlayermenu);
 
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cyberean_mainmenu.wav", MusicState::MainMenu);
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/credits.wav", MusicState::credits);
@@ -93,7 +88,6 @@ int main() {
             case mainMenu:
                 themenu.update(state);
                 musicPlayermenu.PlayMusic(MusicState::MainMenu);
-
                 break;
             case gameplay:
                 if (gs == nullptr) {
@@ -112,75 +106,17 @@ int main() {
                 thecredits.update(state);
                 break;
             case cutscenescreen:
-                switch(storymodestage){
-                    case 1:
-                        thecutscene->update(state);
-                        break;
-                    case 3:
-                        thecutscene2->update(state);
-                        break;
-                    case 5:
-                        thecutscene3->update(state);
-                        break;
-                    case 7:
-                        thecutscene4->update(state);
-                        break;
-                    case 9:
-                        thecutscene5->update(state);
-                        break;
-                    default:
-                        break;
-                }
-                if (gs != nullptr) {
-                    gs = nullptr;
-                }
                 break;
             case storymodesection:
-                /*if (mystorymode == nullptr) {
+                if (mystorymode == nullptr) {
                     mystorymode = std::make_unique<storymode>();
                     musicPlayermenu.StopMusic();
                 }
                 if (mystorymode != nullptr) {
                     mystorymode->update(state);
-                }*/
-
-                storymodestage++;
-                switch(storymodestage){
-                    case 1:
-                        state = cutscenescreen;
-                        break;
-                    case 2:
-                        masterlevel = 0;
-                        state = gameplay; //lvl 1
-                        break;
-                    case 3:
-                        state = cutscenescreen;
-                        break;
-                    case 4:
-                        masterlevel = 1;
-                        state = gameplay; //lvl 2
-                        break;
-                    case 5:
-                        state = cutscenescreen;
-                        break;
-                    case 6:
-                        masterlevel = 2;
-                        state = gameplay; //lvl 3
-                        break;
-                    case 7:
-                        state = cutscenescreen;
-                        break;
-                    case 8:
-                        masterlevel = 3;
-                        state = gameplay; // lvl 4
-                        break;
-                    case 9:
-                        state = cutscenescreen;
-                        break;
-                    case 10:
-                        state = creditsscreen;
-                        break;
+                    musicPlayermenu.StopMusic();
                 }
+                break;
             default:
                 break;
         }
@@ -189,23 +125,11 @@ int main() {
             gs = nullptr;
         }
 
-        if(state == mainMenu && mystorymode != nullptr){
-            mystorymode = nullptr;
-        }
-
-        if(state == mainMenu && thecutscene != nullptr && storymodeactive == true){
-            thecutscene = nullptr;
-            thecutscene2 = nullptr;
-            thecutscene3 = nullptr;
-            thecutscene4 = nullptr;
-            thecutscene5 = nullptr;
-            thecutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayermenu);
-            thecutscene2 = std::make_unique<cutscene2>(&soundPlayer, &musicPlayermenu);
-            thecutscene3 = std::make_unique<cutscene3>(&soundPlayer, &musicPlayermenu);
-            thecutscene4 = std::make_unique<cutscene4>(&soundPlayer, &musicPlayermenu);
-            thecutscene5 = std::make_unique<cutscene5>(&soundPlayer, &musicPlayermenu);
-            storymodeactive = false;
-        }
+        /*if(storystate == 9 && state == mainMenu){
+        mystorymode = nullptr;
+        mystorymode = std::make_unique<storymode>();
+        storystate = 0;
+        }*/
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
@@ -229,11 +153,7 @@ int main() {
                         gs->draw();
                     }
                     if (gs == nullptr && state == gameplay) {
-                        if (thecutscene->cutsceneaktiv == false) {
-                            thelevelselect.draw();
-                        } else {
-                            thecutscene->draw();
-                        }
+                        thelevelselect.draw();
                     }
                     break;
                 case levelselection:
@@ -243,30 +163,11 @@ int main() {
                     thecredits.draw();
                     break;
                 case cutscenescreen:
-                    switch(storymodestage){
-                        case 1:
-                            thecutscene->draw();
-                            break;
-                        case 3:
-                            thecutscene2->draw();
-                            break;
-                        case 5:
-                            thecutscene3->draw();
-                            break;
-                        case 7:
-                            thecutscene4->draw();
-                            break;
-                        case 9:
-                            thecutscene5->draw();
-                            break;
-                        default:
-                            break;
-                    }
                     break;
                 case storymodesection:
-                    /*if (mystorymode != nullptr && state == storymodesection) {
+                    if (mystorymode != nullptr && state == storymodesection) {
                         mystorymode->draw();
-                    }*/
+                    }
                     break;
                 default:
                     break;
