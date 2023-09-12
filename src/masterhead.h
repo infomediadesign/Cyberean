@@ -14,9 +14,19 @@ enum globalState {
     levelselection,
     pause,
     creditsscreen,
-    cutscenescreen
+    cutscenescreen,
+    storymodesection,
 };
 
 extern int masterlevel;
+
+extern int storystate;
+
+extern bool fadeeffectin;
+
+extern bool fadeeffectout;
+
+extern bool storymodeactive;
+
 
 #endif //RAYLIBSTARTER_MASTERHEAD_H

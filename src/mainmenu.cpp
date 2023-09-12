@@ -6,7 +6,16 @@ void mainmenu::update(globalState &globalState) {
         soundplayerPtr->menuEnter_sound();
         switch (cursor) {
             case 0:
-                globalState = cutscenescreen;
+                if(alpha == 0.0f){
+                    fadeeffect = true;
+                }
+                if(storymode == true){
+                    storymode = false;
+                    fadeeffect = false;
+                    alpha = 0.0f;
+                    storymodeactive = true;
+                    globalState = storymodesection;
+                }
                 break;
             case 1:
                 globalState = levelselection;
@@ -81,11 +90,19 @@ void mainmenu::update(globalState &globalState) {
         }
     }
 
+    if (fadeeffect) {
+        alpha += fadeSpeed * GetFrameTime();
+
+        if (alpha >= 1.0f) {
+            alpha = 0.0f;
+            fadeeffect = false;
+            globalState = storymodesection;
+        }
+    }
 
 }
 
 void mainmenu::draw() {
-    DrawTexture(background, 0, -50, WHITE);
     //DrawTexture(windowsoli,0,0,WHITE);
 }
 
@@ -94,6 +111,7 @@ bool mainmenu::IsMusicMuted() {
 }
 
 void mainmenu::buttons() {
+    DrawTexture(background, 0, -50, WHITE);
     DrawTexture(Start, 368, 400, WHITE);
     DrawTexture(level_select,335, 500, WHITE);
     DrawTexture(credits,337,610,WHITE);
@@ -137,6 +155,14 @@ void mainmenu::buttons() {
     }
     DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 871,WHITE);
     DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 871,WHITE);
+
+
+    if(storymodeactive == false){
+        DrawTexturePro(fadeTexture,
+                       Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
+                       Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
+                       {}, 0, Fade(WHITE, alpha));
+    }
 }
 
 mainmenu::mainmenu(SoundPlayer *soundplayer) {

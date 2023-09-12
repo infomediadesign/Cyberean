@@ -136,6 +136,20 @@ void gameScene::draw() {
         myGameOverScreen.draw();
         myGameOverScreen.buttons();
     }
+
+    if(fadeout){
+        DrawTexturePro(fadeTexture,
+                       Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
+                       Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
+                       {}, 0, Fade(WHITE, alpha));
+    }
+
+    if(fadein){
+        DrawTexturePro(fadeTexture,
+                       Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
+                       Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
+                       {}, 0, Fade(WHITE, alpha));
+    }
 }
 
 void gameScene::drawLayer(const std::string &layer) {
@@ -262,7 +276,7 @@ void gameScene::update(globalState &globalstate) {
     }
 
     if((playerPtr->posX * 32) == cposX && (playerPtr->posY * 32) == cposY && collectedObjectsCount == 4){
-        globalstate = mainMenu;
+        fadeout = true;
     }
 
     updateMusicPlayers();
@@ -271,11 +285,38 @@ void gameScene::update(globalState &globalstate) {
     musicPlayer3.Update();
     musicPlayer4.Update();
     musicPlayer5.Update();
+
+    if(IsKeyPressed(KEY_F2)){
+        fadeout = true;
+    }
+
+    if(fadein && !fadeout){
+        alpha -= fadeSpeed * GetFrameTime();
+        if (alpha <= 0.0f) {
+            alpha = 0.0f;
+            fadein = false;
+
+        }
+    }
+
+    if(fadeout){
+        alpha += fadeSpeed * GetFrameTime();
+        if (alpha >= 1.0f) {
+            alpha = 1.0f;
+
+            if(storymodeactive){
+                globalstate = storymodesection;
+            }else{
+                globalstate = mainMenu;
+            }
+        }
+    }
 }
 
 void gameScene::updateMusicPlayers() {
     if (musicPlayer->GetCurrentMusicState() == MusicState::MainMenu ||
         musicPlayer->GetCurrentMusicState() == MusicState::part_1 ||
+        musicPlayer->GetCurrentMusicState() == MusicState::cutscene ||
         musicPlayer->GetCurrentMusicState() == MusicState::part_2 ||
         musicPlayer->GetCurrentMusicState() == MusicState::part_3 ||
         musicPlayer->GetCurrentMusicState() == MusicState::part_4) {
@@ -406,6 +447,7 @@ void gameScene::loadmusic(int _level) {
             volumeLevels[2] = 0.6f;
             volumeLevels[3] = 0.6f;
             volumeLevels[4] = 0.6f;
+            std::cout << "bruh" << std::endl;
             break;
         case 1:
             musicPlayer1.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part1.wav", MusicState::part_1);

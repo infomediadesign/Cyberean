@@ -5,3 +5,11 @@
 #include "masterhead.h"
 
 int masterlevel = 0;
+
+int storystate = 0;
+
+bool fadeeffectin = true;
+
+bool fadeeffectout = true;
+
+bool storymodeactive = false;

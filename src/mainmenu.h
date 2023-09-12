@@ -27,11 +27,17 @@ public:
     bool sound = true;
     bool _musicconfig = false;
     bool _soundconfig = false;
+    bool fadeeffect = false;
+    bool storymode = false;
+    float alpha = 0.0f;
+    float fadeSpeed = 1.0f;
 
     SoundPlayer *soundplayerPtr;
 
     Texture2D background = LoadTexture("assets/prototype_title_screen_selina_tech-demo.png");
     //Texture2D windowsoli = LoadTexture("assets/phenster.png");
+
+    Texture2D fadeTexture = LoadTexture("assets/screens/storymode/fadeeffect.png");
 
     Texture2D Exit = LoadTexture("assets/screens/menu_screen/Exit.png");
     Texture2D Exit_markiert = LoadTexture("assets/screens/menu_screen/Exit_markiert.png");
@@ -54,6 +60,5 @@ public:
     Texture2D level_select_markiert = LoadTexture("assets/screens/menu_screen/Level_select_markiert.png");
 
 };
-
 
 #endif //RAYLIBSTARTER_MAINMENU_H

@@ -68,6 +68,12 @@ public:
 
     Texture2D character;
 
+    bool fadein = true;
+    bool fadeout = false;
+    float alpha = 1.0f;
+    float fadeSpeed = 1.0f;
+    Texture2D fadeTexture = LoadTexture("assets/screens/storymode/fadeeffect.png");
+
     gameScene(int Level, MusicPlayer *musicPlayerPtr, SoundPlayer *soundPlayer);
 
     ~gameScene();

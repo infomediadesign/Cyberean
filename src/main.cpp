@@ -14,6 +14,12 @@
 #include "levelselect.h"
 #include "credits.h"
 #include "cutscene.h"
+#include "storymode.h"
+#include "cutscene2.h"
+#include "cutscene3.h"
+#include "cutscene4.h"
+#include "cutscene5.h"
+
 
 int main() {
     // Raylib initialization
@@ -34,9 +40,14 @@ int main() {
     float renderScale{}; //those two are relevant to drawing and code-cleanliness
     Rectangle renderRec{};
 
+    Color backgroundColor = BLACK;
+    float fadeSpeed = 2.0f;
+    float fadeAlpha = 0.0f;
+    Texture2D fadeTexture = LoadTexture("assets/screens/storymode/fadeeffect.png");
+
     SetExitKey(0);
 
-    bool isMusicPlaying = false;
+    int storymodestage = 0;
 
     globalState state = mainMenu;
 
@@ -50,21 +61,20 @@ int main() {
 
     levelselect thelevelselect(&soundPlayer, &musicPlayermenu);
     credits thecredits(&soundPlayer, &musicPlayermenu);
-    cutscene thecutscene(&soundPlayer, &musicPlayermenu);
+    std::unique_ptr<cutscene> thecutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayermenu);
+    std::unique_ptr<cutscene2> thecutscene2 = std::make_unique<cutscene2>(&soundPlayer, &musicPlayermenu);
+    std::unique_ptr<cutscene3> thecutscene3 = std::make_unique<cutscene3>(&soundPlayer, &musicPlayermenu);
+    std::unique_ptr<cutscene4> thecutscene4 = std::make_unique<cutscene4>(&soundPlayer, &musicPlayermenu);
+    std::unique_ptr<cutscene5> thecutscene5 = std::make_unique<cutscene5>(&soundPlayer, &musicPlayermenu);
 
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cyberean_mainmenu.wav", MusicState::MainMenu);
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/credits.wav", MusicState::credits);
     musicPlayermenu.LoadMusic("assets/audio/tracks/misc/cutscenes.wav", MusicState::cutscene);
 
-
     musicPlayermenu.PlayMusic(MusicState::MainMenu);
 
-    MusicState previousState = MusicState::MainMenu; // Variable zum Speichern des vorherigen Zustands
-    MusicState currentState = MusicState::MainMenu; // Variable zum Speichern des aktuellen Zustands
-    //musicPlayermenu.PlayMusic(currentState); // Starten der Hintergrundmusik im Hauptmenü
-
     std::unique_ptr<gameScene> gs = nullptr;
-    //gameScene gs(0, &musicPlayermenu, &musicPlayer1, &musicPlayer2, &musicPlayer3, &musicPlayer4, &musicPlayer5, &soundPlayer);
+    std::unique_ptr<storymode> mystorymode = nullptr;
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -102,8 +112,75 @@ int main() {
                 thecredits.update(state);
                 break;
             case cutscenescreen:
-                thecutscene.update(state);
+                switch(storymodestage){
+                    case 1:
+                        thecutscene->update(state);
+                        break;
+                    case 3:
+                        thecutscene2->update(state);
+                        break;
+                    case 5:
+                        thecutscene3->update(state);
+                        break;
+                    case 7:
+                        thecutscene4->update(state);
+                        break;
+                    case 9:
+                        thecutscene5->update(state);
+                        break;
+                    default:
+                        break;
+                }
+                if (gs != nullptr) {
+                    gs = nullptr;
+                }
                 break;
+            case storymodesection:
+                /*if (mystorymode == nullptr) {
+                    mystorymode = std::make_unique<storymode>();
+                    musicPlayermenu.StopMusic();
+                }
+                if (mystorymode != nullptr) {
+                    mystorymode->update(state);
+                }*/
+
+                storymodestage++;
+                switch(storymodestage){
+                    case 1:
+                        state = cutscenescreen;
+                        break;
+                    case 2:
+                        masterlevel = 0;
+                        state = gameplay; //lvl 1
+                        break;
+                    case 3:
+                        state = cutscenescreen;
+                        break;
+                    case 4:
+                        masterlevel = 1;
+                        state = gameplay; //lvl 2
+                        break;
+                    case 5:
+                        state = cutscenescreen;
+                        break;
+                    case 6:
+                        masterlevel = 2;
+                        state = gameplay; //lvl 3
+                        break;
+                    case 7:
+                        state = cutscenescreen;
+                        break;
+                    case 8:
+                        masterlevel = 3;
+                        state = gameplay; // lvl 4
+                        break;
+                    case 9:
+                        state = cutscenescreen;
+                        break;
+                    case 10:
+                        state = creditsscreen;
+                        break;
+                }
             default:
                 break;
         }
@@ -112,6 +189,23 @@ int main() {
             gs = nullptr;
         }
 
+        if(state == mainMenu && mystorymode != nullptr){
+            mystorymode = nullptr;
+        }
+
+        if(state == mainMenu && thecutscene != nullptr && storymodeactive == true){
+            thecutscene = nullptr;
+            thecutscene2 = nullptr;
+            thecutscene3 = nullptr;
+            thecutscene4 = nullptr;
+            thecutscene5 = nullptr;
+            thecutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayermenu);
+            thecutscene2 = std::make_unique<cutscene2>(&soundPlayer, &musicPlayermenu);
+            thecutscene3 = std::make_unique<cutscene3>(&soundPlayer, &musicPlayermenu);
+            thecutscene4 = std::make_unique<cutscene4>(&soundPlayer, &musicPlayermenu);
+            thecutscene5 = std::make_unique<cutscene5>(&soundPlayer, &musicPlayermenu);
+            storymodeactive = false;
+        }
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
@@ -123,18 +217,22 @@ int main() {
                 case mainMenu:
                     themenu.draw();
                     themenu.buttons();
-                    currentState = MusicState::MainMenu;
+                    musicPlayermenu.Update();
                     musicPlayermenu.SetAllMusicVolume(masterMusicControl);
+                    thelevelselect.fadeout = false;
+                    thelevelselect.alpha = 0.0f;
+                    storymodeactive = false;
+                    storymodestage = 0;
                     break;
                 case gameplay:
                     if (gs != nullptr && state == gameplay) {
                         gs->draw();
                     }
                     if (gs == nullptr && state == gameplay) {
-                        if (thecutscene.cutsceneaktiv == false) {
+                        if (thecutscene->cutsceneaktiv == false) {
                             thelevelselect.draw();
                         } else {
-                            thecutscene.draw();
+                            thecutscene->draw();
                         }
                     }
                     break;
@@ -145,7 +243,30 @@ int main() {
                     thecredits.draw();
                     break;
                 case cutscenescreen:
-                    thecutscene.draw();
+                    switch(storymodestage){
+                        case 1:
+                            thecutscene->draw();
+                            break;
+                        case 3:
+                            thecutscene2->draw();
+                            break;
+                        case 5:
+                            thecutscene3->draw();
+                            break;
+                        case 7:
+                            thecutscene4->draw();
+                            break;
+                        case 9:
+                            thecutscene5->draw();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case storymodesection:
+                    /*if (mystorymode != nullptr && state == storymodesection) {
+                        mystorymode->draw();
+                    }*/
                     break;
                 default:
                     break;

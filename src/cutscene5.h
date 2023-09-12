@@ -1,20 +1,21 @@
 //
-// Created by lukas on 04.09.2023.
+// Created by lukas on 12.09.2023.
 //
 
-#ifndef RAYLIBSTARTER_CUTSCENE_H
-#define RAYLIBSTARTER_CUTSCENE_H
+#ifndef RAYLIBSTARTER_CUTSCENE5_H
+#define RAYLIBSTARTER_CUTSCENE5_H
+
 
 #include "masterhead.h"
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
 #include "musicplayer.h"
 
-class cutscene {
+class cutscene5 {
 public:
 
 public:
-    cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer);
+    cutscene5(SoundPlayer *soundplayer, MusicPlayer *musicPlayer);
 
     void update(globalState &globalState);
     void draw();
@@ -80,4 +81,5 @@ public:
 };
 
 
-#endif //RAYLIBSTARTER_CUTSCENE_H
+
+#endif //RAYLIBSTARTER_CUTSCENE5_H

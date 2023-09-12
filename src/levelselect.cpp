@@ -10,8 +10,7 @@ void levelselect::update(globalState &globalState) {
         switch (cursor) {
             case 0:
                 masterlevel = 0;
-                musicPlayerPtr->StopAllMusic();
-                globalState = gameplay;
+                fadeout = true;
                 break;
             case 1:
                 if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_1) {
@@ -24,8 +23,7 @@ void levelselect::update(globalState &globalState) {
 
             case 2:
                 masterlevel = 1;
-                musicPlayerPtr->StopAllMusic();
-                globalState = gameplay;
+                fadeout = true;
                 break;
 
             case 3:
@@ -38,9 +36,7 @@ void levelselect::update(globalState &globalState) {
                 break;
             case 4:
                 masterlevel = 2;
-                musicPlayerPtr->StopAllMusic();
-                globalState = gameplay;
-
+                fadeout = true;
                 break;
             case 5:
                 if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_3) {
@@ -52,8 +48,7 @@ void levelselect::update(globalState &globalState) {
                 break;
             case 6:
                 masterlevel = 3;
-                musicPlayerPtr->StopAllMusic();
-                globalState = gameplay;
+                fadeout = true;
                 break;
             case 7:
                 if(musicPlayerPtr->GetCurrentMusicState() == MusicState::part_4) {
@@ -97,6 +92,19 @@ void levelselect::update(globalState &globalState) {
         musicPlayerPtr->SetMusicVolume(masterMusicControl * 0.7);
     }else{
         musicPlayerPtr->SetMusicVolume(masterMusicControl);
+    }
+
+    if(fadeout){
+        alpha += fadeSpeed * GetFrameTime();
+        if (alpha >= 1.0f) {
+            musicPlayerPtr->StopAllMusic();
+
+            if(storymodeactive){
+                storystate++;
+            }else{
+                globalState = gameplay;
+            }
+        }
     }
 }
 
@@ -161,5 +169,12 @@ void levelselect::draw() {
             }
             counter = 0;
         }
+    }
+
+    if(fadeout){
+        DrawTexturePro(fadeTexture,
+                       Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
+                       Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
+                       {}, 0, Fade(WHITE, alpha));
     }
 }

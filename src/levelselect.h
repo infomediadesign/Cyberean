@@ -29,6 +29,11 @@ public:
     SoundPlayer *soundplayerPtr;
     MusicPlayer *musicPlayerPtr;
 
+    bool fadeout = false;
+    float alpha = 0.0f;
+    float fadeSpeed = 1.0f;
+    Texture2D fadeTexture = LoadTexture("assets/screens/storymode/fadeeffect.png");
+
     void update(globalState &globalState);
     void draw();
     levelselect(SoundPlayer *soundplayer, MusicPlayer *musicPlayer);
