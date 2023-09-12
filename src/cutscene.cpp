@@ -124,6 +124,7 @@ void cutscene::update(globalState &globalState) {
         }
     }
     musicPlayerPtr->Update();
+    musicPlayerPtr->SetMusicVolume(masterMusicControl);
 
     if(IsKeyPressed(KEY_F2)){
         textpart = 12;
