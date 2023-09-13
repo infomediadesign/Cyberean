@@ -28,5 +28,4 @@ extern bool fadeeffectout;
 
 extern bool storymodeactive;
 
-
 #endif //RAYLIBSTARTER_MASTERHEAD_H

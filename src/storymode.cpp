@@ -12,9 +12,11 @@ storymode::storymode(){
 }
 
 void storymode::update(globalState &globalstate) {
-    std::cout << storystate << std::endl;
-    std::cout << thecutscene->textpart << std::endl;
     storymodeactive = true;
+
+    if(storystate == 9){
+        reset();
+    }
 
     switch(storystate){
         case 0:
@@ -22,7 +24,6 @@ void storymode::update(globalState &globalstate) {
             break;
         case 1:
             musicPlayer.StopMusic();
-            std::cout << "bruh" << std::endl;
             if (gs == nullptr) {
                 masterlevel = 0;
                 gs = std::make_unique<gameScene>(masterlevel, &musicPlayer, &soundPlayer);
@@ -151,4 +152,19 @@ void storymode::draw() {
         default:
             break;
     }
+}
+
+void storymode::reset() {
+    gs = nullptr;
+    thecutscene = nullptr;
+    thecutscene2 = nullptr;
+    thecutscene3 = nullptr;
+    thecutscene4 = nullptr;
+    thecutscene5 = nullptr;
+
+    thecutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayer);
+    thecutscene2 = std::make_unique<cutscene2>(&soundPlayer, &musicPlayer);
+    thecutscene3 = std::make_unique<cutscene3>(&soundPlayer, &musicPlayer);
+    thecutscene4 = std::make_unique<cutscene4>(&soundPlayer, &musicPlayer);
+    thecutscene5 = std::make_unique<cutscene5>(&soundPlayer, &musicPlayer);
 }

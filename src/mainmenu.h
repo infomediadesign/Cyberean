@@ -58,6 +58,8 @@ public:
     Texture2D credits_markiert = LoadTexture("assets/screens/menu_screen/Credits_markiert.png");
     Texture2D level_select = LoadTexture("assets/screens/menu_screen/Level_select.png");
     Texture2D level_select_markiert = LoadTexture("assets/screens/menu_screen/Level_select_markiert.png");
+    Texture2D continuebutton = LoadTexture("assets/screens/menu_screen/Continue.png");
+    Texture2D continuebutton_markiert = LoadTexture("assets/screens/menu_screen/Continue_markiert.png");
 
 };
 

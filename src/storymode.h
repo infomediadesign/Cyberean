@@ -48,6 +48,7 @@ public:
 
     void draw();
     void update(globalState &globalstate);
+    void reset();
     storymode();
 };
 

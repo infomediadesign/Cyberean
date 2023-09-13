@@ -113,7 +113,11 @@ bool mainmenu::IsMusicMuted() {
 
 void mainmenu::buttons() {
     DrawTexture(background, 0, -50, WHITE);
-    DrawTexture(Start, 368, 400, WHITE);
+    if(storystate > 0){
+        DrawTexture(continuebutton, 335, 400, WHITE);
+    }else{
+        DrawTexture(Start, 368, 400, WHITE);
+    }
     DrawTexture(level_select,335, 500, WHITE);
     DrawTexture(credits,337,610,WHITE);
     DrawTexture(Exit, 368, 722, WHITE);
@@ -126,7 +130,11 @@ void mainmenu::buttons() {
     }*/
     switch (cursor) {
         case 0:
-            DrawTexture(Start_markiert, 368, 400, WHITE);
+            if(storystate > 0){
+                DrawTexture(continuebutton_markiert, 335, 400, WHITE);
+            }else{
+                DrawTexture(Start_markiert, 368, 400, WHITE);
+            }
             break;
         case 1:
             DrawTexture(level_select_markiert, 335, 500, WHITE);

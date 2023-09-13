@@ -438,24 +438,23 @@ void gameScene::loadmusic(int _level) {
 
     switch (_level) {
         case 0:
+            musicPlayer1.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part1.wav", MusicState::part_1);
+            musicPlayer2.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part2.wav", MusicState::part_2);
+            musicPlayer3.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part3.wav", MusicState::part_3);
+            musicPlayer4.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part4.wav", MusicState::part_4);
+            musicPlayer5.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part5.wav", MusicState::part_5);
+            volumeLevels[0] = 0.9f;
+            volumeLevels[1] = 0.8f;
+            volumeLevels[2] = 0.7f;
+            volumeLevels[3] = 0.7f;
+            volumeLevels[4] = 0.7f;
+            break;
+        case 1:
             musicPlayer1.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part1.wav", MusicState::part_1);
             musicPlayer2.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part2.wav", MusicState::part_2);
             musicPlayer3.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part3.wav", MusicState::part_3);
             musicPlayer4.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part4.wav", MusicState::part_4);
             musicPlayer5.LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part5.wav", MusicState::part_5);
-            volumeLevels[0] = 0.9f;
-            volumeLevels[1] = 0.8f;
-            volumeLevels[2] = 0.6f;
-            volumeLevels[3] = 0.6f;
-            volumeLevels[4] = 0.6f;
-            std::cout << "bruh" << std::endl;
-            break;
-        case 1:
-            musicPlayer1.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part1.wav", MusicState::part_1);
-            musicPlayer2.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part2.wav", MusicState::part_2);
-            musicPlayer3.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part3.wav", MusicState::part_3);
-            musicPlayer4.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part4.wav", MusicState::part_4);
-            musicPlayer5.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part5.wav", MusicState::part_5);
             volumeLevels[0] = 0.9f;
             volumeLevels[1] = 0.8f;
             volumeLevels[2] = 0.6f;
@@ -475,16 +474,16 @@ void gameScene::loadmusic(int _level) {
             volumeLevels[4] = 0.7f;
             break;
         case 3:
-            musicPlayer1.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part1.wav", MusicState::part_1);
-            musicPlayer2.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part2.wav", MusicState::part_2);
-            musicPlayer3.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part3.wav", MusicState::part_3);
-            musicPlayer4.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part4.wav", MusicState::part_4);
-            musicPlayer5.LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part5.wav", MusicState::part_5);
+            musicPlayer1.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part1.wav", MusicState::part_1);
+            musicPlayer2.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part2.wav", MusicState::part_2);
+            musicPlayer3.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part3.wav", MusicState::part_3);
+            musicPlayer4.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part4.wav", MusicState::part_4);
+            musicPlayer5.LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part5.wav", MusicState::part_5);
             volumeLevels[0] = 0.9f;
             volumeLevels[1] = 0.8f;
-            volumeLevels[2] = 0.7f;
-            volumeLevels[3] = 0.7f;
-            volumeLevels[4] = 0.7f;
+            volumeLevels[2] = 0.6f;
+            volumeLevels[3] = 0.6f;
+            volumeLevels[4] = 0.6f;
             break;
     }
 }

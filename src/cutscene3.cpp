@@ -172,7 +172,7 @@ void cutscene3::draw() {
         DrawTexture(Igor, 860, 220, WHITE);
     }
 
-    DrawText(currentText.c_str(), textX, textY, fontSize, textColor);
+    DrawTextEx(myFont, currentText.c_str(), Vector2{textX, textY}, fontSize, spacing,  textColor);
 
     if(fadein){
         DrawTexturePro(fadeTexture,

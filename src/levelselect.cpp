@@ -112,10 +112,10 @@ levelselect::levelselect(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     soundplayerPtr = soundplayer;
     musicPlayerPtr = musicPlayer;
 
-    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part5.wav", MusicState::part_1);
-    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part5.wav", MusicState::part_2);
+    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_1/cyberean_lvl1_part5.wav", MusicState::part_2);
+    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_2/cyberean_lvl2_part5.wav", MusicState::part_4);
     musicPlayerPtr->LoadMusic("assets/audio/tracks/level_3/cyberean_lvl3_part5.wav", MusicState::part_3);
-    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part5.wav", MusicState::part_4);
+    musicPlayerPtr->LoadMusic("assets/audio/tracks/level_4/cyberean_lvl4_part5.wav", MusicState::part_1);
 }
 
 void levelselect::draw() {
@@ -146,7 +146,6 @@ void levelselect::draw() {
             break;
         default:
             break;
-
     }
 
     if(musicPlayerPtr->GetCurrentMusicState() != MusicState::MainMenu){

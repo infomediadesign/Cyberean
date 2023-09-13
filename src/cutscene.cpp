@@ -160,7 +160,9 @@ void cutscene::draw() {
         DrawTexture(Igor, 860, 220, WHITE);
     }
 
-    DrawText(currentText.c_str(), textX, textY, fontSize, textColor);
+    DrawTextEx(myFont, currentText.c_str(), Vector2{textX, textY}, fontSize, spacing,  textColor);
+    //DrawText(currentText.c_str(), textX, textY, fontSize, textColor);
+
 
     if(fadein){
         DrawTexturePro(fadeTexture,
@@ -190,6 +192,8 @@ cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     musicPlayerPtr = musicPlayer;
 
     fontSize = 24;
+    //fontSize = 24;
+
     textColor = WHITE;
 
     textpart = 0;
@@ -276,8 +280,8 @@ cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
             "\n"
             ">>> FOLLOW IGOR'S TRAIL <<<";
 
-    textX = 200;
-    textY = 660;
+    textX = 200.0f;
+    textY = 660.0f;
     currentText = "";
     textSpeed = 1;
 

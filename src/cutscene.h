@@ -37,7 +37,7 @@ public:
     Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");
 
 
-    int fontSize;
+    int fontSize = 0;
     Color textColor;
 
     int textpart;
@@ -69,14 +69,15 @@ public:
 
     std::string currentText;
     std::string currentFullText;
-    int textX, textY;
+    float textX, textY;
+    float spacing = 0.0f;
+    Font myFont = LoadFont("assets/font/7pixelsOfPerfection.ttf");
+
     int textSpeed;
     int currentTextIndex;
     int textTimer;
 
     void ResetCutscene();
-    void Cutscene_1();
-
 };
 
 

@@ -23,26 +23,29 @@ gameobject::gameobject(int ID, int posX, int posY, player *playerPtr, std::vecto
 
     overlayTexture = LoadTexture("assets/gravity/gravity_button_down.png");
 
-    /*switch(ID)
-    {
-        case 5:
-            textureSource = {0, 32, 32, 32};
+    switch(ID){
+        case 9:
+            overlayTexture = LoadTexture("assets/gravity/gravity_button_down.png");
             break;
-        case 6:
-            textureSource = {32, 32, 32, 32};
+        case 10:
+            overlayTexture = LoadTexture("assets/gravity/gravity_button_up.png");
+            break;
+        case 11:
+            overlayTexture = LoadTexture("assets/gravity/gravity_button_right.png");
+            break;
+        case 12:
+            overlayTexture = LoadTexture("assets/gravity/gravity_button_left.png");
             break;
         default:
-            textureSource = {16, 16, 32, 32};
+            break;
     }
-    overlayTexture = LoadTexture("assets/switch_gravity_down.png");
-}*/
+
 }
 
 void gameobject::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
     //Change switch icon if it's active
     if (isActive) {
-        //DrawTextureRec(texture, Rectangle{32, 256, 32, 32}, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
         DrawTexture(overlayTexture,posX*32,posY*32,WHITE);
     }
 

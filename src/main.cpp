@@ -45,6 +45,8 @@ int main() {
     float fadeAlpha = 0.0f;
     Texture2D fadeTexture = LoadTexture("assets/screens/storymode/fadeeffect.png");
 
+    Font myFont = LoadFont("assets/font/7pixelsOfPerfection.ttf");
+
     SetExitKey(0);
 
     int storymodestage = 0;
@@ -125,11 +127,10 @@ int main() {
             gs = nullptr;
         }
 
-        /*if(storystate == 9 && state == mainMenu){
-        mystorymode = nullptr;
-        mystorymode = std::make_unique<storymode>();
-        storystate = 0;
-        }*/
+        if(storystate == 9 && state == mainMenu){
+            storystate = 0;
+            mystorymode->reset();
+        }
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
