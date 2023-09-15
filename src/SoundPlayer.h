@@ -20,6 +20,8 @@ public:
     Sound button;
     Sound all4notes;
     Sound death;
+    Sound cutsceneenter;
+    Sound cutscenevoice;
     bool mastersound = true;
     float mastersoundvolume = 1.0f;
 
@@ -36,6 +38,8 @@ public:
     void playerButton_sound();
     void playerDeath_sound();
     void all4Notes();
+    void cutsceneenter_sound();
+    void cutscenevoice_sound();
 };
 
 

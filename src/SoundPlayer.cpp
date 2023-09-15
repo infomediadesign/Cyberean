@@ -20,6 +20,8 @@ SoundPlayer::SoundPlayer() {
     button = LoadSound("assets/audio/sfx/button.wav");
     all4notes = LoadSound("assets/audio/sfx/allnotes.wav");
     death = LoadSound("assets/audio/sfx/death.wav");
+    cutsceneenter = LoadSound("assets/audio/sfx/cutscene_test.wav");
+    cutscenevoice = LoadSound("assets/audio/sfx/cutscene_voice.wav");
 }
 
 SoundPlayer::~SoundPlayer() {
@@ -69,4 +71,14 @@ void SoundPlayer::menuControll2_sound() {
 void SoundPlayer::playerDeath_sound() {
     SetSoundVolume(death,masterSoundControl);
     PlaySound(death);
+}
+
+void SoundPlayer::cutsceneenter_sound() {
+    SetSoundVolume(cutsceneenter, masterSoundControl);
+    PlaySound(cutsceneenter);
+}
+
+void SoundPlayer::cutscenevoice_sound() {
+    SetSoundVolume(cutscenevoice, masterSoundControl);
+    PlaySound(cutscenevoice);
 }

@@ -27,17 +27,27 @@ void cutscene::update(globalState &globalState) {
 
     if (currentTextIndex < currentFullText.length() && !fadein) {
         if (IsKeyPressed(KEY_ENTER)) {
+            soundplayerPtr->cutsceneenter_sound();
             currentText = currentFullText;
             currentTextIndex = currentFullText.length();
         } else if (textTimer >= textSpeed) {
             currentText += currentFullText[currentTextIndex];
             currentTextIndex++;
             textTimer = 0;
+            if(counter == 1){
+                soundplayerPtr->cutscenevoice_sound();
+            }
+            if( counter == 2){
+                counter = 0;
+            }
+            counter++;
+            std::cout << counter << std::endl;
         } else {
             textTimer++;
         }
     } else {
         if (IsKeyPressed(KEY_ENTER) && !fadein) {
+            soundplayerPtr->cutsceneenter_sound();
             switch(textpart){
                 case 0:
                     textpart++;

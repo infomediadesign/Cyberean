@@ -20,6 +20,8 @@ public:
     void draw();
 
     SoundPlayer *soundplayerPtr;
+
+    int counter = 0;
     MusicPlayer *musicPlayerPtr;
 
     Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/Textbox_1.png");
