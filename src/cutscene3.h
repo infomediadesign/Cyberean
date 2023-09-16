@@ -24,12 +24,13 @@ public:
     MusicPlayer *musicPlayerPtr;
 
     Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_v1.png"); // 0
-    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_v2.png");
-    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_v3.png");
-    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_igor_speaking.png");
-    Texture2D background_5 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_igor_speaking_v2.png");
-    Texture2D background_6 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_vasja_speaking.png");
-    Texture2D background_7 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_nastja_speaking.png");
+    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_v2.png"); // 1
+    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_v3.png"); // 2
+    Texture2D background_8 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_v4.png"); // 3
+    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_igor_speaking.png"); // 4
+    Texture2D background_5 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_igor_speaking_v2.png"); // 5
+    Texture2D background_6 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_vasja_speaking.png"); // 6
+    Texture2D background_7 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_3_nastja_speaking.png"); // 7
 
 
     /*Texture2D Igor = LoadTexture("assets/screens/cutscene_screen/Igor.png");

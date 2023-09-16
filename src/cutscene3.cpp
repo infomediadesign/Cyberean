@@ -84,6 +84,7 @@ void cutscene3::update(globalState &globalState) {
                 case 7:
                     textpart++;
                     currentFullText = fullText8;
+                    background = 3;
                     ResetCutscene();
                     break;
                 case 8:
@@ -100,46 +101,55 @@ void cutscene3::update(globalState &globalState) {
                 case 10:
                     textpart++;
                     currentFullText = fullText11;
+                    background = 3;
                     ResetCutscene();
                     break;
                 case 11:
                     textpart++;
                     currentFullText = fullText12;
+                    background = 1;
                     ResetCutscene();
                     break;
                 case 12:
                     textpart++;
                     currentFullText = fullText13;
+                    background = 4;
                     ResetCutscene();
                     break;
                 case 13:
                     textpart++;
                     currentFullText = fullText14;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 14:
                     textpart++;
                     currentFullText = fullText15;
+                    background = 7;
                     ResetCutscene();
                     break;
                 case 15:
                     textpart++;
                     currentFullText = fullText16;
+                    background = 5;
                     ResetCutscene();
                     break;
                 case 16:
                     textpart++;
                     currentFullText = fullText17;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 17:
                     textpart++;
                     currentFullText = fullText18;
+                    background = 5;
                     ResetCutscene();
                     break;
                 case 18:
                     textpart++;
                     currentFullText = fullText19;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 19:
@@ -170,36 +180,43 @@ void cutscene3::update(globalState &globalState) {
                 case 24:
                     textpart++;
                     currentFullText = fullText25;
+                    background = 6;
                     ResetCutscene();
                     break;
                 case 25:
                     textpart++;
                     currentFullText = fullText26;
+                    background = 7;
                     ResetCutscene();
                     break;
                 case 26:
                     textpart++;
                     currentFullText = fullText27;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 27:
                     textpart++;
                     currentFullText = fullText28;
+                    background = 6;
                     ResetCutscene();
                     break;
                 case 28:
                     textpart++;
                     currentFullText = fullText29;
+                    background = 7;
                     ResetCutscene();
                     break;
                 case 29:
                     textpart++;
                     currentFullText = fullText30;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 30:
                     textpart++;
                     currentFullText = fullText31;
+                    background = 7;
                     ResetCutscene();
                     break;
                 case 31:
@@ -210,6 +227,7 @@ void cutscene3::update(globalState &globalState) {
                 case 32:
                     textpart++;
                     currentFullText = fullText33;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 33:
@@ -225,11 +243,13 @@ void cutscene3::update(globalState &globalState) {
                 case 35:
                     textpart++;
                     currentFullText = fullText36;
+                    background = 5;
                     ResetCutscene();
                     break;
                 case 36:
                     textpart++;
                     currentFullText = fullText37;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 37:
@@ -294,15 +314,18 @@ void cutscene3::draw() {
             DrawTexture(background_3, 0, 0, WHITE);
             break;
         case 3:
-            DrawTexture(background_4, 0, 0, WHITE);
+            DrawTexture(background_8, 0, 0, WHITE);
             break;
         case 4:
-            DrawTexture(background_5, 0, 0, WHITE);
+            DrawTexture(background_4, 0, 0, WHITE);
             break;
         case 5:
-            DrawTexture(background_6, 0, 0, WHITE);
+            DrawTexture(background_5, 0, 0, WHITE);
             break;
         case 6:
+            DrawTexture(background_6, 0, 0, WHITE);
+            break;
+        case 7:
             DrawTexture(background_7, 0, 0, WHITE);
             break;
         default:
