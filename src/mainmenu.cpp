@@ -57,22 +57,32 @@ void mainmenu::update(globalState &globalState) {
 
     if(_musicconfig == false && _soundconfig == false){
         if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
-            cursor++;
+            if(cursor == 3){
+                cursor = 3;
+            }else if(cursor == 4 || cursor == 5){
+
+            }else{
+                cursor++;
+            }
             soundplayerPtr->menuControll_sound();
         }
         if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
-            cursor--;
+            if(cursor == 5 || cursor == 4){
+                cursor = 3;
+            }else{
+                cursor--;
+            }
             soundplayerPtr->menuControll2_sound();
         }
         if (cursor < 0) {
-            cursor = 5;
-        }
-
-        if (cursor > 5) {
             cursor = 0;
         }
 
+
         if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+            if(cursor == 0 || cursor == 1 || cursor == 2 || cursor == 3){
+                cursor = 5;
+            }
             if (cursor == 4) {
                 cursor = 5;
                 soundplayerPtr->menuControll_sound();
@@ -81,6 +91,9 @@ void mainmenu::update(globalState &globalState) {
                 soundplayerPtr->menuControll_sound();
             }
         } else if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+            if(cursor == 0 || cursor == 1 || cursor == 2 || cursor == 3){
+                cursor = 4;
+            }
             if (cursor == 4) {
                 cursor = 5;
                 soundplayerPtr->menuControll2_sound();
