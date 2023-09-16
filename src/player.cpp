@@ -17,13 +17,13 @@ void player::update() {
     //if (playerDead)
     //  playerDied();
 
-    if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) // Move Left
+    if ((IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) && !playerDead) // Move Left
     {
         checkIfBombShovable(1);
         if (canMoveTo(posX - 1, posY))
             posX--;
 
-    } else if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
+    } else if ((IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) && !playerDead) {
         stepCounterUp = 0;
         stepCounterDown = 0;
         stepCounterRight = 0;
@@ -36,12 +36,12 @@ void player::update() {
         }
     }
 
-    if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))//Move Up
+    if ((IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) && !playerDead)//Move Up
     {
         checkIfBombShovable(3);
         if (canMoveTo(posX, posY - 1))
             posY--;
-    } else if (IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) {
+    } else if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W)) && !playerDead) {
         stepCounterUp++;
         stepCounterDown = 0;
         stepCounterRight = 0;
@@ -54,12 +54,12 @@ void player::update() {
         }
     }
 
-    if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D)) //Move Right
+    if ((IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D)) && !playerDead) //Move Right
     {
         checkIfBombShovable(0);
         if (canMoveTo(posX + 1, posY))
             posX++;
-    } else if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
+    } else if ((IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) && !playerDead) {
         stepCounterUp = 0;
         stepCounterDown = 0;
         stepCounterRight++;
@@ -71,12 +71,12 @@ void player::update() {
             stepCounterRight = 0;
         }
     }
-    if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) //Move Down
+    if ((IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) && !playerDead) //Move Down
     {
         checkIfBombShovable(2);
         if (canMoveTo(posX, posY + 1))
             posY++;
-    } else if (IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) {
+    } else if ((IsKeyDown(KEY_DOWN) || IsKeyDown(KEY_S)) && !playerDead) {
         stepCounterUp = 0;
         stepCounterDown++;
         stepCounterLeft = 0;
@@ -109,7 +109,7 @@ void player::draw() {
                 playerStartPos(masterlevel);
             deathAnimationCounter = 0;
         } else
-            DrawTextureRec(playerDeathAnim, Rectangle{(float) (deathAnimationCounter / 10) * 32, 0, 32, 32},
+            DrawTextureRec(playerDeathAnim, Rectangle{(float) (deathAnimationCounter/10) * 32, 0, 32, 32},
                            Vector2{(float) posX * 32, (float) posY * 32},
                            WHITE);
     } else if (life <= 0) {
@@ -251,9 +251,10 @@ void player::playerDied() {
         life--;
         playerDead = false;
         gameOver = true;
+    } else {
+        life--;
+        vulnerable = false;
     }
-    life--;
-    vulnerable = false;
     //playerDead = false;
     //playerStartPos(masterlevel);
 }
