@@ -88,16 +88,19 @@ void epilogue::update(globalState &globalState) {
                 case 7:
                     textpart++;
                     currentFullText = fullText8;
+                    background = 1;
                     ResetCutscene();
                     break;
                 case 8:
                     textpart++;
                     currentFullText = fullText9;
+                    background = 2;
                     ResetCutscene();
                     break;
                 case 9:
                     textpart++;
                     currentFullText = fullText10;
+                    background = 3;
                     ResetCutscene();
                     break;
                 case 10:
@@ -108,16 +111,19 @@ void epilogue::update(globalState &globalState) {
                 case 11:
                     textpart++;
                     currentFullText = fullText12;
+                    background = 6;
                     ResetCutscene();
                     break;
                 case 12:
                     textpart++;
                     currentFullText = fullText13;
+                    background = 4;
                     ResetCutscene();
                     break;
                 case 13:
                     textpart++;
                     currentFullText = fullText14;
+                    background = 5;
                     ResetCutscene();
                     break;
                 case 14:
@@ -151,14 +157,9 @@ void epilogue::update(globalState &globalState) {
                     ResetCutscene();
                     break;
                 case 20:
-                    textpart++;
-                    currentFullText = fullText21;
-                    ResetCutscene();
-                    break;
-                case 21:
                     fadeout = true;
                     break;
-                case 22:
+                case 21:
                     musicPlayerPtr->PlayMusic(MusicState::MainMenu);
                     musicPlayerPtr->StopMusic();
                     storystate++;
@@ -195,6 +196,9 @@ void epilogue::draw() {
             break;
         case 5:
             DrawTexture(background_6, 0, 0, WHITE);
+            break;
+        case 6:
+            DrawTexture(background_7, 0,0, WHITE);
             break;
         default:
             break;
@@ -238,49 +242,52 @@ epilogue::epilogue(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     textpart = 0;
 
     currentFullText =
-            "";
+            "The members of the former band 'Cyberean' stand on a platform of the Neosibirsk metro.";
     fullText =
-            "";
+            "Together.";
     fullText2 =
-            "";
+            "But silent.";
     fullText3 =
-            "";
+            "There's been enough talk for tonight.";
     fullText4 =
-            "";
+            "Not everything has been pleasant to hear - or to say.";
     fullText5 =
-            "";
+            "But things are looking up.\n"
+            "You all agreed on meeting up again.\n"
+            "Maybe over some pizza by Old Artyom's.";
     fullText6 =
-            "";
+            "Koshka's also prepared some new traces, just in case things should get more tense in the future.";
     fullText7 =
-            "";
+            "One by one everyone hops on their train and disappears from the neon-coloured chaos around them into\n"
+            "the pitch-black tunnels leading to somewhere else flooded by neon-light.\n"
+            "A welcome, albeit short moment of respite after all that's happened over the last couple of days.";
     fullText8 =
-            "";
+            "Koshka...";
     fullText9 =
-            "";
+            "Alex...";
     fullText10 =
-            "";
+            "Nastja...";
     fullText11 =
-            "";
+            "Igor's the last one with you on the platform.";
     fullText12 =
-            "";
+            "Right before it's his time to leave he turns his head towards you, like he's mustering you thoroughly.";
     fullText13 =
-            "";
+            "You did good, comrade.";
     fullText14 =
-            "";
+            "You're not sure what the future has in store for all of you.\n"
+            "Everyone's world around you was getting more grim by the day.";
     fullText15 =
-            "";
+            "At least your world now would be a little brighter again.";
     fullText16 =
-            "";
+            "It fills you with relief knowing none of you will have to face whatever is to come alone.";
     fullText17 =
-            "";
+            "Your train arrives.";
     fullText18 =
-            "";
+            "Time to head home.";
     fullText19 =
-            "";
+            "Maybe dust off your blessed memorabilia.";
     fullText20 =
-            "";
-    fullText21 =
-            "";
+            "<<< THANKS FOR PLAYING >>>";
 
     textX = 86.0f;
     textY = 744.0f;

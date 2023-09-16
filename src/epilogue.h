@@ -27,22 +27,19 @@ public:
     int counter = 0;
     MusicPlayer *musicPlayerPtr;
 
-    Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v1.png");
-    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v2.png");
-    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v3.png");
-    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v4.png");
-    Texture2D background_5 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v5.png");
-    Texture2D background_6 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v6.png");
+    Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v1.png"); // 0 all
+    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v2.png"); // 1 - koshka
+    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v3.png"); // 2 - alex
+    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v4.png"); // 3 - nastja
+    Texture2D background_5 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v5.png"); // 4 big igor
+    Texture2D background_6 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v6.png"); // 5 - igor
+    Texture2D background_7 = LoadTexture("assets/screens/cutscene_screen/epilogue/epilogue_v7.png"); // 6 igor no name
 
     int fontSize = 20;
     Color textColor;
 
     int textpart;
     int background = 0;
-    bool igorname = false;
-    bool vasilyname = false;
-    bool igor = false;
-    bool vasily = true;
     bool cutsceneaktiv = false;
 
     bool fadein = true;
@@ -71,14 +68,12 @@ public:
     std::string fullText18;
     std::string fullText19;
     std::string fullText20;
-    std::string fullText21;
 
 
     std::string currentText;
     std::string currentFullText;
     float textX, textY;
     float spacing = 0.0f;
-    Font myFont = LoadFont("assets/font/7pixelsOfPerfection.ttf");
 
     int textSpeed;
     int currentTextIndex;
