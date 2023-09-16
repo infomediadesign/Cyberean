@@ -98,6 +98,28 @@ void player::update() {
 }
 
 void player::draw() {
+    switch (deathCause) {
+        case deadByFirewall: {
+            playerDeathAnim = playerDeathAnimMelt;
+            break;
+        }
+        case deadByMalware: {
+            playerDeathAnim = playerDeathAnimGrid;
+            break;
+        }
+        case deadByBomb: {
+            playerDeathAnim = playerDeathAnimAsh;
+            break;
+        }
+        case deadByAntivirus: {
+            playerDeathAnim = playerDeathAnimSuck;
+            break;
+        }
+        default:
+            playerDeathAnim = playerDeathAnimMelt;
+            break;
+
+    }
 
     //Blink if player is invulnerable
     if (playerDead) {
@@ -105,11 +127,11 @@ void player::draw() {
         if (deathAnimationCounter > 70) { //Divided by 70 to slow the death animation
             playerDied();
             playerDead = false;
-            if(life >= 1)
+            if (life >= 1)
                 playerStartPos(masterlevel);
             deathAnimationCounter = 0;
         } else
-            DrawTextureRec(playerDeathAnim, Rectangle{(float) (deathAnimationCounter/10) * 32, 0, 32, 32},
+            DrawTextureRec(playerDeathAnim, Rectangle{(float) (deathAnimationCounter / 10) * 32, 0, 32, 32},
                            Vector2{(float) posX * 32, (float) posY * 32},
                            WHITE);
     } else if (life <= 0) {
@@ -145,17 +167,33 @@ bool player::canMoveTo(int x, int y) {// checks if the player can move to adjace
         }
         if (!EnemyFound) vulnerable = true;
 
-
         return true;
     }
     //Collision with enemies
     for (int i = 0; i < enemies->size(); i++) {
         Enemy enemy = (*enemies)[i];
         if (enemy.posX == x && enemy.posY == y) {
-            //ADD LOGIC TO KILL THE PLAYER IN THE CASE BELOW!!!
-            if (enemy.Type == rogueAntivirus || enemy.Type == firewall || enemy.Type == malware) {
-                playerDead = true;
-                return true;
+            switch (enemy.Type) {
+                case rogueAntivirus: {
+                    playerDead = true;
+                    deathCause = deadByAntivirus;
+                    return true;
+                    break;
+                }
+                case firewall: {
+                    playerDead = true;
+                    deathCause = deadByFirewall;
+                    return true;
+                    break;
+                }
+                case malware: {
+                    playerDead = true;
+                    deathCause = deadByMalware;
+                    return true;
+                    break;
+                }
+                default:
+                    break;
             }
             soundplayerPtr->playerWall_sound();
             return false;

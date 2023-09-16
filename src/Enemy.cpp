@@ -100,7 +100,8 @@ void Enemy::update() {
             if (bAboveBoulderIsEnemy)
                 return;
             if (gravityX != 0) {
-                if (canMoveTo(posX, posY + 1,true) && canMoveTo(posX + gravityX, posY + 1,true) && gravMoveCooldown <= 0) {
+                if (canMoveTo(posX, posY + 1, true) && canMoveTo(posX + gravityX, posY + 1, true) &&
+                    gravMoveCooldown <= 0) {
                     if ((getGravityVal(posX, posY + 1) == 15 && !playerPtr->gravitySwitchStatusUp) ||
                         (getGravityVal(posX, posY + 1) == 16 && playerPtr->gravitySwitchStatusDown))
                         return;
@@ -110,7 +111,8 @@ void Enemy::update() {
                         //Insert animation for data chan (counter clock wise) here:
 
                     }
-                } else if (canMoveTo(posX, posY - 1,true) && canMoveTo(posX + gravityX, posY - 1,true) && gravMoveCooldown <= 0) {
+                } else if (canMoveTo(posX, posY - 1, true) && canMoveTo(posX + gravityX, posY - 1, true) &&
+                           gravMoveCooldown <= 0) {
                     if ((getGravityVal(posX, posY + 1) == 15 && playerPtr->gravitySwitchStatusUp) ||
                         (getGravityVal(posX, posY + 1) == 16 && !playerPtr->gravitySwitchStatusDown))
                         return;
@@ -122,7 +124,8 @@ void Enemy::update() {
                     }
                 }
             } else if (gravityY != 0) {
-                if (canMoveTo(posX + 1, posY,true) && canMoveTo(posX + 1, posY + gravityY,true) && gravMoveCooldown <= 0) {
+                if (canMoveTo(posX + 1, posY, true) && canMoveTo(posX + 1, posY + gravityY, true) &&
+                    gravMoveCooldown <= 0) {
                     if ((getGravityVal(posX + 1, posY) == 18 && playerPtr->gravitySwitchStatusRight) ||
                         (getGravityVal(posX + 1, posY) == 17 && !playerPtr->gravitySwitchStatusLeft))
                         return;
@@ -132,7 +135,8 @@ void Enemy::update() {
                         //Insert animation for data chan (clock wise) here:
 
                     }
-                } else if (canMoveTo(posX - 1, posY,true) && canMoveTo(posX - 1, posY + gravityY,true) && gravMoveCooldown <= 0) {
+                } else if (canMoveTo(posX - 1, posY, true) && canMoveTo(posX - 1, posY + gravityY, true) &&
+                           gravMoveCooldown <= 0) {
                     if ((getGravityVal(posX - 1, posY) == 18 && !playerPtr->gravitySwitchStatusRight) ||
                         (getGravityVal(posX - 1, posY) == 17 && playerPtr->gravitySwitchStatusLeft))
                         return;
@@ -285,8 +289,10 @@ void Enemy::update() {
                     break;
             }
             firewallMoveCooldown = firewallMoveDelay;
-            if (posX == playerPtr->posX && posY == playerPtr->posY && playerPtr->vulnerable)
+            if (posX == playerPtr->posX && posY == playerPtr->posY && playerPtr->vulnerable) {
                 playerPtr->playerDead = true;
+                playerPtr->deathCause = deadByFirewall;
+            }
         }
     }
 }
@@ -318,6 +324,7 @@ bool Enemy::canMoveTo(int x, int y, bool dontKill) {
     if (this->Type == rogueAntivirus) {
         if (x == playerPtr->posX && y == playerPtr->posY && playerPtr->vulnerable && !dontKill) {
             playerPtr->playerDead = true;
+            playerPtr->deathCause = deadByAntivirus;
             return true;
         }
         for (int i = 0; i < otherEnemies->size(); i++) {
@@ -427,14 +434,14 @@ bool Enemy::neighborExist90() {
 
 bool Enemy::neighborExist360() {
 
-    if (canMoveTo(posX - 1, posY,true) &&
-        canMoveTo(posX + 1, posY,true) &&
-        canMoveTo(posX, posY + 1,true) &&
-        canMoveTo(posX, posY - 1,true) &&
-        canMoveTo(posX - 1, posY - 1,true) &&
-        canMoveTo(posX + 1, posY + 1,true) &&
-        canMoveTo(posX - 1, posY + 1,true) &&
-        canMoveTo(posX + 1, posY - 1,true))
+    if (canMoveTo(posX - 1, posY, true) &&
+        canMoveTo(posX + 1, posY, true) &&
+        canMoveTo(posX, posY + 1, true) &&
+        canMoveTo(posX, posY - 1, true) &&
+        canMoveTo(posX - 1, posY - 1, true) &&
+        canMoveTo(posX + 1, posY + 1, true) &&
+        canMoveTo(posX - 1, posY + 1, true) &&
+        canMoveTo(posX + 1, posY - 1, true))
         return false;
     return true;
 }
@@ -482,6 +489,7 @@ void Enemy::bombRemoveCover(int x, int y) {
 bool Enemy::checkExplosionCell(int x, int y) {
     if (playerPtr->posX == x && playerPtr->posY == y && playerPtr->vulnerable) {
         playerPtr->playerDead = true;
+        playerPtr->deathCause = deadByBomb;
         return true;
     }
     if (getEnemyType(x, y) == bomb)
