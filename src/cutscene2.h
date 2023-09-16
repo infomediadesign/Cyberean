@@ -23,26 +23,27 @@ public:
     SoundPlayer *soundplayerPtr;
     MusicPlayer *musicPlayerPtr;
 
-    Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/Textbox_1.png");
-    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/Textbox_2.png");
-    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/Textbox_3.png");
-    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/Textbox_4.png");
+    Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/scene_2/story_2_v1.png"); // 0
+    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/scene_2/story_2_v2.png");
+    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/scene_2/story_2_igor_speaking.png");
+    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/scene_2/story_2_vasja_speaking.png");
+    Texture2D background_5 = LoadTexture("assets/screens/cutscene_screen/scene_2/story_2_v3.png");
 
     /*Texture2D Igor = LoadTexture("assets/screens/cutscene_screen/Igor.png");
     Texture2D Igor_name = LoadTexture("assets/screens/cutscene_screen/Igor_name.png");
     Texture2D Vasily = LoadTexture("assets/screens/cutscene_screen/vasily.png");
-    Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");*/
+    Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");
     Texture2D Igor = LoadTexture("assets/screens/cutscene_screen/character/igor600.png");
     Texture2D Igor_name = LoadTexture("assets/screens/cutscene_screen/Igor_name.png");
     Texture2D Vasily = LoadTexture("assets/screens/cutscene_screen/character/vasily600.png");
-    Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");
+    Texture2D Vasily_name = LoadTexture("assets/screens/cutscene_screen/vasily_name.png");*/
 
 
     int fontSize;
     Color textColor;
 
     int textpart;
-    int background = 1;
+    int background = 0;
     bool igorname = false;
     bool vasilyname = false;
     bool igor = false;
@@ -67,6 +68,19 @@ public:
     std::string fullText10;
     std::string fullText11;
     std::string fullText12;
+    std::string fullText13;
+    std::string fullText14;
+    std::string fullText15;
+    std::string fullText16;
+    std::string fullText17;
+    std::string fullText18;
+    std::string fullText19;
+    std::string fullText20;
+    std::string fullText21;
+    std::string fullText22;
+    std::string fullText23;
+    std::string fullText24;
+    std::string fullText25;
 
     std::string currentText;
     std::string currentFullText;

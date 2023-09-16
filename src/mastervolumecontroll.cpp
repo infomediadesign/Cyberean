@@ -4,7 +4,7 @@
 
 #include "mastervolumecontroll.h"
 
-float masterMusicControl = 1.0f;
+float masterMusicControl = 0.0f;
 
-float masterSoundControl = 1.0f;
+float masterSoundControl = 0.0f;
 

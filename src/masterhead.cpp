@@ -6,7 +6,7 @@
 
 int masterlevel = 0;
 
-int storystate = 0;
+int storystate = 4;
 
 bool fadeeffectin = true;
 
