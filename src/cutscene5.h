@@ -23,23 +23,19 @@ public:
     SoundPlayer *soundplayerPtr;
     MusicPlayer *musicPlayerPtr;
 
-    Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/scene_1/story_5_v1.png");
-    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/scene_2/story_5_v2.png");
-    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/scene_3/story_5_vasja_speaking.png");
-    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/scene_4/story_5_alex_speaking.png");
-    Texture2D background_5 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_igor_speaking.png");
-    Texture2D background_6 = LoadTexture("assets/screens/cutscene_screen/scene_6/story_5_koshka_speaking.png");
-    Texture2D background_7 = LoadTexture("assets/screens/cutscene_screen/scene_7/story_5_nastja_speaking.png");
+    Texture2D background_1 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_v1.png"); // 0
+    Texture2D background_2 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_v2.png"); // 1
+    Texture2D background_3 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_vasja_speaking.png"); // 2
+    Texture2D background_4 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_alex_speaking.png"); // 3
+    Texture2D background_5 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_igor_speaking.png"); // 4
+    Texture2D background_6 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_koshka_speaking.png"); // 5
+    Texture2D background_7 = LoadTexture("assets/screens/cutscene_screen/scene_5/story_5_nastja_speaking.png"); // 6
 
     int fontSize;
     Color textColor;
 
     int textpart;
-    int background = 1;
-    bool igorname = false;
-    bool vasilyname = false;
-    bool igor = false;
-    bool vasily = true;
+    int background = 0;
     bool cutsceneaktiv = false;
 
     bool fadein = true;
@@ -100,12 +96,29 @@ public:
     std::string fullText50;
     std::string fullText51;
     std::string fullText52;
+    std::string fullText53;
+    std::string fullText54;
+    std::string fullText55;
+    std::string fullText56;
+    std::string fullText57;
+    std::string fullText58;
+    std::string fullText59;
+    std::string fullText60;
+    std::string fullText61;
+    std::string fullText62;
+    std::string fullText63;
+    std::string fullText64;
+    std::string fullText65;
+    std::string fullText66;
+    std::string fullText67;
+    std::string fullText68;
+    std::string fullText69;
 
     std::string currentText;
     std::string currentFullText;
     float textX, textY;
     float spacing = 0.0f;
-    Font myFont = LoadFont("assets/font/7pixelsOfPerfection.ttf");
+    //Font myFont = LoadFont("assets/font/7pixelsOfPerfection.ttf");
 
     int textSpeed;
     int currentTextIndex;
