@@ -60,7 +60,7 @@ public:
     tson::Map *theMap;
     Rectangle textureSource;
 
-    bool canMoveTo(int x, int y);
+    bool canMoveTo(int x, int y, bool dontKill = false);
 
     std::vector<bool> *covers;
     std::vector<Enemy> *otherEnemies;
