@@ -12,7 +12,6 @@ void cutscene5::update(globalState &globalState) {
         if (alpha <= 0.0f) {
             alpha = 0.0f;
             fadein = false;
-
         }
     }
 
@@ -54,15 +53,11 @@ void cutscene5::update(globalState &globalState) {
                     textpart++;
                     currentFullText = fullText2;
                     ResetCutscene();
-                    cutsceneaktiv = true;
-
                     break;
                 case 2:
                     textpart++;
                     currentFullText = fullText3;
                     ResetCutscene();
-                    fadeout = true;
-
                     break;
                 case 3:
                     textpart++;
@@ -72,9 +67,6 @@ void cutscene5::update(globalState &globalState) {
                 case 4:
                     textpart++;
                     currentFullText = fullText5;
-                    igor = true;
-                    igorname = true;
-                    background = 3;
                     ResetCutscene();
                     break;
                 case 5:
@@ -100,9 +92,6 @@ void cutscene5::update(globalState &globalState) {
                 case 9:
                     textpart++;
                     currentFullText = fullText10;
-                    igor = false;
-                    igorname = false;
-                    background = 1;
                     ResetCutscene();
                     break;
                 case 10:
@@ -116,9 +105,209 @@ void cutscene5::update(globalState &globalState) {
                     ResetCutscene();
                     break;
                 case 12:
-                    fadeout = true;
+                    textpart++;
+                    currentFullText = fullText13;
+                    ResetCutscene();
                     break;
                 case 13:
+                    textpart++;
+                    currentFullText = fullText14;
+                    ResetCutscene();
+                    break;
+                case 14:
+                    textpart++;
+                    currentFullText = fullText15;
+                    ResetCutscene();
+                    break;
+                case 15:
+                    textpart++;
+                    currentFullText = fullText16;
+                    ResetCutscene();
+                    break;
+                case 16:
+                    textpart++;
+                    currentFullText = fullText17;
+                    ResetCutscene();
+                    break;
+                case 17:
+                    textpart++;
+                    currentFullText = fullText18;
+                    ResetCutscene();
+                    break;
+                case 18:
+                    textpart++;
+                    currentFullText = fullText19;
+                    ResetCutscene();
+                    break;
+                case 19:
+                    textpart++;
+                    currentFullText = fullText20;
+                    ResetCutscene();
+                    break;
+                case 20:
+                    textpart++;
+                    currentFullText = fullText21;
+                    ResetCutscene();
+                    break;
+                case 21:
+                    textpart++;
+                    currentFullText = fullText22;
+                    ResetCutscene();
+                    break;
+                case 22:
+                    textpart++;
+                    currentFullText = fullText23;
+                    ResetCutscene();
+                    break;
+                case 23:
+                    textpart++;
+                    currentFullText = fullText24;
+                    ResetCutscene();
+                    break;
+                case 24:
+                    textpart++;
+                    currentFullText = fullText25;
+                    ResetCutscene();
+                    break;
+                case 25:
+                    textpart++;
+                    currentFullText = fullText26;
+                    ResetCutscene();
+                    break;
+                case 26:
+                    textpart++;
+                    currentFullText = fullText27;
+                    ResetCutscene();
+                    break;
+                case 27:
+                    textpart++;
+                    currentFullText = fullText28;
+                    ResetCutscene();
+                    break;
+                case 28:
+                    textpart++;
+                    currentFullText = fullText29;
+                    ResetCutscene();
+                    break;
+                case 29:
+                    textpart++;
+                    currentFullText = fullText30;
+                    ResetCutscene();
+                    break;
+                case 30:
+                    textpart++;
+                    currentFullText = fullText31;
+                    ResetCutscene();
+                    break;
+                case 31:
+                    textpart++;
+                    currentFullText = fullText32;
+                    ResetCutscene();
+                    break;
+                case 32:
+                    textpart++;
+                    currentFullText = fullText33;
+                    ResetCutscene();
+                    break;
+                case 33:
+                    textpart++;
+                    currentFullText = fullText34;
+                    ResetCutscene();
+                    break;
+                case 34:
+                    textpart++;
+                    currentFullText = fullText35;
+                    ResetCutscene();
+                    break;
+                case 35:
+                    textpart++;
+                    currentFullText = fullText36;
+                    ResetCutscene();
+                    break;
+                case 36:
+                    textpart++;
+                    currentFullText = fullText37;
+                    ResetCutscene();
+                    break;
+                case 37:
+                    textpart++;
+                    currentFullText = fullText38;
+                    ResetCutscene();
+                    break;
+                case 38:
+                    textpart++;
+                    currentFullText = fullText39;
+                    ResetCutscene();
+                    break;
+                case 39:
+                    textpart++;
+                    currentFullText = fullText40;
+                    ResetCutscene();
+                    break;
+                case 40:
+                    textpart++;
+                    currentFullText = fullText41;
+                    ResetCutscene();
+                    break;
+                case 41:
+                    textpart++;
+                    currentFullText = fullText42;
+                    ResetCutscene();
+                    break;
+                case 42:
+                    textpart++;
+                    currentFullText = fullText43;
+                    ResetCutscene();
+                    break;
+                case 43:
+                    textpart++;
+                    currentFullText = fullText44;
+                    ResetCutscene();
+                    break;
+                case 44:
+                    textpart++;
+                    currentFullText = fullText45;
+                    ResetCutscene();
+                    break;
+                case 45:
+                    textpart++;
+                    currentFullText = fullText46;
+                    ResetCutscene();
+                    break;
+                case 46:
+                    textpart++;
+                    currentFullText = fullText47;
+                    ResetCutscene();
+                    break;
+                case 47:
+                    textpart++;
+                    currentFullText = fullText48;
+                    ResetCutscene();
+                    break;
+                case 48:
+                    textpart++;
+                    currentFullText = fullText49;
+                    ResetCutscene();
+                    break;
+                case 49:
+                    textpart++;
+                    currentFullText = fullText50;
+                    ResetCutscene();
+                    break;
+                case 50:
+                    textpart++;
+                    currentFullText = fullText51;
+                    ResetCutscene();
+                    break;
+                case 51:
+                    textpart++;
+                    currentFullText = fullText52;
+                    ResetCutscene();
+                    break;
+                case 52:
+                    fadeout = true;
+                    break;
+                case 53:
                     textpart = 0;
                     musicPlayerPtr->PlayMusic(MusicState::MainMenu);
                     musicPlayerPtr->StopMusic();
@@ -154,23 +343,17 @@ void cutscene5::draw() {
         case 3:
             DrawTexture(background_4, 0, 0, WHITE);
             break;
+        case 4:
+            DrawTexture(background_5, 0, 0, WHITE);
+            break;
+        case 5:
+            DrawTexture(background_6, 0, 0, WHITE);
+            break;
+        case 6:
+            DrawTexture(background_7, 0, 0, WHITE);
+            break;
         default:
             break;
-    }
-    if(vasilyname){
-        DrawTexture(Vasily_name, 217, 585, WHITE);
-    }
-
-    if(igorname){
-        DrawTexture(Igor_name, 217, 585, WHITE);
-    }
-
-    if(vasily){
-        DrawTexture(Vasily, 230, 220, WHITE);
-    }
-
-    if(igor){
-        DrawTexture(Igor, 860, 220, WHITE);
     }
 
     DrawTextEx(myFont, currentText.c_str(), Vector2{textX, textY}, fontSize, spacing,  textColor);
@@ -233,7 +416,6 @@ cutscene5::cutscene5(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     fullText7 =
             "";
     fullText8 =
-
             "";
     fullText9 =
             "";
@@ -243,10 +425,89 @@ cutscene5::cutscene5(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
             "";
     fullText12 =
             "";
+    fullText13 =
+            "";
+    fullText14 =
+            "";
+    fullText15 =
+            "";
+    fullText16 =
+            "";
+    fullText17 =
+            "";
+    fullText18 =
+            "";
+    fullText19 =
+            "";
+    fullText20 =
+            "";
+    fullText21 =
+            "";
+    fullText22 =
+            "";
+    fullText23 =
+            "";
+    fullText24 =
+            "";
+    fullText25 =
+            "";
+    fullText26 =
+            "";
+    fullText27 =
+            "";
+    fullText28 =
+            "";
+    fullText29 =
+            "";
+    fullText30 =
+            "";
+    fullText31 =
+            "";
+    fullText32 =
+            "";
+    fullText33 =
+            "";
+    fullText34 =
+            "";
+    fullText35 =
+            "";
+    fullText36 =
+            "";
+    fullText37 =
+            "";
+    fullText38 =
+            "";
+    fullText39 =
+            "";
+    fullText40 =
+            "";
+    fullText41 =
+            "";
+    fullText42 =
+            "";
+    fullText43 =
+            "";
+    fullText44 =
+            "";
+    fullText45 =
+            "";
+    fullText46 =
+            "";
+    fullText47 =
+            "";
+    fullText48 =
+            "";
+    fullText49 =
+            "";
+    fullText50 =
+            "";
+    fullText51 =
+            "";
+    fullText52 =
+            "";
 
-
-    textX = 200;
-    textY = 660;
+    textX = 86.0f;
+    textY = 744.0f;
     currentText = "";
     textSpeed = 1;
 
