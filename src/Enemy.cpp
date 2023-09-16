@@ -330,18 +330,19 @@ bool Enemy::canMoveTo(int x, int y) {
         return true;
     }
     if (this->Type == boulder) {
-        if (x == playerPtr->posX && y == playerPtr->posY) {
-            if (this->consecMoves >= 1 && playerPtr->vulnerable) {
-                playerPtr->playerDead = true;
-                return true;
-            } else return false;
-        }
         for (int i = 0; i < otherEnemies->size(); i++) {
             if ((*otherEnemies)[i].posX == x) {
                 if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type != firewall) {
                     return false;
                 }
             }
+        }
+        if (x == playerPtr->posX && y == playerPtr->posY) {
+            if (consecMoves >= 1 && playerPtr->vulnerable && gravMoveCooldown <= 0) {
+                playerPtr->playerDead = true;
+                return true;
+            } else
+                return false;
         }
         return true;
     }
@@ -425,6 +426,9 @@ bool Enemy::neighborExist90() {
 }
 
 bool Enemy::neighborExist360() {
+    bool savedState = playerPtr->vulnerable;
+    playerPtr->vulnerable = false;
+
     if (canMoveTo(posX - 1, posY) &&
         canMoveTo(posX + 1, posY) &&
         canMoveTo(posX, posY + 1) &&
@@ -432,8 +436,11 @@ bool Enemy::neighborExist360() {
         canMoveTo(posX - 1, posY - 1) &&
         canMoveTo(posX + 1, posY + 1) &&
         canMoveTo(posX - 1, posY + 1) &&
-        canMoveTo(posX + 1, posY - 1))
+        canMoveTo(posX + 1, posY - 1)) {
+        playerPtr->vulnerable = savedState;
         return false;
+    }
+    playerPtr->vulnerable = savedState;
     return true;
 }
 
