@@ -19,6 +19,14 @@ class Enemy;
 
 class gameScene;
 
+enum deathCase{
+    deadByBoulder,
+    deadByBomb,
+    deadByAntivirus,
+    deadByMalware,
+    deadByFirewall
+};
+
 class player {
 public:
     //player update variables:
@@ -35,6 +43,8 @@ public:
     int blinkCounter = 0;
     int blinkDuration = 20;
     bool isBlinking = false;
+
+    deathCase deathCause;
 
     int previousX = 0;
     int previousY = 0;
@@ -60,7 +70,12 @@ public:
                                          0, 0};
 
     Texture2D texture = LoadTexture("assets/animations/avatar/avatar_bopping_glasses_anim_1.1.png");
-    Texture2D playerDeathAnim = LoadTexture("assets/animations/avatar/avatar_melt.png");
+    Texture2D playerDeathAnimMelt = LoadTexture("assets/animations/avatar/avatar_melt.png");
+    Texture2D playerDeathAnimAsh = LoadTexture("assets/animations/avatar/avatar_ash_anim.png");
+    Texture2D playerDeathAnimGrid = LoadTexture("assets/animations/avatar/avatar_purple-grid_anim.png");
+    Texture2D playerDeathAnimSuck = LoadTexture("assets/animations/avatar/avatar_suck_anim.png");
+    Texture2D playerDeathAnim;
+
     tson::Map *map;
     std::vector<Enemy> *enemies;
 
