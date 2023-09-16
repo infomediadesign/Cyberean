@@ -19,6 +19,7 @@ void levelselect::update(globalState &globalState) {
                 }
                 musicPlayerPtr->StopAllMusicExceptMainMenu();
                 musicPlayerPtr->PlayMusic(MusicState::part_1);
+                currentnote = 0;
                 break;
 
             case 2:
@@ -33,6 +34,7 @@ void levelselect::update(globalState &globalState) {
                 }
                 musicPlayerPtr->StopAllMusicExceptMainMenu();
                 musicPlayerPtr->PlayMusic(MusicState::part_2);
+                currentnote = 1;
                 break;
             case 4:
                 masterlevel = 2;
@@ -45,6 +47,7 @@ void levelselect::update(globalState &globalState) {
                 }
                 musicPlayerPtr->StopAllMusicExceptMainMenu();
                 musicPlayerPtr->PlayMusic(MusicState::part_3);
+                currentnote = 2;
                 break;
             case 6:
                 masterlevel = 3;
@@ -57,6 +60,7 @@ void levelselect::update(globalState &globalState) {
                 }
                 musicPlayerPtr->StopAllMusicExceptMainMenu();
                 musicPlayerPtr->PlayMusic(MusicState::part_4);
+                currentnote = 3;
                 break;
             default:
                 break;
@@ -81,7 +85,6 @@ void levelselect::update(globalState &globalState) {
         }else if(cursor == 7){
             cursor = 0;
         }
-
     }
 
     if(IsKeyPressed(KEY_ESCAPE)){
@@ -151,20 +154,27 @@ void levelselect::draw() {
     if(musicPlayerPtr->GetCurrentMusicState() != MusicState::MainMenu){
         switch(currentnote){
             case 0:
-                DrawTexture(note1,1080,40,WHITE);
+                //DrawTexture(note1,1080,40,WHITE);
+                DrawTextureRec(note1, Rectangle{age * 139, 0, 138, 121}, Vector2{1080, 40}, WHITE);
                 break;
             case 1:
-                DrawTexture(note2,1080,40,WHITE);
+                DrawTextureRec(note2, Rectangle{age * 139, 0, 138, 121}, Vector2{1080, 40}, WHITE);
+                break;
+            case 2:
+                DrawTextureRec(note3, Rectangle{age * 139, 0, 138, 121}, Vector2{1080, 40}, WHITE);
+                break;
+            case 3:
+                DrawTextureRec(note4, Rectangle{age * 139, 0, 138, 121}, Vector2{1080, 40}, WHITE);
                 break;
             default:
                 break;
         }
 
         counter++;
-        if(counter == 30){
-            currentnote++;
-            if(currentnote == 2){
-                currentnote = 0;
+        if(counter == 10){
+            age++;
+            if(age == 4){
+                age = 0;
             }
             counter = 0;
         }

@@ -47,8 +47,11 @@ public:
     Texture2D levelselect7 = LoadTexture("assets/screens/level_select_screen/level_4_selected.png");
     Texture2D levelselect8 = LoadTexture("assets/screens/level_select_screen/level_4_music.png");
 
-    Texture2D note1 = LoadTexture("assets/screens/level_select_screen/notes_1.png");
-    Texture2D note2 = LoadTexture("assets/screens/level_select_screen/notes_2.png");
+    Texture2D note1 = LoadTexture("assets/screens/level_select_screen/dancing_notes_music_level_1.png");
+    Texture2D note2 = LoadTexture("assets/screens/level_select_screen/dancing_notes_music_level_2.png");
+    Texture2D note3 = LoadTexture("assets/screens/level_select_screen/dancing_notes_music_level_3.png");
+    Texture2D note4 = LoadTexture("assets/screens/level_select_screen/dancing_notes_music_level_4.png");
+    float age = 0;
 
 
 };
