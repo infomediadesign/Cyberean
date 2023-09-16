@@ -9,6 +9,8 @@
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
 #include "musicplayer.h"
+#include <random>
+#include <ctime>
 
 class cutscene {
 public:
@@ -80,6 +82,9 @@ public:
     int textTimer;
 
     void ResetCutscene();
+
+private:
+    std::mt19937 rng;
 };
 
 

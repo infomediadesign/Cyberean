@@ -34,13 +34,13 @@ void cutscene::update(globalState &globalState) {
             currentText += currentFullText[currentTextIndex];
             currentTextIndex++;
             textTimer = 0;
+            std::uniform_int_distribution<int> dist(1, 2);
+            counter = dist(rng);
+
             if(counter == 1){
                 soundplayerPtr->cutscenevoice_sound();
             }
-            if( counter == 2){
-                counter = 0;
-            }
-            counter++;
+
             std::cout << counter << std::endl;
         } else {
             textTimer++;
@@ -196,6 +196,9 @@ void cutscene::ResetCutscene() {
 }
 
 cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
+    std::random_device rd;
+    rng = std::mt19937(rd());
+
     cutsceneaktiv = true;
 
     soundplayerPtr = soundplayer;
