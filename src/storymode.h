@@ -22,7 +22,7 @@
 #include "cutscene3.h"
 #include "cutscene4.h"
 #include "cutscene5.h"
-
+#include "epilogue.h"
 
 class storymode {
 public:
@@ -38,6 +38,7 @@ public:
     std::unique_ptr<cutscene3> thecutscene3 = std::make_unique<cutscene3>(&soundPlayer, &musicPlayer);
     std::unique_ptr<cutscene4> thecutscene4 = std::make_unique<cutscene4>(&soundPlayer, &musicPlayer);
     std::unique_ptr<cutscene5> thecutscene5 = std::make_unique<cutscene5>(&soundPlayer, &musicPlayer);
+    std::unique_ptr<epilogue> theepilogue = std::make_unique<epilogue>(&soundPlayer, &musicPlayer);
 
 
     globalState state2;

@@ -127,7 +127,7 @@ int main() {
             gs = nullptr;
         }
 
-        if(storystate == 9 && state == mainMenu){
+        if(storystate == 10 && state == mainMenu){
             storystate = 0;
             mystorymode->reset();
         }

@@ -1,15 +1,18 @@
-#include "cutscene.h"
+//
+// Created by lukas on 16.09.2023.
+//
 
-void cutscene::update(globalState &globalState) {
+#include "epilogue.h"
+
+void epilogue::update(globalState &globalState) {
     storymodeactive = true;
-    musicPlayerPtr->PlayMusic(MusicState::cutscene);
+    musicPlayerPtr->PlayMusic(MusicState::credits);
 
     if(fadein){
         alpha -= fadeSpeed * GetFrameTime();
         if (alpha <= 0.0f) {
             alpha = 0.0f;
             fadein = false;
-
         }
     }
 
@@ -56,7 +59,6 @@ void cutscene::update(globalState &globalState) {
                     textpart++;
                     currentFullText = fullText2;
                     ResetCutscene();
-                    cutsceneaktiv = true;
                     break;
                 case 2:
                     textpart++;
@@ -71,9 +73,6 @@ void cutscene::update(globalState &globalState) {
                 case 4:
                     textpart++;
                     currentFullText = fullText5;
-                    igor = true;
-                    igorname = true;
-                    //background = 3;
                     ResetCutscene();
                     break;
                 case 5:
@@ -89,7 +88,6 @@ void cutscene::update(globalState &globalState) {
                 case 7:
                     textpart++;
                     currentFullText = fullText8;
-                    background = 1;
                     ResetCutscene();
                     break;
                 case 8:
@@ -100,9 +98,6 @@ void cutscene::update(globalState &globalState) {
                 case 9:
                     textpart++;
                     currentFullText = fullText10;
-                    igor = false;
-                    igorname = false;
-                    //background = 1;
                     ResetCutscene();
                     break;
                 case 10:
@@ -128,7 +123,6 @@ void cutscene::update(globalState &globalState) {
                 case 14:
                     textpart++;
                     currentFullText = fullText15;
-                    background = 0;
                     ResetCutscene();
                     break;
                 case 15:
@@ -182,7 +176,7 @@ void cutscene::update(globalState &globalState) {
     }
 }
 
-void cutscene::draw() {
+void epilogue::draw() {
     switch(background){
         case 0:
             DrawTexture(background_1, 0, 0, WHITE);
@@ -196,26 +190,16 @@ void cutscene::draw() {
         case 3:
             DrawTexture(background_4, 0, 0, WHITE);
             break;
+        case 4:
+            DrawTexture(background_5, 0, 0, WHITE);
+            break;
+        case 5:
+            DrawTexture(background_6, 0, 0, WHITE);
+            break;
         default:
             break;
     }
-    /*if(vasilyname){
-       DrawTexture(Vasily_name, 217, 585, WHITE);
-    }
 
-    if(igorname){
-        DrawTexture(Igor_name, 217, 585, WHITE);
-    }
-
-    if(vasily){
-        DrawTexture(Vasily, 230, 220, WHITE);
-    }
-
-    if(igor){
-        DrawTexture(Igor, 860, 220, WHITE);
-    }*/
-
-    //DrawTextEx(myFont, currentText.c_str(), Vector2{textX, textY}, fontSize, spacing,  textColor);
     DrawText(currentText.c_str(), textX, textY, fontSize, textColor);
 
 
@@ -234,13 +218,13 @@ void cutscene::draw() {
     }
 }
 
-void cutscene::ResetCutscene() {
+void epilogue::ResetCutscene() {
     currentText = "";
     textTimer = 0;
     currentTextIndex = 0;
 }
 
-cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
+epilogue::epilogue(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     std::random_device rd;
     rng = std::mt19937(rd());
 
@@ -254,88 +238,49 @@ cutscene::cutscene(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
     textpart = 0;
 
     currentFullText =
-            "*BZZZ* *BZZZ* *BZZZ*\n"
-            "The uncomfy sound of your antiquated alarm clock puts an end to your almost equally uncomfortable sleep.\n"
-            "The sun is about to go down. Finally.\n"
-            "Time to stumble out of bed and make your way over to the computer and waste away another night in this\n"
-            "god-forsaken city.\n";
-
+            "";
     fullText =
-            "This time you do not just stumble, you trip over some memorabilia of the olden days and curse at all of\n"
-            "them; your first amplifier, your old personalised mic stand which has somehow made its way right in\n"
-            "front of your bed, almost as if someone placed it there as a trap.\n"
-            "But then again, it's not like you have much recollection of what you get up to sometimes when staying up\n"
-            "late.";
-
+            "";
     fullText2 =
-            "You start your day as always; turn on one of the classic playlists, check the never-changing news...\n"
-            "Today something seems off, though... something's missing...\n"
-            "Or maybe your sleep has just been worse than usual.";
+            "";
     fullText3 =
-            "You get up, force yourself to grab some cereal from the kitchen and return to your screen.\n"
-            "A message has made it through your multi-layered anti-spam filter.\n"
-            "Spending years doing nothing besides dwelling in virtual places, hoping to keep your mind somewhat\n"
-            "entertained, has had its upsides...";
+            "";
     fullText4 =
-            "But yeah, something's definitely off today.";
+            "";
     fullText5 =
-            "Anyways, you decide to reward the effort by actually reading the mail this time...";
+            "";
     fullText6 =
-            "It's from Igor.\n"
-            "Somehow.\n"
-            "You hadn't heard from your old mate in years.\n"
-            "A quick glance over to one of the old band posters scattered all over your wall of - now accursed -\n"
-            "memorabilia reminds you of how he used to be; used to look like.\n";
+            "";
     fullText7 =
-            "What could he want after all that time?";
+            "";
     fullText8 =
-            "Vasily";
+            "";
     fullText9 =
-            "It's been a while, comrade.\n"
-            "Things between all of us got complicated, I do know that.\n"
-            "But I think to know you, deep down, are a good man and friend, Vasily.\n"
-            "That's why I come to you now.";
+            "";
     fullText10 =
-            "Maybe you listen to our old songs sometimes.\n"
-            "You can't anymore.\n"
-            "They were wiped from the net earlier this week.";
+            "";
     fullText11 =
-            "And I haven't found anything regarding the others since then, either.\n"
-            "Only you got your fan mail account still running it seems.\n"
-            "You know me; I can handle my own matters.";
+            "";
     fullText12 =
-            "But the others and you might be in trouble.\n"
-            "I'd like to have you by my side now.\n"
-            "And then maybe we can find the others.\n"
-            "Figure out what's going on.";
+            "";
     fullText13 =
-            "I got a friend of mine to create a this little something for me.\n"
-            "You can link yourself up into cyberspace and follow the trails to find me.\n"
-            "If you do still care, Vasya.\n"
-            "(Threw some music in for old time's sake.)";
+            "";
     fullText14 =
-            "Hope to see you soon,\n"
-            "Igor";
+            "";
     fullText15 =
-            "Well, that at least explains what was missing earlier.\n"
-            "Now you realise that your band's tracks were all gone from your playlists.";
+            "";
     fullText16 =
-            "But what to do now?\n"
-            "Follow Igor's trail?";
+            "";
     fullText17 =
-            "Directly entering whatever was left by now of the cyberspace is not really what one would consider *safe*\n"
-            "- for various reasons.\n"
-            "The government had run down a multitude of things, including the grand virtual spaces of old.\n"
-            "You even know - or knew - some of the guys responsible for its current state...\n"
-            "You glance over to the band posters again, Koshka on them hiding behind his mask as always...";
+            "";
     fullText18 =
-            "And maybe you do still care.";
+            "";
     fullText19 =
-            "After all.";
+            "";
     fullText20 =
-            "Another night in cyberspace it is...";
+            "";
     fullText21 =
-            ">>> FOLLOW IGOR'S TRAIL <<<";
+            "";
 
     textX = 86.0f;
     textY = 744.0f;

@@ -9,12 +9,13 @@ storymode::storymode(){
     musicPlayer.StopMusic();
     storymodeactive = true;
     musicPlayer.LoadMusic("assets/audio/tracks/misc/cutscenes.wav", MusicState::cutscene);
+    musicPlayer.LoadMusic("assets/audio/tracks/misc/credits.wav", MusicState::credits);
 }
 
 void storymode::update(globalState &globalstate) {
     storymodeactive = true;
 
-    if(storystate == 9){
+    if(storystate == 10){
         reset();
     }
 
@@ -103,6 +104,9 @@ void storymode::update(globalState &globalstate) {
             thecutscene5->update(state2);
             break;
         case 9:
+            theepilogue->update(state2);
+            break;
+        case 10:
             globalstate = creditsscreen;
             break;
         default:
@@ -148,6 +152,9 @@ void storymode::draw() {
             thecutscene5->draw();
             break;
         case 9:
+            theepilogue->draw();
+            break;
+        case 10:
             break;
         default:
             break;
@@ -161,6 +168,7 @@ void storymode::reset() {
     thecutscene3 = nullptr;
     thecutscene4 = nullptr;
     thecutscene5 = nullptr;
+    theepilogue = nullptr;
 
     thecutscene = std::make_unique<cutscene>(&soundPlayer, &musicPlayer);
     thecutscene2 = std::make_unique<cutscene2>(&soundPlayer, &musicPlayer);
