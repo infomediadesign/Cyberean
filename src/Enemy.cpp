@@ -26,6 +26,23 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
             this->Type = boulder;
             gravMoveDelay = 20; // Boulder Falling Speed (Higher Number = Slower)
             break;
+
+        case 4:
+            this->Type = rogueAntivirus;
+            movingStatus = leftMove;
+            antiVirusMoveDelay = 15; //rogue Antivirus movement speed
+            break;
+
+        case 5:
+            this->Type = bomb;
+            gravMoveDelay = 20; // Same Fall Speed as Data-Chan
+            break;
+
+        case 6:
+            this->Type = malware;
+            malwareMoveDelay = 10;
+            break;
+
         case 7:
             this->Type = firewall;
             if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 19)
@@ -35,15 +52,15 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
             if (theMap->getLayer("Firewall Path")->getData()[posX + posY * theMap->getSize().x] == 21)
                 firewallMoveDelay = 25; //firewall size 1x4
             break;
-        case 4:
-            this->Type = rogueAntivirus;
-            movingStatus = leftMove;
-            antiVirusMoveDelay = 15; //rogue Antivirus movement speed
+
+        case 79:
+            this->Type = blackhole;
             break;
-        case 5:
-            this->Type = bomb;
-            gravMoveDelay = 20; // Same Fall Speed as Data-Chan
+
+        case 80:
+            this->Type = whitehole;
             break;
+
         default:
             break;
     }
@@ -57,6 +74,7 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
 void Enemy::update() {
     //Boulder and Bomb gravity Logic
     if (this->Type == boulder || this->Type == bomb) {
+        updateGravity();
         bool bNextEnemiesIsBoulder = false;
         bool bAboveBoulderIsEnemy = false;
         gravMoveCooldown--;
@@ -295,15 +313,70 @@ void Enemy::update() {
             }
         }
     }
+    //Malware Logic
+    if (this->Type == malware) {
+
+    }
+    if (this->Type == whitehole) {
+        boulderBornCooldown++;
+        if (boulderBornCooldown == boulderBornDelay) {
+            boulderBornCooldown = 0;
+            otherEnemies->emplace_back(4, posX, posY, theMap, covers, otherEnemies, playerPtr);
+        }
+    }
+    if (this->Type == blackhole) {
+
+    }
 }
 
 void Enemy::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+    /*   switch (Type) {
+
+           case firewall:
+               animationCounter++;
+               if (animationCounter < 7)
+                   DrawTextureRec(firewallAnim, Rectangle{(float) animationCounter * 32, 0, 32, 32},
+                                  Vector2{(float) posX * 32, (float) posY * 32},
+                                  WHITE);
+               else
+                   animationCounter = 0;
+               break;
+
+           case bomb:
+
+               break;
+
+           case rogueAntivirus:
+
+               break;
+
+           case boulder:
+
+               break;
+
+           case malware:
+
+               break;
+
+           default:
+               DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+               break;
+       }*/
 
 }
 
 bool Enemy::canMoveTo(int x, int y, bool dontKill) {
     int gravityVal = theMap->getLayer("Gravity")->getData()[posX + posY * theMap->getSize().x];
+
+    //Contact with black hole
+    if(Type == boulder){
+        if (theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x] == 80){
+            deleteEnemy(this->posX, this->posY);
+            return false;
+        }
+    }
+
     if (gravityVal <= 14 || gravityVal >= 19)
         return false;
     int tileData = theMap->getLayer("Collision")->getData()[x + y * theMap->getSize().x];
@@ -347,6 +420,7 @@ bool Enemy::canMoveTo(int x, int y, bool dontKill) {
         if (x == playerPtr->posX && y == playerPtr->posY) {
             if (consecMoves >= 1 && playerPtr->vulnerable && !dontKill) {
                 playerPtr->playerDead = true;
+                playerPtr->deathCause = deadByBoulder;
                 return true;
             } else
                 return false;

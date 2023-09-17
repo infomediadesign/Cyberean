@@ -99,26 +99,29 @@ void player::update() {
 
 void player::draw() {
     switch (deathCause) {
-        case deadByFirewall: {
-            playerDeathAnim = playerDeathAnimMelt;
-            break;
-        }
-        case deadByMalware: {
-            playerDeathAnim = playerDeathAnimGrid;
-            break;
-        }
-        case deadByBomb: {
-            playerDeathAnim = playerDeathAnimAsh;
-            break;
-        }
-        case deadByAntivirus: {
-            playerDeathAnim = playerDeathAnimSuck;
-            break;
-        }
-        default:
+
+        case deadByFirewall:
             playerDeathAnim = playerDeathAnimMelt;
             break;
 
+        case deadByMalware:
+            playerDeathAnim = playerDeathAnimGrid;
+            break;
+
+        case deadByBomb:
+            playerDeathAnim = playerDeathAnimAsh;
+            break;
+
+        case deadByAntivirus:
+            playerDeathAnim = playerDeathAnimSuck;
+            break;
+
+        case deadByBoulder:
+            playerDeathAnim = playerDeathAnimMelt;
+            break;
+
+        default:
+            break;
     }
 
     //Blink if player is invulnerable

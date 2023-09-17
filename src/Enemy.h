@@ -17,6 +17,8 @@ enum EnumType{
     rogueAntivirus,
     bomb,
     malware,
+    blackhole,
+    whitehole,
     unknown
 };
 class player;
@@ -35,18 +37,36 @@ public:
     int posY;
     bool isAlive = true;
 
-    //All of the speeds below need to be compacted. (it's ugly like this)
-    int gravMoveDelay; //Boulder and Bomb movement speed.
+    //Boulder and Bomb movement speed.
+    int gravMoveDelay;
     int gravMoveCooldown;
-    int antiVirusMoveDelay; //antiVirus movement speed.
+
+    //antiVirus movement speed.
+    int antiVirusMoveDelay;
     int antiVirusMoveCooldown;
-    int firewallMoveDelay; //Firewall movement speed.
+
+    //Firewall movement speed.
+    int firewallMoveDelay;
     int firewallMoveCooldown;
+
+    //Malware movement speed.
+    int malwareMoveDelay;
+    int malwareMoveCooldown;
 
     //Movement variables for boulders and bombs
     int gravityX = 0; //Gravity Vector X
     int gravityY = 0; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
+
+    //Level 3 Black and White hole variables
+    int boulderBornDelay = 240;
+    int boulderBornCooldown = 0;
+
+    //Animation related variables
+    int animationCounter;
+
+    //Animation Textures
+    Texture2D firewallAnim = LoadTexture("assets/animations/enemies/firewall_anim.png");
 
     //Movement variables for rogueAntivirus (counter clockwise)
     enum {
