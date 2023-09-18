@@ -42,7 +42,6 @@ public:
     int ID;
     int posX;
     int posY;
-    bool isAlive = true;
 
     //Boulder and Bomb movement speed.
     int gravMoveDelay;
@@ -59,8 +58,14 @@ public:
     //Malware variables.
     int malwareMoveDelay;
     int malwareMoveCooldown;
-    //flag to check if the malware we are updating is already triggered or not.
-    bool malwareTriggered = false;
+    int malwareLifeCounter;
+    bool malwareTriggered;
+    bool malwareExploded;
+    bool malwareDead;
+    Enemy *malwareHeadPtr;
+    Enemy *malwareBodyPtr;
+    Enemy *malwareTailPtr;
+
 
     //Movement variables for boulders and bombs
     int gravityX = 0; //Gravity Vector X
@@ -77,13 +82,19 @@ public:
     bool bombExploding = false;
     bool cellExploding = false;
 
-    //Animation Textures
+    //Firewall Animation Textures
     Texture2D firewallAnim = LoadTexture("assets/animations/enemies/firewall_anim.png");
     Texture2D rogueAntivirusMovingAnim = LoadTexture("assets/animations/enemies/rogue_eyes_move_anim.png");
-    //Texture2D rogueAntivirusStillAnim = LoadTexture("assets/animations/enemies/rogue_eyes_still_anim.png"); - Animation halted, cause u can not see the difference.
     Texture2D bombWarningAnim = LoadTexture("assets/animations/enemies/cryptobomb_warning_anim.png");
     Texture2D bombExplodingAnim = LoadTexture("assets/animations/enemies/cryptobomb_explosion_anim.png");
     Texture2D  bombCellExplodingAnim = LoadTexture("assets/animations/enemies/cryptobomb_explosion_single_anim.png");
+
+    //Boulder Animation Texures
+    Texture2D  boulderEyesClosing = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_close.png");
+    Texture2D  boulderEyesOpening = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_open.png");
+    Texture2D  boulderClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_cw.png");
+    Texture2D  boulderCounterClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_ccw.png");
+
 
 
     //Movement variables for rogueAntivirus (counter clockwise)
@@ -131,7 +142,9 @@ public:
 
     int getGravityVal(int x, int y);
 
-    void setMalwareType(int x, int y, MalwarePart mType);
+    //void setMalwareType(int x, int y, MalwarePart mType);
+
+    void creatMalware(int xHead, int yHead, int xBody, int yBody, int xTail, int yTail);
 
     ~Enemy() {}
 

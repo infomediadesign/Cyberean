@@ -41,7 +41,11 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
 
         case 6:
             this->Type = malware;
-            malwareMoveDelay = 10;
+            malwareMoveDelay = 20;
+            malwareLifeCounter = 10;
+            malwareTriggered = false;
+            malwareExploded = false;
+            malwareDead = false;
             break;
 
         case 7:
@@ -318,56 +322,128 @@ void Enemy::update() {
     }
     //Malware Logic
     if (this->Type == malware) {
-
+        if(malwareTriggered){
+            malwareLifeCounter--;
+        }
+        malwareMoveCooldown--;
         //Check if player is close to Malware
-        if (playerPtr->posX <= posX + 3 && playerPtr->posX >= posX - 3 && playerPtr->posY <= posY + 3 &&
-            playerPtr->posY >= posY - 3 && !malwareTriggered) {
+        if (playerPtr->posX <= posX + 2 && playerPtr->posX >= posX - 2 && playerPtr->posY <= posY + 2 &&
+            playerPtr->posY >= posY - 2 && !malwareTriggered) {
 
             malwareTriggered = true;
 
             //Initialize Malware: Find Head, Body and Tail
-            if (getEnemyType(posX, posY + 1) == malware) {
-                if (((playerPtr->posX - posX) ^ 2 + (playerPtr->posY - posY) ^ 2) <
-                    ((playerPtr->posX - posX) ^ 2 + (playerPtr->posY - posY + 2) ^ 2)) {
-                    this->malwarePart = malwareHead;
-                    setMalwareType(posX, posY + 1, malwareBody);
-                    setMalwareType(posX, posY + 2, malwareTail);
-                } else {
-                    this->malwarePart = malwareTail;
-                    setMalwareType(posX, posY + 1, malwareBody);
-                    setMalwareType(posX, posY + 2, malwareHead);
-                }
-            } else if (getEnemyType(posX + 1, posY) == malware) {
-                if (((playerPtr->posX - posX) ^ 2 + (playerPtr->posY - posY) ^ 2) <
-                    ((playerPtr->posX - posX + 2) ^ 2 + (playerPtr->posY - posY) ^ 2)) {
-                    this->malwarePart = malwareHead;
-                    setMalwareType(posX + 1, posY, malwareBody);
-                    setMalwareType(posX + 2, posY, malwareTail);
-                } else {
-                    this->malwarePart = malwareTail;
-                    setMalwareType(posX + 1, posY, malwareBody);
-                    setMalwareType(posX + 2, posY, malwareHead);
-                }
+
+            EnumType XMinus2, XMinus1, XPlus1, XPlus2, YMinus2, YMinus1, YPlus1, YPlus2;
+            XMinus2 = getEnemyType(posX - 2, posY);
+            XMinus1 = getEnemyType(posX - 1, posY);
+            XPlus1 = getEnemyType(posX + 1, posY);
+            XPlus2 = getEnemyType(posX + 2, posY);
+            YMinus2 = getEnemyType(posX, posY - 2);
+            YMinus1 = getEnemyType(posX, posY - 1);
+            YPlus1 = getEnemyType(posX, posY + 1);
+            YPlus2 = getEnemyType(posX, posY + 2);
+
+            if (YPlus1 == malware && YPlus2 == malware) {
+                this->malwarePart = malwareHead;
+                //setMalwareType(posX, posY + 1, malwareBody);
+                //setMalwareType(posX, posY + 2, malwareTail);
+                creatMalware(posX, posY, posX, posY + 1, posX, posY + 2);
+
+            } else if (YPlus1 == malware && YMinus1 == malware) {
+                //this->malwarePart = malwareBody;
+                //setMalwareType(posX, posY + 1, malwareHead);
+                //setMalwareType(posX, posY - 1, malwareTail);
+                creatMalware(posX, posY + 1, posX, posY, posX, posY - 1);
+            } else if (YMinus1 == malware && YMinus2 == malware) {
+                //this->malwarePart = malwareHead;
+                //setMalwareType(posX, posY - 1, malwareBody);
+                //setMalwareType(posX, posY - 2, malwareTail);
+                creatMalware(posX, posY, posX, posY - 1, posX, posY - 2);
+            } else if (XPlus1 == malware && XPlus2 == malware) {
+                //this->malwarePart = malwareHead;
+                //setMalwareType(posX + 1, posY, malwareBody);
+                //setMalwareType(posX + 2, posY, malwareTail);
+                creatMalware(posX, posY, posX + 1, posY, posX + 2, posY);
+            } else if (XPlus1 == malware && XMinus1 == malware) {
+                //this->malwarePart = malwareBody;
+                //setMalwareType(posX - 1, posY, malwareHead);
+                //setMalwareType(posX + 2, posY, malwareTail);
+                creatMalware(posX - 1, posY, posX, posY, posX + 2, posY);
+            } else if (XMinus1 == malware && XMinus2 == malware) {
+                //this->malwarePart = malwareHead;
+                //setMalwareType(posX - 1, posY, malwareBody);
+                //setMalwareType(posX - 2, posY, malwareTail);
+                creatMalware(posX, posY, posX - 1, posY, posX - 2, posY);
             }
-        } else if (malwareTriggered) {
+        } else if (malwareTriggered && malwareMoveCooldown <= 0 && malwareLifeCounter > 0) {
+            malwareMoveCooldown = malwareMoveDelay;
             //Triggered malware attacking player logic
+            int deltaX = 0, deltaY = 0;
             if (malwarePart == malwareHead) {
-                if (abs(playerPtr->posY - posY) > abs(playerPtr->posX - posX)) {
-                    if (playerPtr->posX < posX) {
-                        if (canMoveTo(posX + 1, posY))
-                            posX++;
-                    } else {
-                        if (canMoveTo(posX - 1, posY))
-                            posX--;
+                if (abs(playerPtr->posY - posY) < abs(playerPtr->posX - posX)) {
+                    if (playerPtr->posX > posX) {
+                        deltaX = 1;
+                    } else if (playerPtr->posX < posX) {
+                        deltaX = -1;
                     }
-                } else if (playerPtr->posY > posY) {
-                    if (canMoveTo(posX, posY + 1))
-                        posY++;
                 } else {
-                    if (canMoveTo(posX, posY - 1))
-                        posY--;
+                    if (playerPtr->posY > posY) {
+                        deltaY = 1;
+                    } else if (playerPtr->posY < posY) {
+                        deltaY = -1;
+                    }
+                }
+                if (canMoveTo(posX + deltaX, posY + deltaY)) {
+                    //malware head movement:
+                    malwareTailPtr->posX = malwareBodyPtr->posX;
+                    malwareTailPtr->posY = malwareBodyPtr->posY;
+                    malwareBodyPtr->posX = posX;
+                    malwareBodyPtr->posY = posY;
+                    posX += deltaX;
+                    posY += deltaY;
+                } else {
+                    deltaX = (deltaX + 1) % 2;
+                    deltaY = (deltaY + 1) % 2;
+                    if (canMoveTo(posX + deltaX, posY + deltaY)) {
+                        malwareTailPtr->posX = malwareBodyPtr->posX;
+                        malwareTailPtr->posY = malwareBodyPtr->posY;
+                        malwareBodyPtr->posX = posX;
+                        malwareBodyPtr->posY = posY;
+                        posX += deltaX;
+                        posY += deltaY;
+                    } else {
+                        deltaX = (deltaX + 1) % 2;
+                        deltaY = (deltaY + 1) % 2;
+                        if (canMoveTo(posX + deltaX, posY + deltaY)) {
+                            malwareTailPtr->posX = malwareBodyPtr->posX;
+                            malwareTailPtr->posY = malwareBodyPtr->posY;
+                            malwareBodyPtr->posX = posX;
+                            malwareBodyPtr->posY = posY;
+                            posX += deltaX;
+                            posY += deltaY;
+                        } else {
+                            deltaX = (deltaX + 1) % 2;
+                            deltaY = (deltaY + 1) % 2;
+                            if (canMoveTo(posX + deltaX, posY + deltaY)) {
+                                malwareTailPtr->posX = malwareBodyPtr->posX;
+                                malwareTailPtr->posY = malwareBodyPtr->posY;
+                                malwareBodyPtr->posX = posX;
+                                malwareBodyPtr->posY = posY;
+                                posX += deltaX;
+                                posY += deltaY;
+                            } else {
+                                deltaX = 0;
+                                deltaY = 0;
+                            }
+                        }
+                    }
                 }
             }
+        } else if (malwareLifeCounter <= 0) {
+            malwareHeadPtr->malwareExploded = true;
+            malwareBodyPtr->malwareExploded = true;
+            malwareTailPtr->malwareExploded = true;
         }
     }
     if (this->Type == whitehole) {
@@ -556,7 +632,7 @@ bool Enemy::canMoveTo(int x, int y, bool dontKill) {
         for (int i = 0; i < otherEnemies->size(); i++) {
             if ((*otherEnemies)[i].posX == x) {
                 if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type != firewall &&
-                    (*otherEnemies)[i].Type != bomb) {
+                    (*otherEnemies)[i].Type != bomb && (*otherEnemies)[i].Type != malware) {
                     return false;
                 }
             }
@@ -737,7 +813,7 @@ int Enemy::getGravityVal(int x, int y) {
     return theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x];
 }
 
-void Enemy::setMalwareType(int x, int y, MalwarePart mType) {
+/*void Enemy::setMalwareType(int x, int y, MalwarePart mType) {
     for (int i = 0; i < otherEnemies->size(); i++) {
         if ((*otherEnemies)[i].posX == x) {
             if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type == malware) {
@@ -748,20 +824,34 @@ void Enemy::setMalwareType(int x, int y, MalwarePart mType) {
         }
     }
     return;
-}
+}*/
 
-/*void Enemy::bombExplodingFlag(int x, int y, int animCounter) {
-    if (getEnemyType(x, y) == bomb) {
-        for (int i = 0; i < otherEnemies->size(); i++) {
-            if ((*otherEnemies)[i].posX == x) {
-                if ((*otherEnemies)[i].posY == y){
-                    (*otherEnemies)[i].bombExploding = true;
-                    explodeBomb((*otherEnemies)[i].posX,(*otherEnemies)[i].posY);
-                }
-            }
+void Enemy::creatMalware(int xHead, int yHead, int xBody, int yBody, int xTail, int yTail) {
+    Enemy *pH = NULL, *pB = NULL, *pT = NULL;
+    for (int i = 0; i < otherEnemies->size(); i++) {
+        if ((*otherEnemies)[i].posX == xHead && (*otherEnemies)[i].posY == yHead) {
+            pH = &(*otherEnemies)[i];
+        }
+        if ((*otherEnemies)[i].posX == xBody && (*otherEnemies)[i].posY == yBody) {
+            pB = &(*otherEnemies)[i];
+        }
+        if ((*otherEnemies)[i].posX == xTail && (*otherEnemies)[i].posY == yTail) {
+            pT = &(*otherEnemies)[i];
         }
     }
-}*/
+    if (pH != NULL && pB != NULL && pT != NULL) {
+        pH->malwareHeadPtr = pH;
+        pH->malwarePart = malwareHead;
+        pH->malwareLifeCounter = 10;
+        pH->malwareTriggered = true;
+        pH->malwareBodyPtr = pB;
+        pB->malwarePart = malwareBody;
+        pH->malwareTailPtr = pT;
+        pT->malwarePart = malwareTail;
+    }
+    return;
+}
+
 //manages animation for cells around the bomb
 void Enemy::bombExplodingFlag(int x, int y, int animCounter) {
     if ((animCounter - 3) < 4 && shouldExplode(x, y)) {

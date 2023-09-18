@@ -95,6 +95,7 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
     soundPlayerPtr = soundPlayer;
 
     loadmusic(level);
+
     musicPlayerPtr->StopMusic();
 }
 
@@ -104,9 +105,9 @@ void gameScene::draw() {
     drawLayer("Deco");
     drawLayer("Overlay");
     drawCover();
-    //for (Enemy e: enemies) {
+    /*for (Enemy e: enemies) {
     //    e.draw(maptext);
-    //}
+    }*/
     for (int i = 0; i < enemies.size(); i++) {
         enemies[i].draw(maptext);
     }
