@@ -137,6 +137,8 @@ public:
 
     void bombExplodingFlag(int x, int y, int animCounter);
 
+    bool shouldExplode(int x, int y);
+
 };
 
 #endif //RAYLIBSTARTER_ENEMY_H

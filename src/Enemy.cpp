@@ -762,10 +762,17 @@ void Enemy::setMalwareType(int x, int y, MalwarePart mType) {
         }
     }
 }*/
+//manages animation for cells around the bomb
 void Enemy::bombExplodingFlag(int x, int y, int animCounter) {
-    if ((animCounter - 3) < 4) {
+    if ((animCounter - 3) < 4 && shouldExplode(x, y)) {
         DrawTextureRec(bombCellExplodingAnim, Rectangle{(float) animCounter * 32, 0, 32, 32},
                        Vector2{(float) x * 32, (float) y * 32},
                        WHITE);
     }
+}
+
+bool Enemy::shouldExplode(int x, int y) {
+    if (theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x] != 0)
+        return true;
+    return false;
 }
