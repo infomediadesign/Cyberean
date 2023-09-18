@@ -104,8 +104,11 @@ void gameScene::draw() {
     drawLayer("Deco");
     drawLayer("Overlay");
     drawCover();
-    for (Enemy e: enemies) {
-        e.draw(maptext);
+    //for (Enemy e: enemies) {
+    //    e.draw(maptext);
+    //}
+    for (int i = 0; i < enemies.size(); i++) {
+        enemies[i].draw(maptext);
     }
     for (gameobject e: thegameobject) {
         e.draw(maptext);

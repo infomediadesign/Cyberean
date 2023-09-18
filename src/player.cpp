@@ -236,9 +236,9 @@ void player::checkIfBombShovable(int direction) {
         //Right
         case 0: {
             for (int i = 0; i < enemies->size(); i++) {
-                Enemy enemy = (*enemies)[i];
-                if (enemy.posX == posX + 1 && enemy.posY == posY && enemy.Type == bomb)
-                    if (enemy.canMoveTo(posX + 2, posY)) {
+                if ((*enemies)[i].posX == posX + 1 && (*enemies)[i].posY == posY && (*enemies)[i].Type == bomb)
+                    if ((*enemies)[i].canMoveTo(posX + 2, posY)) {
+                        (*enemies)[i].gravMoveCooldown = (*enemies)[i].gravMoveDelay;
                         (*enemies)[i].posX++;
                         posX++;
                     }
@@ -249,9 +249,9 @@ void player::checkIfBombShovable(int direction) {
             //LEFT
         case 1: {
             for (int i = 0; i < enemies->size(); i++) {
-                Enemy enemy = (*enemies)[i];
-                if (enemy.posX == posX - 1 && enemy.posY == posY && enemy.Type == bomb)
-                    if (enemy.canMoveTo(posX - 2, posY)) {
+                if ((*enemies)[i].posX == posX - 1 && (*enemies)[i].posY == posY && (*enemies)[i].Type == bomb)
+                    if ((*enemies)[i].canMoveTo(posX - 2, posY)) {
+                        (*enemies)[i].gravMoveCooldown = (*enemies)[i].gravMoveDelay;
                         (*enemies)[i].posX--;
                         posX--;
                     }
@@ -261,9 +261,9 @@ void player::checkIfBombShovable(int direction) {
             //DOWN
         case 2: {
             for (int i = 0; i < enemies->size(); i++) {
-                Enemy enemy = (*enemies)[i];
-                if (enemy.posX == posX && enemy.posY == posY + 1 && enemy.Type == bomb)
-                    if (enemy.canMoveTo(posX, posY + 2)) {
+                if ((*enemies)[i].posX == posX && (*enemies)[i].posY == posY + 1 && (*enemies)[i].Type == bomb)
+                    if ((*enemies)[i].canMoveTo(posX, posY + 2)) {
+                        (*enemies)[i].gravMoveCooldown = (*enemies)[i].gravMoveDelay;
                         (*enemies)[i].posY++;
                         posY++;
                     }
@@ -274,9 +274,9 @@ void player::checkIfBombShovable(int direction) {
             //UP
         case 3: {
             for (int i = 0; i < enemies->size(); i++) {
-                Enemy enemy = (*enemies)[i];
-                if (enemy.posX == posX && enemy.posY == posY - 1 && enemy.Type == bomb)
-                    if (enemy.canMoveTo(posX, posY - 2)) {
+                if ((*enemies)[i].posX == posX && (*enemies)[i].posY == posY - 1 && (*enemies)[i].Type == bomb)
+                    if ((*enemies)[i].canMoveTo(posX, posY - 2)) {
+                        (*enemies)[i].gravMoveCooldown = (*enemies)[i].gravMoveDelay;
                         (*enemies)[i].posY--;
                         posY--;
                     }

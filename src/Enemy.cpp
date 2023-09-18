@@ -4,6 +4,7 @@
 
 #include "Enemy.h"
 #include "gameszene.h"
+#include "math.h"
 
 Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *covers,
              std::vector<Enemy> *otherEnemies, player *playerPtr) {
@@ -87,9 +88,11 @@ void Enemy::update() {
         } else if (this->Type == boulder && consecMoves >= 1 && gravMoveCooldown <= 0) {
             consecMoves = 0;
         } else if (this->Type == bomb && consecMoves == 1 && gravMoveCooldown <= 0) {
+            bombWarning = true;
             consecMoves = 0;
         } else if (this->Type == bomb && consecMoves >= 2 && gravMoveCooldown <= 0) {
-            explodeBomb(posX, posY);
+            //explodeBomb(posX, posY);
+            bombExploding = true;
         }
 
         //Boulder rolling mechanic
@@ -316,6 +319,56 @@ void Enemy::update() {
     //Malware Logic
     if (this->Type == malware) {
 
+        //Check if player is close to Malware
+        if (playerPtr->posX <= posX + 3 && playerPtr->posX >= posX - 3 && playerPtr->posY <= posY + 3 &&
+            playerPtr->posY >= posY - 3 && !malwareTriggered) {
+
+            malwareTriggered = true;
+
+            //Initialize Malware: Find Head, Body and Tail
+            if (getEnemyType(posX, posY + 1) == malware) {
+                if (((playerPtr->posX - posX) ^ 2 + (playerPtr->posY - posY) ^ 2) <
+                    ((playerPtr->posX - posX) ^ 2 + (playerPtr->posY - posY + 2) ^ 2)) {
+                    this->malwarePart = malwareHead;
+                    setMalwareType(posX, posY + 1, malwareBody);
+                    setMalwareType(posX, posY + 2, malwareTail);
+                } else {
+                    this->malwarePart = malwareTail;
+                    setMalwareType(posX, posY + 1, malwareBody);
+                    setMalwareType(posX, posY + 2, malwareHead);
+                }
+            } else if (getEnemyType(posX + 1, posY) == malware) {
+                if (((playerPtr->posX - posX) ^ 2 + (playerPtr->posY - posY) ^ 2) <
+                    ((playerPtr->posX - posX + 2) ^ 2 + (playerPtr->posY - posY) ^ 2)) {
+                    this->malwarePart = malwareHead;
+                    setMalwareType(posX + 1, posY, malwareBody);
+                    setMalwareType(posX + 2, posY, malwareTail);
+                } else {
+                    this->malwarePart = malwareTail;
+                    setMalwareType(posX + 1, posY, malwareBody);
+                    setMalwareType(posX + 2, posY, malwareHead);
+                }
+            }
+        } else if (malwareTriggered) {
+            //Triggered malware attacking player logic
+            if (malwarePart == malwareHead) {
+                if (abs(playerPtr->posY - posY) > abs(playerPtr->posX - posX)) {
+                    if (playerPtr->posX < posX) {
+                        if (canMoveTo(posX + 1, posY))
+                            posX++;
+                    } else {
+                        if (canMoveTo(posX - 1, posY))
+                            posX--;
+                    }
+                } else if (playerPtr->posY > posY) {
+                    if (canMoveTo(posX, posY + 1))
+                        posY++;
+                } else {
+                    if (canMoveTo(posX, posY - 1))
+                        posY--;
+                }
+            }
+        }
     }
     if (this->Type == whitehole) {
         boulderBornCooldown++;
@@ -330,39 +383,97 @@ void Enemy::update() {
 }
 
 void Enemy::draw(Texture2D texture) {
-    DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
-    /*   switch (Type) {
 
-           case firewall:
-               animationCounter++;
-               if (animationCounter < 7)
-                   DrawTextureRec(firewallAnim, Rectangle{(float) animationCounter * 32, 0, 32, 32},
-                                  Vector2{(float) posX * 32, (float) posY * 32},
-                                  WHITE);
-               else
-                   animationCounter = 0;
-               break;
+    switch (this->Type) {
 
-           case bomb:
+        case firewall:
+            texture = firewallAnim;
+            animationCounter++;
+            if (animationCounter < 70)
+                DrawTextureRec(texture, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                               Vector2{(float) posX * 32, (float) posY * 32},
+                               WHITE);
+            else {
+                animationCounter = 0;
+                DrawTextureRec(texture, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                               Vector2{(float) posX * 32, (float) posY * 32},
+                               WHITE);
+            }
+            break;
 
-               break;
+        case bomb:
+            if (bombWarning) {
+                animationCounter++;
+                if (animationCounter < 70) {
+                    DrawTextureRec(bombWarningAnim, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                                   Vector2{(float) posX * 32, (float) posY * 32},
+                                   WHITE);
+                } else {
+                    animationCounter = 0;
+                    bombWarning = false;
+                }
+            }
+            if (bombExploding) {
+                animationCounter++;
+                if (animationCounter > 7) {
+                    explodeBomb(posX, posY);
+                    animationCounter = 0;
 
-           case rogueAntivirus:
+                } else {
+                    DrawTextureRec(bombExplodingAnim, Rectangle{(float) (animationCounter) * 32, 0, 32, 32},
+                                   Vector2{(float) posX * 32, (float) posY * 32},
+                                   WHITE);
+                    if (animationCounter > 3) {
 
-               break;
+                        bombExplodingFlag(posX - 1, posY - 1, animationCounter);
 
-           case boulder:
+                        bombExplodingFlag(posX - 1, posY, animationCounter);
 
-               break;
+                        bombExplodingFlag(posX - 1, posY + 1, animationCounter);
 
-           case malware:
+                        bombExplodingFlag(posX, posY - 1, animationCounter);
 
-               break;
+                        bombExplodingFlag(posX, posY + 1, animationCounter);
 
-           default:
-               DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
-               break;
-       }*/
+                        bombExplodingFlag(posX + 1, posY - 1, animationCounter);
+
+                        bombExplodingFlag(posX + 1, posY, animationCounter);
+
+                        bombExplodingFlag(posX + 1, posY + 1, animationCounter);
+                    }
+                }
+            }
+            if (!bombExploding && !bombWarning)
+                DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+            break;
+
+        case rogueAntivirus:
+            texture = rogueAntivirusMovingAnim;
+            animationCounter++;
+            if (animationCounter < 70)
+                DrawTextureRec(texture, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                               Vector2{(float) posX * 32, (float) posY * 32},
+                               WHITE);
+            else {
+                animationCounter = 0;
+                DrawTextureRec(texture, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                               Vector2{(float) posX * 32, (float) posY * 32},
+                               WHITE);
+            }
+            break;
+
+        case boulder:
+            DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+            break;
+
+        case malware:
+            DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+            break;
+
+        default:
+            DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+            break;
+    }
 
 }
 
@@ -370,8 +481,8 @@ bool Enemy::canMoveTo(int x, int y, bool dontKill) {
     int gravityVal = theMap->getLayer("Gravity")->getData()[posX + posY * theMap->getSize().x];
 
     //Contact with black hole
-    if(Type == boulder){
-        if (theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x] == 80){
+    if (Type == boulder) {
+        if (theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x] == 80) {
             deleteEnemy(this->posX, this->posY);
             return false;
         }
@@ -435,6 +546,22 @@ bool Enemy::canMoveTo(int x, int y, bool dontKill) {
                 }
             }
         }
+    }
+    if (this->Type == malware) {
+        if (x == playerPtr->posX && y == playerPtr->posY && playerPtr->vulnerable && !dontKill) {
+            playerPtr->playerDead = true;
+            playerPtr->deathCause = deadByMalware;
+            return true;
+        }
+        for (int i = 0; i < otherEnemies->size(); i++) {
+            if ((*otherEnemies)[i].posX == x) {
+                if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type != firewall &&
+                    (*otherEnemies)[i].Type != bomb) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     if (x == playerPtr->posX && y == playerPtr->posY)
         return false;
@@ -566,9 +693,15 @@ bool Enemy::checkExplosionCell(int x, int y) {
         playerPtr->deathCause = deadByBomb;
         return true;
     }
-    if (getEnemyType(x, y) == bomb)
-        explodeBomb(x, y); //recursive check and detonations of bombs affected by other bombs
-    else deleteEnemy(x, y);
+    if (getEnemyType(x, y) == bomb) {
+        //explodeBomb(x, y); //recursive check and detonations of bombs affected by other bombs
+        for (int i = 0; i < otherEnemies->size(); i++) {
+            if ((*otherEnemies)[i].posX == x) {
+                if ((*otherEnemies)[i].posY == y)
+                    (*otherEnemies)[i].bombExploding = true;
+            }
+        }
+    } else deleteEnemy(x, y);
     bombRemoveCover(x, y); //remove covers affected by the bomb
     return false;
 }
@@ -602,4 +735,37 @@ void Enemy::explodeBomb(int x, int y) {
 
 int Enemy::getGravityVal(int x, int y) {
     return theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x];
+}
+
+void Enemy::setMalwareType(int x, int y, MalwarePart mType) {
+    for (int i = 0; i < otherEnemies->size(); i++) {
+        if ((*otherEnemies)[i].posX == x) {
+            if ((*otherEnemies)[i].posY == y && (*otherEnemies)[i].Type == malware) {
+                (*otherEnemies)[i].malwarePart = mType;
+                (*otherEnemies)[i].malwareTriggered = true;
+                return;
+            }
+        }
+    }
+    return;
+}
+
+/*void Enemy::bombExplodingFlag(int x, int y, int animCounter) {
+    if (getEnemyType(x, y) == bomb) {
+        for (int i = 0; i < otherEnemies->size(); i++) {
+            if ((*otherEnemies)[i].posX == x) {
+                if ((*otherEnemies)[i].posY == y){
+                    (*otherEnemies)[i].bombExploding = true;
+                    explodeBomb((*otherEnemies)[i].posX,(*otherEnemies)[i].posY);
+                }
+            }
+        }
+    }
+}*/
+void Enemy::bombExplodingFlag(int x, int y, int animCounter) {
+    if ((animCounter - 3) < 4) {
+        DrawTextureRec(bombCellExplodingAnim, Rectangle{(float) animCounter * 32, 0, 32, 32},
+                       Vector2{(float) x * 32, (float) y * 32},
+                       WHITE);
+    }
 }
