@@ -322,9 +322,6 @@ void Enemy::update() {
     }
     //Malware Logic
     if (this->Type == malware) {
-        if(malwareTriggered){
-            malwareLifeCounter--;
-        }
         malwareMoveCooldown--;
         //Check if player is close to Malware
         if (playerPtr->posX <= posX + 2 && playerPtr->posX >= posX - 2 && playerPtr->posY <= posY + 2 &&
@@ -402,6 +399,7 @@ void Enemy::update() {
                     malwareBodyPtr->posY = posY;
                     posX += deltaX;
                     posY += deltaY;
+                    malwareLifeCounter--;
                 } else {
                     deltaX = (deltaX + 1) % 2;
                     deltaY = (deltaY + 1) % 2;
@@ -412,6 +410,7 @@ void Enemy::update() {
                         malwareBodyPtr->posY = posY;
                         posX += deltaX;
                         posY += deltaY;
+                        malwareLifeCounter--;
                     } else {
                         deltaX = (deltaX + 1) % 2;
                         deltaY = (deltaY + 1) % 2;
@@ -422,6 +421,7 @@ void Enemy::update() {
                             malwareBodyPtr->posY = posY;
                             posX += deltaX;
                             posY += deltaY;
+                            malwareLifeCounter--;
                         } else {
                             deltaX = (deltaX + 1) % 2;
                             deltaY = (deltaY + 1) % 2;
@@ -432,6 +432,7 @@ void Enemy::update() {
                                 malwareBodyPtr->posY = posY;
                                 posX += deltaX;
                                 posY += deltaY;
+                                malwareLifeCounter--;
                             } else {
                                 deltaX = 0;
                                 deltaY = 0;
@@ -440,11 +441,11 @@ void Enemy::update() {
                     }
                 }
             }
-        } else if (malwareLifeCounter <= 0) {
+        } /*else if (malwareLifeCounter <= 0) {
             malwareHeadPtr->malwareExploded = true;
             malwareBodyPtr->malwareExploded = true;
             malwareTailPtr->malwareExploded = true;
-        }
+        }*/
     }
     if (this->Type == whitehole) {
         boulderBornCooldown++;
