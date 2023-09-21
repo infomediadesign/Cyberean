@@ -125,7 +125,17 @@ bool mainmenu::IsMusicMuted() {
 }
 
 void mainmenu::buttons() {
-    DrawTexture(background, 0, -50, WHITE);
+    if(counter >= 200){
+        DrawTextureRec(unglitch, Rectangle{age * 784, 0, 784, 208}, Vector2{245, 100}, WHITE);
+        age++;
+        if(age >= 8){
+            counter = 0;
+            age = 0;
+        }
+    }else{
+        DrawTexture(background, 0, -50, WHITE);
+        counter++;
+    }
     if(storystate > 0){
         DrawTexture(continuebutton, 335, 400, WHITE);
     }else{

@@ -22,6 +22,7 @@ SoundPlayer::SoundPlayer() {
     death = LoadSound("assets/audio/sfx/death.wav");
     cutsceneenter = LoadSound("assets/audio/sfx/cutscene_test.wav");
     cutscenevoice = LoadSound("assets/audio/sfx/cutscene_voice.wav");
+    bomb = LoadSound("assets/audio/sfx/explosion.wav");
 }
 
 SoundPlayer::~SoundPlayer() {
@@ -60,7 +61,7 @@ void SoundPlayer::playerButton_sound() {
 }
 
 void SoundPlayer::all4Notes() {
-    SetSoundVolume(all4notes, masterSoundControl * 3.0);
+    SetSoundVolume(all4notes, masterSoundControl);
     PlaySound(all4notes);
 }
 
@@ -81,4 +82,9 @@ void SoundPlayer::cutsceneenter_sound() {
 void SoundPlayer::cutscenevoice_sound() {
     SetSoundVolume(cutscenevoice, masterSoundControl);
     PlaySound(cutscenevoice);
+}
+
+void SoundPlayer::bomb_sound() {
+    SetSoundVolume(bomb,masterSoundControl);
+    PlaySound(bomb);
 }

@@ -316,6 +316,13 @@ void gameScene::update(globalState &globalstate) {
             }
         }
     }
+
+    for (Enemy e: enemies) {
+        if(e.soundbomb == true && e.ID == 5){
+            //soundPlayerPtr->bomb_sound();
+            e.soundbomb = false;
+        }
+    }
 }
 
 void gameScene::updateMusicPlayers() {

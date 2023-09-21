@@ -22,6 +22,7 @@ public:
     Sound death;
     Sound cutsceneenter;
     Sound cutscenevoice;
+    Sound bomb;
     bool mastersound = true;
     float mastersoundvolume = 1.0f;
 
@@ -40,6 +41,7 @@ public:
     void all4Notes();
     void cutsceneenter_sound();
     void cutscenevoice_sound();
+    void bomb_sound();
 };
 
 

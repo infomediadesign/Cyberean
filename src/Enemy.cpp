@@ -494,6 +494,11 @@ void Enemy::draw(Texture2D texture) {
                 animationCounter++;
                 if (animationCounter > 7) {
                     explodeBomb(posX, posY);
+                    if(counter == 0 && soundbomb == false){
+                        soundbomb = true;
+                    }
+                    counter = 1;
+                    //soundPlayer.bomb_sound();
                     animationCounter = 0;
 
                 } else {

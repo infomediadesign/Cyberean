@@ -60,7 +60,9 @@ public:
     Texture2D level_select_markiert = LoadTexture("assets/screens/menu_screen/Level_select_markiert.png");
     Texture2D continuebutton = LoadTexture("assets/screens/menu_screen/Continue.png");
     Texture2D continuebutton_markiert = LoadTexture("assets/screens/menu_screen/Continue_markiert.png");
-
+    Texture2D unglitch = LoadTexture("assets/screens/menu_screen/logo_unglitch_anim.png");
+    float age = 0;
+    int counter = 0;
 };
 
 #endif //RAYLIBSTARTER_MAINMENU_H

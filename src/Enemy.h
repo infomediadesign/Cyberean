@@ -10,6 +10,7 @@
 #include "raylib.h"
 #include "../Library/tileson.hpp"
 #include "player.h"
+#include "SoundPlayer.h"
 
 enum EnumType{
     boulder,
@@ -42,6 +43,8 @@ public:
     int ID;
     int posX;
     int posY;
+    bool soundbomb = false;
+    int counter = 0;
 
     //Boulder and Bomb movement speed.
     int gravMoveDelay;
@@ -151,6 +154,8 @@ public:
     void bombExplodingFlag(int x, int y, int animCounter);
 
     bool shouldExplode(int x, int y);
+
+    //SoundPlayer soundPlayer;
 
 };
 
