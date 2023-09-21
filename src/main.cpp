@@ -20,6 +20,7 @@
 #include "cutscene4.h"
 #include "cutscene5.h"
 
+//#pragma comment(linker, "/SUBSYSTEM:windows/ENTRY:mainCRTStartup")
 
 int main() {
     // Raylib initialization

@@ -80,8 +80,8 @@ void Enemy::update() {
     //Boulder and Bomb gravity Logic
     if (this->Type == boulder || this->Type == bomb) {
         updateGravity();
-        bool bNextEnemiesIsBoulder = false;
-        bool bAboveBoulderIsEnemy = false;
+        bool isNextEnemyBoulder = false;
+        bool isAboveBoulderEnemy = false;
         gravMoveCooldown--;
         if (canMoveTo(posX + gravityX, posY + gravityY) && gravMoveCooldown <= 0) {
             posY += gravityY;
@@ -105,7 +105,7 @@ void Enemy::update() {
             for (auto &otherEnemy: *otherEnemies) {
                 if (otherEnemy.posX == posX + gravityX && otherEnemy.posY == posY + gravityY &&
                     otherEnemy.Type == boulder) {
-                    bNextEnemiesIsBoulder = true;
+                    isNextEnemyBoulder = true;
                     break;
                 }
             }
@@ -113,16 +113,16 @@ void Enemy::update() {
             for (auto &otherEnemy: *otherEnemies) {
                 if (otherEnemy.posX == posX - gravityX && otherEnemy.posY == posY - gravityY &&
                     (otherEnemy.Type == boulder || otherEnemy.Type == bomb)) {
-                    bAboveBoulderIsEnemy = true;
+                    isAboveBoulderEnemy = true;
                     break;
                 }
             }
             //if next enemy is not a boulder -> don't fall next to it.
             //Stacks only when it falls on a boulder.
-            if (!bNextEnemiesIsBoulder)
+            if (!isNextEnemyBoulder)
                 return;
             //Don't stack if there is a boulder or bomb above you.
-            if (bAboveBoulderIsEnemy)
+            if (isAboveBoulderEnemy)
                 return;
             if (gravityX != 0) {
                 if (canMoveTo(posX, posY + 1, true) && canMoveTo(posX + gravityX, posY + 1, true) &&
