@@ -45,7 +45,7 @@ void cutscene5::update(globalState &globalState) {
             if(counter == 1){
                 soundplayerPtr->cutscenevoice_sound();
             }
-            
+
         } else {
             textTimer++;
         }

@@ -38,23 +38,23 @@ void gameoverscreen::update() {
 
 void gameoverscreen::draw() {
     DrawTexture(background, 0, 0, WHITE);
-    DrawTexture(gameover, 410, 100, WHITE);
+    DrawTexture(gameover, 136, 100, WHITE);
 }
 
 void gameoverscreen::buttons() {
-    DrawTexture(retry, 334, 400, WHITE);
-    DrawTexture(mainmenu, 334, 500, WHITE);
-    DrawTexture(exit, 334, 600, WHITE);
+    DrawTexture(retry, 456, 400, WHITE);
+    DrawTexture(mainmenu, 456, 500, WHITE);
+    DrawTexture(exit, 456, 600, WHITE);
 
     switch (cursor) {
         case 0:
-            DrawTexture(retry_markiert, 334, 400, WHITE);
+            DrawTexture(retry_markiert, 456, 400, WHITE);
             break;
         case 1:
-            DrawTexture(mainmenu_markiert, 334, 500, WHITE);
+            DrawTexture(mainmenu_markiert, 456, 500, WHITE);
             break;
         case 2:
-            DrawTexture(exit_markiert, 334, 600, WHITE);
+            DrawTexture(exit_markiert, 456, 600, WHITE);
             break;
         default:
             break;
