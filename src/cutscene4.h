@@ -10,6 +10,8 @@
 #include "SoundPlayer.h"
 #include "mastervolumecontroll.h"
 #include "musicplayer.h"
+#include <random>
+#include <ctime>
 
 class cutscene4 {
 public:
@@ -122,6 +124,9 @@ public:
     void ResetCutscene();
     void Cutscene_1();
 
+    int counter = 0;
+private:
+    std::mt19937 rng;
 };
 
 

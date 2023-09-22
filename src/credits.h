@@ -17,7 +17,7 @@ public:
     SoundPlayer *soundplayerPtr;
     MusicPlayer *musicPlayerPtr;
 
-    Texture2D background = LoadTexture("assets/screens/credits_screen/Credits_allnames.png");
+    Texture2D background = LoadTexture("assets/screens/credits_screen/credits.png");
 
     credits(SoundPlayer *soundplayer, MusicPlayer *musicPlayer);
 

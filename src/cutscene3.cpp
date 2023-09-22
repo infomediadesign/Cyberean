@@ -33,12 +33,20 @@ void cutscene3::update(globalState &globalState) {
 
     if (currentTextIndex < currentFullText.length() && !fadein) {
         if (IsKeyPressed(KEY_ENTER)) {
+            soundplayerPtr->cutsceneenter_sound();
             currentText = currentFullText;
             currentTextIndex = currentFullText.length();
         } else if (textTimer >= textSpeed) {
             currentText += currentFullText[currentTextIndex];
             currentTextIndex++;
             textTimer = 0;
+            std::uniform_int_distribution<int> dist(1, 2);
+            counter = dist(rng);
+
+            if(counter == 1){
+                soundplayerPtr->cutscenevoice_sound();
+            }
+
         } else {
             textTimer++;
         }
@@ -372,6 +380,8 @@ void cutscene3::ResetCutscene() {
 }
 
 cutscene3::cutscene3(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
+    std::random_device rd;
+    rng = std::mt19937(rd());
 
     soundplayerPtr = soundplayer;
     musicPlayerPtr = musicPlayer;
