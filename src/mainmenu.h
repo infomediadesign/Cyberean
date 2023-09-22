@@ -63,6 +63,8 @@ public:
     Texture2D unglitch = LoadTexture("assets/screens/menu_screen/logo_unglitch_anim.png");
     float age = 0;
     int counter = 0;
+
+    Texture2D hintergrund = LoadTexture("assets/screens/title_screen/title_screen_no_box.png");
 };
 
 #endif //RAYLIBSTARTER_MAINMENU_H

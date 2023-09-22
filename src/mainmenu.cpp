@@ -117,7 +117,7 @@ void mainmenu::update(globalState &globalState) {
 }
 
 void mainmenu::draw() {
-    //DrawTexture(windowsoli,0,0,WHITE);
+    DrawTexture(hintergrund,0,0,WHITE);
 }
 
 bool mainmenu::IsMusicMuted() {
@@ -133,7 +133,7 @@ void mainmenu::buttons() {
             age = 0;
         }
     }else{
-        DrawTexture(background, 0, -50, WHITE);
+        DrawTextureRec(unglitch, Rectangle{0, 0, 784, 208}, Vector2{245, 100}, WHITE);
         counter++;
     }
     if(storystate > 0){
