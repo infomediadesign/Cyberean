@@ -38,7 +38,7 @@ public:
 
     Texture2D mainmenu = LoadTexture("assets/screens/pause_screen/mainmenu.png");
     Texture2D mainmenu_markiert = LoadTexture("assets/screens/pause_screen/mainmenu_markiert.png");
-    Texture2D pause = LoadTexture("assets/screens/pause_screen/buttons/pause.png");
+    Texture2D pause = LoadTexture("assets/screens/pause_screen/pause.png");
     Texture2D restart = LoadTexture("assets/screens/pause_screen/restart.png");
     Texture2D restart_markiert = LoadTexture("assets/screens/pause_screen/restart_markiert.png");
     Texture2D resume = LoadTexture("assets/screens/pause_screen/resume.png");

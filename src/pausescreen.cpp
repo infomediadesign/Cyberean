@@ -84,7 +84,7 @@ void pausescreen::update() {
 
 void pausescreen::draw() {
     DrawTexture(background, 0, 0, WHITE);
-    DrawTexture(pause,456,100,WHITE);
+    DrawTexture(pause,410,100,WHITE);
     //DrawTexture(windowsoli,0,0,WHITE);
 }
 
