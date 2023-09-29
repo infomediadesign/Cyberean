@@ -335,8 +335,8 @@ cutscene2::cutscene2(SoundPlayer *soundplayer, MusicPlayer *musicPlayer) {
             "face.";
     fullText14 =
             "Rather, it seems as if a big burden falls from his shoulders as he sees you standing next to him.\n"
-            "And before you can begin to speculate what kind of physical burden would be needed to truly *burden* Igor,\n"
-            "he gets up from his stool and gives you the probably most intense hug of your life.";
+            "And before you can begin to speculate what kind of physical burden would be needed to truly 'burden'\n "
+            "Igor, he gets up from his stool and gives you the probably most intense hug of your life.";
     fullText15 =
             "The two of you catch up on things.\n"
             "Things are... well, they just \"are\" for the most part.\n"
