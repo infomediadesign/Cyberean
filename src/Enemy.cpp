@@ -42,7 +42,7 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
         case 6:
             this->Type = malware;
             malwareMoveDelay = 20;
-            malwareLifeCounter = 10;
+            malwareLifeCounter = 4;
             malwareTriggered = false;
             malwareExploded = false;
             malwareDead = false;
@@ -848,7 +848,7 @@ void Enemy::creatMalware(int xHead, int yHead, int xBody, int yBody, int xTail, 
     if (pH != NULL && pB != NULL && pT != NULL) {
         pH->malwareHeadPtr = pH;
         pH->malwarePart = malwareHead;
-        pH->malwareLifeCounter = 5;
+        pH->malwareLifeCounter = 4;
         pH->malwareTriggered = true;
         pH->malwareBodyPtr = pB;
         pB->malwarePart = malwareBody;
