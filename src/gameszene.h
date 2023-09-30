@@ -43,6 +43,8 @@ public:
 
     int level = 0;
 
+    int currentLevel = 0;
+
     int counter = 0;
     bool switchSoundPlayed = false;
     bool restart = false;
@@ -67,6 +69,9 @@ public:
     Texture2D levelnumber;
 
     Texture2D character;
+
+    //Enemy Textures:
+
 
     bool fadein = true;
     bool fadeout = false;
@@ -100,8 +105,8 @@ public:
 
     bool all4notescollected();
 
-
     void increaseCollectedObjectsCount(); // Increases the number of collected game objects
+
     void drawCollectedObjectsCount(); // draws the counter of collected game objects
 
     void loadmusic(int _level);

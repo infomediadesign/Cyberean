@@ -11,6 +11,7 @@
 #include "../Library/tileson.hpp"
 #include "player.h"
 #include "SoundPlayer.h"
+#include "TextureManager.h"
 
 enum EnumType{
     boulder,
@@ -18,8 +19,6 @@ enum EnumType{
     rogueAntivirus,
     bomb,
     malware,
-    blackhole,
-    whitehole,
     unknown
 };
 
@@ -69,15 +68,15 @@ public:
     Enemy *malwareBodyPtr;
     Enemy *malwareTailPtr;
 
+    int currentLevel = 0;
+    int boulderBornDelay = 240;
+    int boulderBornCooldown = 0;
+
 
     //Movement variables for boulders and bombs
     int gravityX = 0; //Gravity Vector X
     int gravityY = 0; //Gravity Vector Y
     int consecMoves; // Counts how many tiles an enemy has fallen (mainly for the CryptoMining Bomb)
-
-    //Level 3 Black and White hole variables
-    int boulderBornDelay = 240;
-    int boulderBornCooldown = 0;
 
     //Animation related variables and flags
     int animationCounter = 0;
@@ -86,17 +85,18 @@ public:
     bool cellExploding = false;
 
     //Firewall Animation Textures
-    Texture2D firewallAnim = LoadTexture("assets/animations/enemies/firewall_anim.png");
-    Texture2D rogueAntivirusMovingAnim = LoadTexture("assets/animations/enemies/rogue_eyes_move_anim.png");
-    Texture2D bombWarningAnim = LoadTexture("assets/animations/enemies/cryptobomb_warning_anim.png");
-    Texture2D bombExplodingAnim = LoadTexture("assets/animations/enemies/cryptobomb_explosion_anim.png");
-    Texture2D  bombCellExplodingAnim = LoadTexture("assets/animations/enemies/cryptobomb_explosion_single_anim.png");
+    Texture2D firewallAnim = TextureManager::firewallAnim;
+    Texture2D rogueAntivirusMovingAnim = TextureManager::rogueAntivirusMovingAnim;
+    Texture2D bombWarningAnim = TextureManager::bombWarningAnim;
+    Texture2D bombExplodingAnim = TextureManager::bombExplodingAnim;
+    Texture2D  bombCellExplodingAnim = TextureManager::bombCellExplodingAnim;
+
 
     //Boulder Animation Texures
-    Texture2D  boulderEyesClosing = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_close.png");
-    Texture2D  boulderEyesOpening = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_open.png");
-    Texture2D  boulderClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_cw.png");
-    Texture2D  boulderCounterClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_ccw.png");
+    //Texture2D  boulderEyesClosing = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_close.png");
+    //Texture2D  boulderEyesOpening = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_open.png");
+    //Texture2D  boulderClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_cw.png");
+    //Texture2D  boulderCounterClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_ccw.png");
 
 
 
@@ -156,6 +156,8 @@ public:
     bool shouldExplode(int x, int y);
 
     //SoundPlayer soundPlayer;
+
+    void spawnBoulder(int x, int y);
 
 };
 

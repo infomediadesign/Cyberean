@@ -8,7 +8,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(${PROJECT_NAME} main.cpp ../Library/tileson.hpp masterhead.h mainmenu.cpp mainmenu.h musicplayer.cpp musicplayer.h gameszene.cpp gameszene.h player.cpp player.h gameobject.cpp gameobject.h Enemy.cpp Enemy.h pausescreen.h pausescreen.cpp SoundPlayer.cpp SoundPlayer.h mastervolumecontroll.cpp mastervolumecontroll.h levelselect.cpp levelselect.h credits.cpp credits.h cutscene.cpp cutscene.h masterhead.cpp gameoverscreen.h gameoverscreen.cpp storymode.cpp storymode.h cutscene2.cpp cutscene2.h cutscene3.cpp cutscene3.h cutscene4.cpp cutscene4.h cutscene5.cpp cutscene5.h epilogue.cpp epilogue.h)
+add_executable(${PROJECT_NAME} main.cpp ../Library/tileson.hpp masterhead.h mainmenu.cpp mainmenu.h musicplayer.cpp musicplayer.h gameszene.cpp gameszene.h player.cpp player.h gameobject.cpp gameobject.h Enemy.cpp Enemy.h pausescreen.h pausescreen.cpp SoundPlayer.cpp SoundPlayer.h mastervolumecontroll.cpp mastervolumecontroll.h levelselect.cpp levelselect.h credits.cpp credits.h cutscene.cpp cutscene.h masterhead.cpp gameoverscreen.h gameoverscreen.cpp storymode.cpp storymode.h cutscene2.cpp cutscene2.h cutscene3.cpp cutscene3.h cutscene4.cpp cutscene4.h cutscene5.cpp cutscene5.h epilogue.cpp epilogue.h
+        TextureManager.h
+        TextureManager.cpp)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)

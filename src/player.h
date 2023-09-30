@@ -12,6 +12,8 @@
 #include "gameobject.h"
 #include "Enemy.h"
 #include "SoundPlayer.h"
+#include "TextureManager.h"
+
 
 class gameobject;
 
@@ -69,11 +71,11 @@ public:
                                          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                          0, 0};
 
-    Texture2D texture = LoadTexture("assets/animations/avatar/avatar_bopping_glasses_anim_1.1.png");
-    Texture2D playerDeathAnimMelt = LoadTexture("assets/animations/avatar/avatar_melt.png");
-    Texture2D playerDeathAnimAsh = LoadTexture("assets/animations/avatar/avatar_ash_anim.png");
-    Texture2D playerDeathAnimGrid = LoadTexture("assets/animations/avatar/avatar_purple-grid_anim.png");
-    Texture2D playerDeathAnimSuck = LoadTexture("assets/animations/avatar/avatar_suck_anim.png");
+    Texture2D texture = TextureManager::playerTexture;
+    Texture2D playerDeathAnimMelt = TextureManager::playerDeathAnimMelt;
+    Texture2D playerDeathAnimAsh = TextureManager::playerDeathAnimAsh;
+    Texture2D playerDeathAnimGrid = TextureManager::playerDeathAnimGrid;
+    Texture2D playerDeathAnimSuck = TextureManager::playerDeathAnimSuck;
     Texture2D playerDeathAnim;
 
     tson::Map *map;

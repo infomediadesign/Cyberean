@@ -19,6 +19,7 @@
 #include "cutscene3.h"
 #include "cutscene4.h"
 #include "cutscene5.h"
+#include "TextureManager.h"
 
 //#pragma comment(linker, "/SUBSYSTEM:windows/ENTRY:mainCRTStartup")
 
@@ -36,6 +37,7 @@ int main() {
     // Your own initialization code here
     // ...
     // ...
+    TextureManager::InitializeTextures();
     Texture2D myTexture = LoadTexture("assets/graphics/testimage.png");
     RenderTexture2D canvas = LoadRenderTexture(Game::ScreenWidth, Game::ScreenHeight);
     float renderScale{}; //those two are relevant to drawing and code-cleanliness

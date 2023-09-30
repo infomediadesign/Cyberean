@@ -4,7 +4,6 @@
 
 #include "gameszene.h"
 
-
 void drawLayer(const std::string &layer);
 
 gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
@@ -14,7 +13,6 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
 
     this->level = Level;
     std::cout << level << std::endl;
-
     switch (level) {
         case 0:
             themap = t.parse("assets/level/level_1/blue_tileset_level_1_selina.tmj");
@@ -31,6 +29,8 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             character = LoadTexture("assets/characters/igor_level_1.png");
             cposX = 640;
             cposY = 448;
+            currentLevel = 1;
+            //textureManager.InitializeTextures();
             break;
         case 1:
             themap = t.parse("assets/level/level_2/magenta_tileset_level_2_selina.tmj");
@@ -47,6 +47,8 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             character = LoadTexture("assets/characters/anastasia_level_2.png");
             cposX = 672;
             cposY = 384;
+            currentLevel = 2;
+            //textureManager.InitializeTextures();
             break;
         case 2:
             themap = t.parse("assets/level/level_3/green_tileset_level_3_selina.tmj");
@@ -63,6 +65,8 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             character = LoadTexture("assets/characters/alexey_level_3.png");
             cposX = 544;
             cposY = 448;
+            currentLevel = 3;
+            //textureManager.InitializeTextures();
             break;
         case 3:
             themap = t.parse("assets/level/level_4/corroded_tileset_level_4_selina.tmj");
@@ -79,6 +83,8 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             character = LoadTexture("assets/characters/koshka_level_4.png");
             cposX = 640;
             cposY = 448;
+            currentLevel = 4;
+            //textureManager.InitializeTextures();
             break;
 
     }
@@ -105,17 +111,15 @@ void gameScene::draw() {
     drawLayer("Deco");
     drawLayer("Overlay");
     drawCover();
-    /*for (Enemy e: enemies) {
-    //    e.draw(maptext);
-    }*/
+
     for (int i = 0; i < enemies.size(); i++) {
         enemies[i].draw(maptext);
     }
     for (gameobject e: thegameobject) {
         e.draw(maptext);
     }
-    if(collectedObjectsCount == 4){
-        DrawTexture(character,cposX,cposY,WHITE);
+    if (collectedObjectsCount == 4) {
+        DrawTexture(character, cposX, cposY, WHITE);
     }
     theplayer.draw();
     drawCollectedObjectsCount();
@@ -141,17 +145,17 @@ void gameScene::draw() {
         myGameOverScreen.buttons();
     }
 
-    if(fadeout){
+    if (fadeout) {
         DrawTexturePro(fadeTexture,
-                       Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
-                       Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
+                       Rectangle{0, 0, (float) fadeTexture.width, (float) fadeTexture.height},
+                       Rectangle{0, 0, (float) GetScreenWidth(), (float) GetScreenHeight()},
                        {}, 0, Fade(WHITE, alpha));
     }
 
-    if(fadein){
+    if (fadein) {
         DrawTexturePro(fadeTexture,
-                       Rectangle{0, 0, (float)fadeTexture.width, (float)fadeTexture.height},
-                       Rectangle{0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()},
+                       Rectangle{0, 0, (float) fadeTexture.width, (float) fadeTexture.height},
+                       Rectangle{0, 0, (float) GetScreenWidth(), (float) GetScreenHeight()},
                        {}, 0, Fade(WHITE, alpha));
     }
 }
@@ -279,7 +283,7 @@ void gameScene::update(globalState &globalstate) {
         }
     }
 
-    if((playerPtr->posX * 32) == cposX && (playerPtr->posY * 32) == cposY && collectedObjectsCount == 4){
+    if ((playerPtr->posX * 32) == cposX && (playerPtr->posY * 32) == cposY && collectedObjectsCount == 4) {
         fadeout = true;
     }
 
@@ -290,11 +294,11 @@ void gameScene::update(globalState &globalstate) {
     musicPlayer4.Update();
     musicPlayer5.Update();
 
-    if(IsKeyPressed(KEY_F2)){
+    if (IsKeyPressed(KEY_F2)) {
         fadeout = true;
     }
 
-    if(fadein && !fadeout){
+    if (fadein && !fadeout) {
         alpha -= fadeSpeed * GetFrameTime();
         if (alpha <= 0.0f) {
             alpha = 0.0f;
@@ -303,22 +307,22 @@ void gameScene::update(globalState &globalstate) {
         }
     }
 
-    if(fadeout){
+    if (fadeout) {
         alpha += fadeSpeed * GetFrameTime();
         if (alpha >= 1.0f) {
             alpha = 1.0f;
 
-            if(storymodeactive){
+            if (storymodeactive) {
                 storystate++;
                 globalstate = storymodesection;
-            }else{
+            } else {
                 globalstate = mainMenu;
             }
         }
     }
 
     for (Enemy e: enemies) {
-        if(e.soundbomb == true && e.ID == 5){
+        if (e.soundbomb == true && e.ID == 5) {
             //soundPlayerPtr->bomb_sound();
             e.soundbomb = false;
         }

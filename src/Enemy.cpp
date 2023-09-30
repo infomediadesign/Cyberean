@@ -58,14 +58,13 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
                 firewallMoveDelay = 25; //firewall size 1x4
             break;
 
-        case 79:
-            this->Type = blackhole;
-            break;
-
-        case 80:
-            this->Type = whitehole;
-            break;
-
+            /*case 79:
+                this->Type = blackhole;
+                break;
+              case 80:
+                this->Type = whitehole;
+                break;
+            */
         default:
             break;
     }
@@ -77,6 +76,7 @@ Enemy::Enemy(int ID, int posX, int posY, tson::Map *map, std::vector<bool> *cove
 }
 
 void Enemy::update() {
+
     //Boulder and Bomb gravity Logic
     if (this->Type == boulder || this->Type == bomb) {
         updateGravity();
@@ -341,55 +341,35 @@ void Enemy::update() {
             YPlus1 = getEnemyType(posX, posY + 1);
             YPlus2 = getEnemyType(posX, posY + 2);
 
-            if (YPlus1 == malware && YPlus2 == malware) {
-                this->malwarePart = malwareHead;
-                //setMalwareType(posX, posY + 1, malwareBody);
-                //setMalwareType(posX, posY + 2, malwareTail);
+            if (YPlus1 == malware && YPlus2 == malware)
                 creatMalware(posX, posY, posX, posY + 1, posX, posY + 2);
-
-            } else if (YPlus1 == malware && YMinus1 == malware) {
-                //this->malwarePart = malwareBody;
-                //setMalwareType(posX, posY + 1, malwareHead);
-                //setMalwareType(posX, posY - 1, malwareTail);
+            else if (YPlus1 == malware && YMinus1 == malware)
                 creatMalware(posX, posY + 1, posX, posY, posX, posY - 1);
-            } else if (YMinus1 == malware && YMinus2 == malware) {
-                //this->malwarePart = malwareHead;
-                //setMalwareType(posX, posY - 1, malwareBody);
-                //setMalwareType(posX, posY - 2, malwareTail);
+            else if (YMinus1 == malware && YMinus2 == malware)
                 creatMalware(posX, posY, posX, posY - 1, posX, posY - 2);
-            } else if (XPlus1 == malware && XPlus2 == malware) {
-                //this->malwarePart = malwareHead;
-                //setMalwareType(posX + 1, posY, malwareBody);
-                //setMalwareType(posX + 2, posY, malwareTail);
+            else if (XPlus1 == malware && XPlus2 == malware)
                 creatMalware(posX, posY, posX + 1, posY, posX + 2, posY);
-            } else if (XPlus1 == malware && XMinus1 == malware) {
-                //this->malwarePart = malwareBody;
-                //setMalwareType(posX - 1, posY, malwareHead);
-                //setMalwareType(posX + 2, posY, malwareTail);
+            else if (XPlus1 == malware && XMinus1 == malware)
                 creatMalware(posX - 1, posY, posX, posY, posX + 2, posY);
-            } else if (XMinus1 == malware && XMinus2 == malware) {
-                //this->malwarePart = malwareHead;
-                //setMalwareType(posX - 1, posY, malwareBody);
-                //setMalwareType(posX - 2, posY, malwareTail);
+            else if (XMinus1 == malware && XMinus2 == malware)
                 creatMalware(posX, posY, posX - 1, posY, posX - 2, posY);
-            }
+
         } else if (malwareTriggered && malwareMoveCooldown <= 0 && malwareLifeCounter > 0) {
             malwareMoveCooldown = malwareMoveDelay;
             //Triggered malware attacking player logic
             int deltaX = 0, deltaY = 0;
             if (malwarePart == malwareHead) {
                 if (abs(playerPtr->posY - posY) < abs(playerPtr->posX - posX)) {
-                    if (playerPtr->posX > posX) {
+                    if (playerPtr->posX > posX)
                         deltaX = 1;
-                    } else if (playerPtr->posX < posX) {
+                    else if (playerPtr->posX < posX)
                         deltaX = -1;
-                    }
+
                 } else {
-                    if (playerPtr->posY > posY) {
+                    if (playerPtr->posY > posY)
                         deltaY = 1;
-                    } else if (playerPtr->posY < posY) {
+                    else if (playerPtr->posY < posY)
                         deltaY = -1;
-                    }
                 }
                 if (canMoveTo(posX + deltaX, posY + deltaY)) {
                     //malware head movement:
@@ -447,16 +427,7 @@ void Enemy::update() {
             malwareTailPtr->malwareExploded = true;
         }*/
     }
-    if (this->Type == whitehole) {
-        boulderBornCooldown++;
-        if (boulderBornCooldown == boulderBornDelay) {
-            boulderBornCooldown = 0;
-            otherEnemies->emplace_back(4, posX, posY, theMap, covers, otherEnemies, playerPtr);
-        }
-    }
-    if (this->Type == blackhole) {
-
-    }
+    //spawn boulders in level 3 (belt)
 }
 
 void Enemy::draw(Texture2D texture) {
@@ -494,7 +465,7 @@ void Enemy::draw(Texture2D texture) {
                 animationCounter++;
                 if (animationCounter > 7) {
                     explodeBomb(posX, posY);
-                    if(counter == 0 && soundbomb == false){
+                    if (counter == 0 && soundbomb == false) {
                         soundbomb = true;
                     }
                     counter = 1;
@@ -871,4 +842,8 @@ bool Enemy::shouldExplode(int x, int y) {
     if (theMap->getLayer("Gravity")->getData()[x + y * theMap->getSize().x] != 0)
         return true;
     return false;
+}
+
+void Enemy::spawnBoulder(int x, int y) {
+            otherEnemies->emplace_back(4, x, y, theMap, covers, otherEnemies, playerPtr);
 }
