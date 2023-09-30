@@ -81,8 +81,8 @@ gameScene::gameScene(int Level, MusicPlayer *musicPlayerPtr,
             fournotes = LoadTexture("assets/level/level_4/ui/purple_4_notes.png");
             levelnumber = LoadTexture("assets/level/level_4/ui/level_4.png");
             character = LoadTexture("assets/characters/koshka_level_4.png");
-            cposX = 640;
-            cposY = 448;
+            cposX = 288;
+            cposY = 64;
             currentLevel = 4;
             //textureManager.InitializeTextures();
             break;
