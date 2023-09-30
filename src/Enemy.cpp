@@ -654,19 +654,27 @@ void Enemy::updateGravity() {
                 else
                     switchGravity(1); // Right
                 break;
+
             case 15:
                 if (playerPtr->gravitySwitchStatusUp)
                     switchGravity(0);
                 else
                     switchGravity(2); // Up
                 break;
+
             case 17:
                 if (playerPtr->gravitySwitchStatusLeft)
                     switchGravity(1);
                 else
                     switchGravity(3); // Left
                 break;
+
             case 16:
+                if (playerPtr->gravitySwitchStatusDown)
+                    switchGravity(2);
+                else
+                    switchGravity(0); // Down
+                break;
             default:
                 if (playerPtr->gravitySwitchStatusDown)
                     switchGravity(2);
@@ -845,5 +853,5 @@ bool Enemy::shouldExplode(int x, int y) {
 }
 
 void Enemy::spawnBoulder(int x, int y) {
-            otherEnemies->emplace_back(4, x, y, theMap, covers, otherEnemies, playerPtr);
+    otherEnemies->emplace_back(4, x, y, theMap, covers, otherEnemies, playerPtr);
 }

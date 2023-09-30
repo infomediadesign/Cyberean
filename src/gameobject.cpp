@@ -23,7 +23,7 @@ gameobject::gameobject(int ID, int posX, int posY, player *playerPtr, std::vecto
 
     overlayTexture = LoadTexture("assets/gravity/gravity_button_down.png");
 
-    switch(ID){
+    switch (ID) {
         case 9:
             overlayTexture = LoadTexture("assets/gravity/gravity_button_down.png");
             break;
@@ -46,7 +46,7 @@ void gameobject::draw(Texture2D texture) {
     DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
     //Change switch icon if it's active
     if (isActive) {
-        DrawTexture(overlayTexture,posX*32,posY*32,WHITE);
+        DrawTexture(overlayTexture, posX * 32, posY * 32, WHITE);
     }
 
 }
@@ -71,7 +71,7 @@ void gameobject::update(gameScene &scene) {
     //Activate/Deactivate Gravity Switch
     if (playerPtr->posX == posX && playerPtr->posY == posY && !playerOnSwitch && ID >= 8 && ID <= 11) {
         switch (ID) {
-            case 8:{
+            case 8: {
                 if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
@@ -91,7 +91,7 @@ void gameobject::update(gameScene &scene) {
                 }
                 break;
             }
-            case 9:{
+            case 9: {
                 if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
@@ -111,7 +111,7 @@ void gameobject::update(gameScene &scene) {
                 }
                 break;
             }
-            case 10:{
+            case 10: {
                 if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
@@ -131,7 +131,7 @@ void gameobject::update(gameScene &scene) {
                 }
                 break;
             }
-            case 11:{
+            case 11: {
                 if (!isActive) {
                     isActive = true;
                     for (auto &otherSwitch: *gameObjects) {
@@ -160,14 +160,19 @@ void gameobject::update(gameScene &scene) {
                     playerPtr->gravitySwitchStatusRight = isActive; // Right
                     break;
                 case 15:
-                    playerPtr->gravitySwitchStatusUp = isActive; // Up
+                    playerPtr->gravitySwitchStatusUp = isActive;
+                    if (gameScenePtr->level == 3)
+                        playerPtr->gravitySwitchStatusDown = isActive; // Up
                     break;
                 case 17:
                     playerPtr->gravitySwitchStatusLeft = isActive; //Left
                     break;
                 case 16:
+                    playerPtr->gravitySwitchStatusDown = isActive;
+                    if (gameScenePtr->level == 3)
+                        playerPtr->gravitySwitchStatusUp = isActive;// Down
                 default:
-                    playerPtr->gravitySwitchStatusDown = isActive; // Down
+                    break;
             }
         }
     }
