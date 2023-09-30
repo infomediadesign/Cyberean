@@ -63,12 +63,11 @@ public:
     int malwareLifeCounter;
     bool malwareTriggered;
     bool malwareExploded;
-    bool malwareDead;
+    bool malwareDead = false;
     Enemy *malwareHeadPtr;
     Enemy *malwareBodyPtr;
     Enemy *malwareTailPtr;
 
-    int currentLevel = 0;
     int boulderBornDelay = 240;
     int boulderBornCooldown = 0;
 
@@ -90,6 +89,9 @@ public:
     Texture2D bombWarningAnim = TextureManager::bombWarningAnim;
     Texture2D bombExplodingAnim = TextureManager::bombExplodingAnim;
     Texture2D  bombCellExplodingAnim = TextureManager::bombCellExplodingAnim;
+    Texture2D malwareAliveAnim = TextureManager::malwareAliveAnim;
+    Texture2D  malwareDeathAnim = TextureManager::malwareDeathAnim;
+    Texture2D  malwareDetonationAnim = TextureManager::malwareDetonationAnim;
 
 
     //Boulder Animation Texures

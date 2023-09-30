@@ -421,11 +421,11 @@ void Enemy::update() {
                     }
                 }
             }
-        } /*else if (malwareLifeCounter <= 0) {
-            malwareHeadPtr->malwareExploded = true;
-            malwareBodyPtr->malwareExploded = true;
-            malwareTailPtr->malwareExploded = true;
-        }*/
+        } else if (malwareLifeCounter <= 0) {
+            malwareHeadPtr->malwareDead = true;
+            malwareBodyPtr->malwareDead = true;
+            malwareTailPtr->malwareDead = true;
+        }
     }
     //spawn boulders in level 3 (belt)
 }
@@ -520,7 +520,28 @@ void Enemy::draw(Texture2D texture) {
             break;
 
         case malware:
-            DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+            texture = malwareAliveAnim;
+            animationCounter++;
+            if (malwareDead) {
+                texture = malwareDeathAnim;
+                if (animationCounter < 70)
+                    DrawTextureRec(texture, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                                   Vector2{(float) posX * 32, (float) posY * 32},
+                                   WHITE);
+                else {
+                    deleteEnemy(posX, posY);
+                }
+            }
+            if (animationCounter < 70)
+                DrawTextureRec(texture, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                               Vector2{(float) posX * 32, (float) posY * 32},
+                               WHITE);
+            else {
+                animationCounter = 0;
+                DrawTextureRec(texture, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                               Vector2{(float) posX * 32, (float) posY * 32},
+                               WHITE);
+            }
             break;
 
         default:
@@ -827,7 +848,7 @@ void Enemy::creatMalware(int xHead, int yHead, int xBody, int yBody, int xTail, 
     if (pH != NULL && pB != NULL && pT != NULL) {
         pH->malwareHeadPtr = pH;
         pH->malwarePart = malwareHead;
-        pH->malwareLifeCounter = 10;
+        pH->malwareLifeCounter = 5;
         pH->malwareTriggered = true;
         pH->malwareBodyPtr = pB;
         pB->malwarePart = malwareBody;

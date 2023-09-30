@@ -29,6 +29,12 @@ Texture2D TextureManager::bombExplodingAnim;
 
 Texture2D TextureManager::bombWarningAnim;
 
+Texture2D TextureManager::malwareAliveAnim;
+
+Texture2D TextureManager::malwareDeathAnim;
+
+Texture2D TextureManager::malwareDetonationAnim;
+
 
 
 
