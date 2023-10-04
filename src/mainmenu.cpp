@@ -135,11 +135,11 @@ void mainmenu::buttons() {
         counter++;
     }
     if(storystate > 0){
-        DrawTexture(continuebutton, 492, 615, WHITE);
+        DrawTexture(continuebutton, 527, 615, WHITE);
     }else{
         DrawTexture(Start, 492, 615, WHITE);
     }
-    DrawTexture(level_select,477, 685, WHITE);
+    DrawTexture(level_select,465, 685, WHITE);
     DrawTexture(credits,543,755,WHITE);
     DrawTexture(Exit, 504, 864, WHITE);
     DrawTexture(music,126, 843,WHITE);
@@ -201,13 +201,13 @@ void mainmenu::buttons() {
     switch (cursor) {
         case 0:
             if(storystate > 0){
-                DrawTexture(continuebutton_markiert, 492, 615, WHITE);
+                DrawTexture(continuebutton_markiert, 527, 615, WHITE);
             }else{
                 DrawTexture(Start_markiert, 492, 615, WHITE);
             }
             break;
         case 1:
-            DrawTexture(level_select_markiert, 477, 685, WHITE);
+            DrawTexture(level_select_markiert, 465, 685, WHITE);
             break;
         case 2:
             DrawTexture(credits_markiert,543,755,WHITE);

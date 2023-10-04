@@ -17,6 +17,10 @@ void pausescreen::update() {
                 break;
 
             case 3:
+                CloseWindow();
+                break;
+
+            case 4:
                 if(_musicconfig == false){
                     _musicconfig = true;
                 }else{
@@ -25,7 +29,7 @@ void pausescreen::update() {
                 //soundplayerPtr->menuEnter_sound();
 
                 break;
-            case 4:
+            case 5:
                 if(_soundconfig == false){
                     _soundconfig = true;
                 }else{
@@ -55,27 +59,27 @@ void pausescreen::update() {
             //soundplayerPtr->menuControll2_sound();
         }
         if (cursor < 0) {
-            cursor = 4;
+            cursor = 5;
         }
 
-        if (cursor > 4) {
+        if (cursor > 5) {
             cursor = 0;
         }
 
         if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
-            if (cursor == 3) {
-                cursor = 4;
+            if (cursor == 4) {
+                cursor = 5;
                 //soundplayerPtr->menuControll_sound();
-            } else if (cursor == 4) {
-                cursor = 3;
+            } else if (cursor == 5) {
+                cursor = 4;
                 //soundplayerPtr->menuControll_sound();
             }
         } else if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
-            if (cursor == 3) {
-                cursor = 4;
+            if (cursor == 4) {
+                cursor = 5;
                 //soundplayerPtr->menuControll2_sound();
-            } else if (cursor == 4) {
-                cursor = 3;
+            } else if (cursor == 5) {
+                cursor = 4;
                 //soundplayerPtr->menuControll2_sound();
             }
         }
@@ -84,7 +88,7 @@ void pausescreen::update() {
 
 void pausescreen::draw() {
     DrawTexture(background, 0, 0, WHITE);
-    DrawTexture(pause,410,100,WHITE);
+    DrawTexture(pause,456,100,WHITE);
     //DrawTexture(windowsoli,0,0,WHITE);
 }
 
@@ -93,45 +97,99 @@ bool pausescreen::IsMusicMuted() {
 }
 
 void pausescreen::buttons() {
-    DrawTexture(resume, 334, 400, WHITE);
-    DrawTexture(restart, 334, 500, WHITE);
-    DrawTexture(mainmenu, 334, 600, WHITE);
-    DrawTexture(music,0, 750,WHITE);
-    DrawTexture(_sound,650, 750,WHITE);
-    /*if (sound == true) {
-        DrawTexture(Unmuted_dunkel, 368, 700, WHITE);
+    DrawTexture(resume, 456, 400, WHITE);
+    DrawTexture(restart, 456, 500, WHITE);
+    DrawTexture(mainmenu, 456, 600, WHITE);
+    DrawTexture(music,10 + k, 829,WHITE);
+    DrawTexture(_sound,894 + k, 829,WHITE);
+    DrawTexture(quit_game,456,700,WHITE);
+
+    if (masterMusicControl <= 0.05) {
+        DrawTexture(vol_0, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.05 && masterMusicControl <= 0.15) {
+        DrawTexture(vol_1, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.15 && masterMusicControl <= 0.25) {
+        DrawTexture(vol_2, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.25 && masterMusicControl <= 0.35) {
+        DrawTexture(vol_3, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.35 && masterMusicControl <= 0.45) {
+        DrawTexture(vol_4, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.45 && masterMusicControl <= 0.55) {
+        DrawTexture(vol_5, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.55 && masterMusicControl <= 0.65) {
+        DrawTexture(vol_6, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.65 && masterMusicControl <= 0.75) {
+        DrawTexture(vol_7, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.75 && masterMusicControl <= 0.85) {
+        DrawTexture(vol_8, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.85 && masterMusicControl <= 0.95) {
+        DrawTexture(vol_9, 5 + k, 876, WHITE);
+    } else if (masterMusicControl > 0.95 && masterMusicControl <= 1.05) {
+        DrawTexture(vol_10, 5 + k, 876, WHITE);
     } else {
-        DrawTexture(Muted_dunkel, 368, 700, WHITE);
-    }*/
+
+    }
+
+    if (masterSoundControl <= 0.05) {
+        DrawTexture(vol_0, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.05 && masterSoundControl <= 0.15) {
+        DrawTexture(vol_1, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.15 && masterSoundControl <= 0.25) {
+        DrawTexture(vol_2, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.25 && masterSoundControl <= 0.35) {
+        DrawTexture(vol_3, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.35 && masterSoundControl <= 0.45) {
+        DrawTexture(vol_4, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.45 && masterSoundControl <= 0.55) {
+        DrawTexture(vol_5, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.55 && masterSoundControl <= 0.65) {
+        DrawTexture(vol_6, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.65 && masterSoundControl <= 0.75) {
+        DrawTexture(vol_7, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.75 && masterSoundControl <= 0.85) {
+        DrawTexture(vol_8, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.85 && masterSoundControl <= 0.95) {
+        DrawTexture(vol_9, 885 + k, 876, WHITE);
+    } else if (masterSoundControl > 0.95 && masterSoundControl <= 1.05) {
+        DrawTexture(vol_10, 885 + k, 876, WHITE);
+    } else {
+
+    }
+
     switch (cursor) {
         case 0:
-            DrawTexture(resume_markiert, 334, 400, WHITE);
+            DrawTexture(resume_markiert, 456, 400, WHITE);
             break;
         case 1:
-            DrawTexture(restart_markiert, 334, 500, WHITE);
+            DrawTexture(restart_markiert, 456, 500, WHITE);
             break;
         case 2:
-            DrawTexture(mainmenu_markiert, 334, 600, WHITE);
+            DrawTexture(mainmenu_markiert, 456, 600, WHITE);
             break;
         case 3:
-            if(_musicconfig){
-                DrawTexture(music_markiert_ausgewaehlt,0, 750,WHITE);
-            }else{
-                DrawTexture(music_markiert,0, 750,WHITE);
-            }
+            DrawTexture(quit_game_markiert, 456, 700, WHITE);
             break;
         case 4:
-            if(_soundconfig){
-                DrawTexture(sound_markiert_ausgewaehlt,650, 750,WHITE);
+            if(_musicconfig){
+                DrawTexture(musicsound_selected,6 + k, 876,WHITE);
+                DrawTexture(music_markiert,10 + k, 829,WHITE);
             }else{
-                DrawTexture(sound_markiert,650, 750,WHITE);
+                DrawTexture(music_markiert,10 + k, 829,WHITE);
+            }
+            break;
+        case 5:
+            if(_soundconfig){
+                DrawTexture(musicsound_selected,885 + k, 876,WHITE);
+                DrawTexture(sound_markiert,894 + k, 829,WHITE);
+            }else{
+                DrawTexture(sound_markiert,894 + k, 829,WHITE);
             }
             break;
         default:
             break;
     }
-    DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 771,WHITE);
-    DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 771,WHITE);
+    //DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 771,WHITE);
+    //DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 771,WHITE);
 }
 
 pausescreen::pausescreen() {
