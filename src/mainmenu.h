@@ -39,32 +39,44 @@ public:
 
     Texture2D fadeTexture = LoadTexture("assets/screens/storymode/fadeeffect.png");
 
-    Texture2D Exit = LoadTexture("assets/screens/menu_screen/Exit.png");
-    Texture2D Exit_markiert = LoadTexture("assets/screens/menu_screen/Exit_markiert.png");
-    Texture2D Start = LoadTexture("assets/screens/menu_screen/Start.png");
-    Texture2D Start_markiert = LoadTexture("assets/screens/menu_screen/Start_markiert.png");
-    Texture2D Muted = LoadTexture("assets/screens/menu_screen/muted.png");
-    Texture2D Muted_dunkel = LoadTexture("assets/screens/menu_screen/Muted_dunkel.png");
-    Texture2D Unmuted = LoadTexture("assets/screens/menu_screen/unmuted.png");
-    Texture2D Unmuted_dunkel = LoadTexture("assets/screens/menu_screen/unmuted_dunkel.png");
-    Texture2D music = LoadTexture("assets/screens/menu_screen/music.png");
-    Texture2D music_markiert = LoadTexture("assets/screens/menu_screen/music_markiert.png");
-    Texture2D music_markiert_ausgewaehlt = LoadTexture("assets/screens/menu_screen/music_markiert_ausgewaehlt.png");
-    Texture2D _sound = LoadTexture("assets/screens/menu_screen/sound.png");
-    Texture2D sound_markiert = LoadTexture("assets/screens/menu_screen/sound_markiert.png");
-    Texture2D sound_markiert_ausgewaehlt = LoadTexture("assets/screens/menu_screen/sound_markiert_ausgewaehlt.png");
-    Texture2D strich = LoadTexture("assets/screens/menu_screen/Strich.png");
-    Texture2D credits = LoadTexture("assets/screens/menu_screen/Credits.png");
-    Texture2D credits_markiert = LoadTexture("assets/screens/menu_screen/Credits_markiert.png");
-    Texture2D level_select = LoadTexture("assets/screens/menu_screen/Level_select.png");
-    Texture2D level_select_markiert = LoadTexture("assets/screens/menu_screen/Level_select_markiert.png");
-    Texture2D continuebutton = LoadTexture("assets/screens/menu_screen/Continue.png");
-    Texture2D continuebutton_markiert = LoadTexture("assets/screens/menu_screen/Continue_markiert.png");
+    Texture2D Exit = LoadTexture("assets/screens/title_screen/buttons/quit_game.png");
+    Texture2D Exit_markiert = LoadTexture("assets/screens/title_screen/buttons/quit_game_selected.png");
+    Texture2D Start = LoadTexture("assets/screens/title_screen/buttons/start_game.png");
+    Texture2D Start_markiert = LoadTexture("assets/screens/title_screen/buttons/start_game_selected.png");
+
+    Texture2D music = LoadTexture("assets/screens/title_screen/buttons/music.png");
+    Texture2D music_markiert = LoadTexture("assets/screens/title_screen/buttons/music_selected.png");
+
+    Texture2D _sound = LoadTexture("assets/screens/title_screen/buttons/sounds.png");
+    Texture2D sound_markiert = LoadTexture("assets/screens/title_screen/buttons/sounds_selected.png");
+
+    Texture2D credits = LoadTexture("assets/screens/title_screen/buttons/credits.png");
+    Texture2D credits_markiert = LoadTexture("assets/screens/title_screen/buttons/credits_selected.png");
+    Texture2D level_select = LoadTexture("assets/screens/title_screen/buttons/level_selected.png");
+    Texture2D level_select_markiert = LoadTexture("assets/screens/title_screen/buttons/level_selected_selected.png");
+
+    Texture2D continuebutton = LoadTexture("assets/screens/title_screen/buttons/continue.png");
+    Texture2D continuebutton_markiert = LoadTexture("assets/screens/title_screen/buttons/continue_selected.png");
+
+    Texture2D musicsound_selected = LoadTexture("assets/screens/title_screen/music/musicsound_selected.png");
+    Texture2D vol_0 = LoadTexture("assets/screens/title_screen/music/vol_0.png");
+    Texture2D vol_1 = LoadTexture("assets/screens/title_screen/music/vol_1.png");
+    Texture2D vol_2 = LoadTexture("assets/screens/title_screen/music/vol_2.png");
+    Texture2D vol_3 = LoadTexture("assets/screens/title_screen/music/vol_3.png");
+    Texture2D vol_4 = LoadTexture("assets/screens/title_screen/music/vol_4.png");
+    Texture2D vol_5 = LoadTexture("assets/screens/title_screen/music/vol_5.png");
+    Texture2D vol_6 = LoadTexture("assets/screens/title_screen/music/vol_6.png");
+    Texture2D vol_7 = LoadTexture("assets/screens/title_screen/music/vol_7.png");
+    Texture2D vol_8 = LoadTexture("assets/screens/title_screen/music/vol_8.png");
+    Texture2D vol_9 = LoadTexture("assets/screens/title_screen/music/vol_9.png");
+    Texture2D vol_10 = LoadTexture("assets/screens/title_screen/music/vol_10.png");
+
+
     Texture2D unglitch = LoadTexture("assets/screens/menu_screen/logo_unglitch_anim.png");
     float age = 0;
     int counter = 0;
 
-    Texture2D hintergrund = LoadTexture("assets/screens/title_screen/title_screen_no_box.png");
+    Texture2D hintergrund = LoadTexture("assets/screens/title_screen/title_screen.png");
 };
 
 #endif //RAYLIBSTARTER_MAINMENU_H

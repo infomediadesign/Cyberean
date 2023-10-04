@@ -81,21 +81,19 @@ void mainmenu::update(globalState &globalState) {
 
         if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
             if(cursor == 0 || cursor == 1 || cursor == 2 || cursor == 3){
-                cursor = 5;
-            }
-            if (cursor == 4) {
+                cursor = 4;
+            } else if (cursor == 4) {
                 cursor = 5;
                 soundplayerPtr->menuControll_sound();
             } else if (cursor == 5) {
-                cursor = 4;
+                cursor = 3;
                 soundplayerPtr->menuControll_sound();
             }
         } else if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
             if(cursor == 0 || cursor == 1 || cursor == 2 || cursor == 3){
-                cursor = 4;
-            }
-            if (cursor == 4) {
                 cursor = 5;
+            } else if (cursor == 4) {
+                cursor = 3;
                 soundplayerPtr->menuControll2_sound();
             } else if (cursor == 5) {
                 cursor = 4;
@@ -137,57 +135,109 @@ void mainmenu::buttons() {
         counter++;
     }
     if(storystate > 0){
-        DrawTexture(continuebutton, 335, 400, WHITE);
+        DrawTexture(continuebutton, 492, 615, WHITE);
     }else{
-        DrawTexture(Start, 368, 400, WHITE);
+        DrawTexture(Start, 492, 615, WHITE);
     }
-    DrawTexture(level_select,335, 500, WHITE);
-    DrawTexture(credits,337,610,WHITE);
-    DrawTexture(Exit, 368, 722, WHITE);
-    DrawTexture(music,0, 850,WHITE);
-    DrawTexture(_sound,650, 850,WHITE);
-    /*if (sound == true) {
-        DrawTexture(Unmuted_dunkel, 368, 700, WHITE);
+    DrawTexture(level_select,477, 685, WHITE);
+    DrawTexture(credits,543,755,WHITE);
+    DrawTexture(Exit, 504, 864, WHITE);
+    DrawTexture(music,126, 843,WHITE);
+    DrawTexture(_sound,993, 843,WHITE);
+
+
+    if (masterMusicControl <= 0.05) {
+        DrawTexture(vol_0, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.05 && masterMusicControl <= 0.15) {
+        DrawTexture(vol_1, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.15 && masterMusicControl <= 0.25) {
+        DrawTexture(vol_2, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.25 && masterMusicControl <= 0.35) {
+        DrawTexture(vol_3, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.35 && masterMusicControl <= 0.45) {
+        DrawTexture(vol_4, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.45 && masterMusicControl <= 0.55) {
+        DrawTexture(vol_5, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.55 && masterMusicControl <= 0.65) {
+        DrawTexture(vol_6, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.65 && masterMusicControl <= 0.75) {
+        DrawTexture(vol_7, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.75 && masterMusicControl <= 0.85) {
+        DrawTexture(vol_8, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.85 && masterMusicControl <= 0.95) {
+        DrawTexture(vol_9, 27, 888, WHITE);
+    } else if (masterMusicControl > 0.95 && masterMusicControl <= 1.05) {
+        DrawTexture(vol_10, 27, 888, WHITE);
     } else {
-        DrawTexture(Muted_dunkel, 368, 700, WHITE);
-    }*/
+
+    }
+
+    if (masterSoundControl <= 0.05) {
+        DrawTexture(vol_0, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.05 && masterSoundControl <= 0.15) {
+        DrawTexture(vol_1, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.15 && masterSoundControl <= 0.25) {
+        DrawTexture(vol_2, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.25 && masterSoundControl <= 0.35) {
+        DrawTexture(vol_3, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.35 && masterSoundControl <= 0.45) {
+        DrawTexture(vol_4, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.45 && masterSoundControl <= 0.55) {
+        DrawTexture(vol_5, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.55 && masterSoundControl <= 0.65) {
+        DrawTexture(vol_6, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.65 && masterSoundControl <= 0.75) {
+        DrawTexture(vol_7, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.75 && masterSoundControl <= 0.85) {
+        DrawTexture(vol_8, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.85 && masterSoundControl <= 0.95) {
+        DrawTexture(vol_9, 907, 888, WHITE);
+    } else if (masterSoundControl > 0.95 && masterSoundControl <= 1.05) {
+        DrawTexture(vol_10, 907, 888, WHITE);
+    } else {
+
+    }
+
     switch (cursor) {
         case 0:
             if(storystate > 0){
-                DrawTexture(continuebutton_markiert, 335, 400, WHITE);
+                DrawTexture(continuebutton_markiert, 492, 615, WHITE);
             }else{
-                DrawTexture(Start_markiert, 368, 400, WHITE);
+                DrawTexture(Start_markiert, 492, 615, WHITE);
             }
             break;
         case 1:
-            DrawTexture(level_select_markiert, 335, 500, WHITE);
+            DrawTexture(level_select_markiert, 477, 685, WHITE);
             break;
         case 2:
-            DrawTexture(credits_markiert,337,610,WHITE);
+            DrawTexture(credits_markiert,543,755,WHITE);
             break;
         case 3:
-            DrawTexture(Exit_markiert, 368, 722, WHITE);
+            DrawTexture(Exit_markiert, 504, 864, WHITE);
             break;
         case 4:
             if(_musicconfig){
-                DrawTexture(music_markiert_ausgewaehlt,0, 850,WHITE);
+                DrawTexture(musicsound_selected,27, 888,WHITE);
+                DrawTexture(music_markiert,126, 843,WHITE);
             }else{
-                DrawTexture(music_markiert,0, 850,WHITE);
+                DrawTexture(music_markiert,126, 843,WHITE);
             }
             break;
         case 5:
             if(_soundconfig){
-                DrawTexture(sound_markiert_ausgewaehlt,650, 850,WHITE);
+                DrawTexture(musicsound_selected,907, 888,WHITE);
+                DrawTexture(sound_markiert,993, 843,WHITE);
             }else{
-                DrawTexture(sound_markiert,650, 850,WHITE);
+                DrawTexture(sound_markiert,993, 843,WHITE);
             }
             break;
         default:
             break;
     }
-    DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 871,WHITE);
-    DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 871,WHITE);
 
+
+    //DrawTexture(strich,342 + (((masterMusicControl * 10) * 2) * 7), 871,WHITE);
+    //DrawTexture(strich,992 + (((masterSoundControl * 10) * 2) * 7), 871,WHITE);
 
     if(storymodeactive == false){
         DrawTexturePro(fadeTexture,
