@@ -33,6 +33,8 @@ public:
 
     SoundPlayer *soundplayerPtr;
 
+    SoundPlayer soundplayer;
+
     Texture2D background = LoadTexture("assets/screens/pause_screen/background_pause2.png");
 
     //Change to Game Over Png:

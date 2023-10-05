@@ -217,7 +217,7 @@ void gameScene::populategameobjects() {
 
 void gameScene::update(globalState &globalstate) {
 
-    if (IsKeyPressed(KEY_P) || IsKeyPressed(KEY_ESCAPE)) {
+    if (IsKeyPressed(KEY_P) && !playerPtr->gameOver || IsKeyPressed(KEY_ESCAPE) && playerPtr->gameOver == false) {
         if (pause) {
             pause = false;
         } else {

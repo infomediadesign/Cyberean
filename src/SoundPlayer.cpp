@@ -27,7 +27,6 @@ SoundPlayer::SoundPlayer() {
 
 SoundPlayer::~SoundPlayer() {
     UnloadSound(menucontroll);
-    CloseAudioDevice();
 }
 
 void SoundPlayer::menuEnter_sound() {

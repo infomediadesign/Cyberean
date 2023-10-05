@@ -6,9 +6,10 @@
 void gameoverscreen::update() {
 
     if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+        soundplayer.menuEnter_sound();
+
         switch (cursor) {
             case 0:
-                //soundplayerPtr->menuEnter_sound();
                 state = 1; // (0) retry
                 break;
             case 1:
@@ -22,11 +23,11 @@ void gameoverscreen::update() {
 
     if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
         cursor++;
-        //soundplayerPtr->menuControll_sound();
+        soundplayer.menuControll_sound();
     }
     if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
         cursor--;
-        //soundplayerPtr->menuControll2_sound();
+        soundplayer.menuControll2_sound();
     }
 
     if (cursor < 0)

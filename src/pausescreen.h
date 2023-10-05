@@ -33,6 +33,7 @@ public:
     bool _soundconfig = false;
 
     SoundPlayer *soundplayerPtr;
+    SoundPlayer soundplayer;
 
     Texture2D background = LoadTexture("assets/screens/pause_screen/background_pause2.png");
     //Texture2D windowsoli = LoadTexture("assets/phenster.png");

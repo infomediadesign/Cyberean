@@ -3,9 +3,9 @@
 void pausescreen::update() {
 
     if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+        soundplayer.menuEnter_sound();
         switch (cursor) {
             case 0:
-                //soundplayerPtr->menuEnter_sound();
                 state = 1; // (1) resume
                 break;
             case 1:
@@ -19,37 +19,33 @@ void pausescreen::update() {
             case 3:
                 CloseWindow();
                 break;
-
             case 4:
-                if(_musicconfig == false){
+                if (_musicconfig == false) {
                     _musicconfig = true;
-                }else{
+                } else {
                     _musicconfig = false;
                 }
-                //soundplayerPtr->menuEnter_sound();
-
                 break;
             case 5:
-                if(_soundconfig == false){
+                if (_soundconfig == false) {
                     _soundconfig = true;
-                }else{
+                } else {
                     _soundconfig = false;
                 }
-                //soundplayerPtr->menuEnter_sound();
                 break;
         }
     }
 
 
-    if(_musicconfig == true){
+    if (_musicconfig == true) {
         musicconfig();
     }
 
-    if(_soundconfig == true){
+    if (_soundconfig == true) {
         soundconfig();
     }
 
-    if(_musicconfig == false && _soundconfig == false){
+    /*if(_musicconfig == false && _soundconfig == false){
         if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
             cursor++;
             //soundplayerPtr->menuControll_sound();
@@ -81,6 +77,51 @@ void pausescreen::update() {
             } else if (cursor == 5) {
                 cursor = 4;
                 //soundplayerPtr->menuControll2_sound();
+            }
+        }
+    }
+}*/
+    if (_musicconfig == false && _soundconfig == false) {
+        if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN)) {
+            if (cursor == 3) {
+                cursor = 3;
+            } else if (cursor == 4 || cursor == 5) {
+
+            } else {
+                cursor++;
+            }
+            soundplayer.menuControll_sound();
+        }
+        if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) {
+            soundplayer.menuControll2_sound();
+            if (cursor == 5 || cursor == 4) {
+                cursor = 3;
+            } else {
+                cursor--;
+            }
+        }
+        if (cursor < 0) {
+            cursor = 0;
+        }
+        if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
+            soundplayer.menuControll_sound();
+
+            if (cursor == 0 || cursor == 1 || cursor == 2 || cursor == 3) {
+                cursor = 4;
+            } else if (cursor == 4) {
+                cursor = 5;
+            } else if (cursor == 5) {
+                cursor = 3;
+            }
+        } else if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
+            soundplayer.menuControll2_sound();
+
+            if (cursor == 0 || cursor == 1 || cursor == 2 || cursor == 3) {
+                cursor = 5;
+            } else if (cursor == 4) {
+                cursor = 3;
+            } else if (cursor == 5) {
+                cursor = 4;
             }
         }
     }
@@ -199,14 +240,14 @@ void pausescreen::musicconfig() {
     if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
         if(masterMusicControl > 0){
             masterMusicControl = masterMusicControl - 0.1;
-            //soundplayerPtr->menuControll_sound();
+            soundplayer.menuControll_sound();
         }
     }
 
     if(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
         if(masterMusicControl < 1.0){
             masterMusicControl = masterMusicControl + 0.1;
-            //soundplayerPtr->menuControll2_sound();
+            soundplayer.menuControll2_sound();
         }
     }
 }
@@ -215,14 +256,14 @@ void pausescreen::soundconfig() {
     if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT)) {
         if(masterSoundControl > 0){
             masterSoundControl = masterSoundControl - 0.1;
-            //soundplayerPtr->menuControll_sound();
+            soundplayer.menuControll_sound();
         }
     }
 
     if(IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT)) {
         if(masterSoundControl < 1.0){
             masterSoundControl = masterSoundControl + 0.1;
-            //soundplayerPtr->menuControll2_sound();
+            soundplayer.menuControll2_sound();
         }
     }
 }
