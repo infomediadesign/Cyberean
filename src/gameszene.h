@@ -41,6 +41,8 @@ public:
 
     bool pause = false;
 
+    int test = 0;
+
     int level = 0;
 
     int currentLevel = 0;

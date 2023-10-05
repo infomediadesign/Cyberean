@@ -321,9 +321,11 @@ void gameScene::update(globalState &globalstate) {
         }
     }
 
+    test = 0;
+
     for (Enemy e: enemies) {
         if (e.soundbomb == true && e.ID == 5) {
-            //soundPlayerPtr->bomb_sound();
+            soundPlayerPtr->bomb_sound();
             e.soundbomb = false;
         }
     }

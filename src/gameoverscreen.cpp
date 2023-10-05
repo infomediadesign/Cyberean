@@ -31,10 +31,10 @@ void gameoverscreen::update() {
     }
 
     if (cursor < 0)
-        cursor = 2;
+        cursor = 0;
 
     if (cursor > 2)
-        cursor = 0;
+        cursor = 2;
 }
 
 void gameoverscreen::draw() {
