@@ -76,6 +76,9 @@ int main() {
     std::unique_ptr<gameScene> gs = nullptr;
     std::unique_ptr<storymode> mystorymode = nullptr;
 
+    SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
+    ToggleFullscreen();
+
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
