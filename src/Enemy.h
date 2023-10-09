@@ -13,7 +13,7 @@
 #include "SoundPlayer.h"
 #include "TextureManager.h"
 
-enum EnumType{
+enum EnumType {
     boulder,
     firewall,
     rogueAntivirus,
@@ -22,11 +22,12 @@ enum EnumType{
     unknown
 };
 
-enum MalwarePart{
+enum MalwarePart {
     malwareHead,
     malwareBody,
     malwareTail
 };
+
 class player;
 
 class gameScene;
@@ -82,24 +83,26 @@ public:
     bool bombWarning = false;
     bool bombExploding = false;
     bool cellExploding = false;
+    bool boulderRollingRight = false;
+    bool boulderRollingLeft = false;
+    bool boulderMoving = false;
 
     //Firewall Animation Textures
     Texture2D firewallAnim = TextureManager::firewallAnim;
     Texture2D rogueAntivirusMovingAnim = TextureManager::rogueAntivirusMovingAnim;
     Texture2D bombWarningAnim = TextureManager::bombWarningAnim;
     Texture2D bombExplodingAnim = TextureManager::bombExplodingAnim;
-    Texture2D  bombCellExplodingAnim = TextureManager::bombCellExplodingAnim;
+    Texture2D bombCellExplodingAnim = TextureManager::bombCellExplodingAnim;
     Texture2D malwareAliveAnim = TextureManager::malwareAliveAnim;
-    Texture2D  malwareDeathAnim = TextureManager::malwareDeathAnim;
-    Texture2D  malwareDetonationAnim = TextureManager::malwareDetonationAnim;
+    Texture2D malwareDeathAnim = TextureManager::malwareDeathAnim;
+    Texture2D malwareDetonationAnim = TextureManager::malwareDetonationAnim;
 
-
-    //Boulder Animation Texures
-    //Texture2D  boulderEyesClosing = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_close.png");
-    //Texture2D  boulderEyesOpening = LoadTexture("assets/data-chan/animations/anim_orange_data-chan_eyes_open.png");
-    //Texture2D  boulderClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_cw.png");
-    //Texture2D  boulderCounterClockWise = LoadTexture("assets/data-chan/animations/orange_data-chan_tumbling_ccw.png");
-
+    //Boulder Animation Textures
+    Texture2D boulderEyesOpen;
+    Texture2D boulderEyesClosing;
+    Texture2D boulderEyesOpening;
+    Texture2D boulderClockWise;
+    Texture2D boulderCounterClockWise;
 
 
     //Movement variables for rogueAntivirus (counter clockwise)
@@ -131,7 +134,7 @@ public:
 
     int getEnemyID(int x, int y);
 
-    EnumType getEnemyType(int x,int y);
+    EnumType getEnemyType(int x, int y);
 
     bool neighborExist90();
 
@@ -139,7 +142,7 @@ public:
 
     void deleteEnemy(int posX, int posY); //kill and reset cell in a certain position.
 
-    bool checkExplosionCell(int x,int y);
+    bool checkExplosionCell(int x, int y);
 
     void explodeBomb(int x, int y);
 
@@ -156,8 +159,6 @@ public:
     void bombExplodingFlag(int x, int y, int animCounter);
 
     bool shouldExplode(int x, int y);
-
-    //SoundPlayer soundPlayer;
 
     void spawnBoulder(int x, int y);
 

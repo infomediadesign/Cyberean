@@ -88,14 +88,18 @@ void Enemy::update() {
             posX += gravityX;
             consecMoves++;
             gravMoveCooldown = gravMoveDelay;
+            boulderMoving = true;
             //return;
         } else if (this->Type == boulder && consecMoves >= 1 && gravMoveCooldown <= 0) {
             consecMoves = 0;
+            boulderMoving = false;
+            boulderRollingRight = false;
+            boulderRollingLeft = false;
+            animationCounter = 0;
         } else if (this->Type == bomb && consecMoves == 1 && gravMoveCooldown <= 0) {
             bombWarning = true;
             consecMoves = 0;
         } else if (this->Type == bomb && consecMoves >= 2 && gravMoveCooldown <= 0) {
-            //explodeBomb(posX, posY);
             bombExploding = true;
         }
 
@@ -131,10 +135,12 @@ void Enemy::update() {
                         (getGravityVal(posX, posY + 1) == 16 && playerPtr->gravitySwitchStatusDown))
                         return;
                     else {
+                        if (gravityX == 1)
+                            boulderRollingLeft = true;
+                        else
+                            boulderRollingRight = true;
                         posY += 1;
                         gravMoveCooldown = gravMoveDelay;
-                        //Insert animation for data chan (counter clock wise) here:
-
                     }
                 } else if (canMoveTo(posX, posY - 1, true) && canMoveTo(posX + gravityX, posY - 1, true) &&
                            gravMoveCooldown <= 0) {
@@ -142,10 +148,12 @@ void Enemy::update() {
                         (getGravityVal(posX, posY + 1) == 16 && !playerPtr->gravitySwitchStatusDown))
                         return;
                     else {
+                        if (gravityX == 1)
+                            boulderRollingRight = true;
+                        else
+                            boulderRollingLeft = true;
                         posY -= 1;
                         gravMoveCooldown = gravMoveDelay;
-                        //Insert animation for data chan (clock wise) here:
-
                     }
                 }
             } else if (gravityY != 0) {
@@ -155,10 +163,12 @@ void Enemy::update() {
                         (getGravityVal(posX + 1, posY) == 17 && !playerPtr->gravitySwitchStatusLeft))
                         return;
                     else {
+                        if (gravityY == -1)
+                            boulderRollingLeft = true;
+                        else
+                            boulderRollingRight = true;
                         posX += 1;
                         gravMoveCooldown = gravMoveDelay;
-                        //Insert animation for data chan (clock wise) here:
-
                     }
                 } else if (canMoveTo(posX - 1, posY, true) && canMoveTo(posX - 1, posY + gravityY, true) &&
                            gravMoveCooldown <= 0) {
@@ -166,10 +176,12 @@ void Enemy::update() {
                         (getGravityVal(posX - 1, posY) == 17 && playerPtr->gravitySwitchStatusLeft))
                         return;
                     else {
+                        if (gravityY == 1)
+                            boulderRollingLeft = true;
+                        else
+                            boulderRollingRight = true;
                         posX -= 1;
                         gravMoveCooldown = gravMoveDelay;
-                        //Insert animation for data chan (counter clock wise) here:
-
                     }
                 }
             }
@@ -519,7 +531,71 @@ void Enemy::draw(Texture2D texture) {
             break;
 
         case boulder:
-            DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+            switch (masterlevel) {
+                case 0:
+                    boulderEyesOpen = TextureManager::boulderEyesOpenLvl1;
+                    boulderEyesOpening = TextureManager::boulderEyesOpeningAnimLvl1;
+                    boulderEyesClosing = TextureManager::boulderEyesClosingAnimLvl1;
+                    boulderClockWise = TextureManager::boulderRollingRightAnimLvl1;
+                    boulderCounterClockWise = TextureManager::boulderRollingLeftAnimLvl1;
+                    break;
+                case 1:
+                    boulderEyesOpen = TextureManager::boulderEyesOpenLvl2;
+                    boulderEyesOpening = TextureManager::boulderEyesOpeningAnimLvl2;
+                    boulderEyesClosing = TextureManager::boulderEyesClosingAnimLvl2;
+                    boulderClockWise = TextureManager::boulderRollingRightAnimLvl2;
+                    boulderCounterClockWise = TextureManager::boulderRollingLeftAnimLvl2;
+                    break;
+                case 2:
+                    boulderEyesOpen = TextureManager::boulderEyesOpenLvl3;
+                    boulderEyesOpening = TextureManager::boulderEyesOpeningAnimLvl3;
+                    boulderEyesClosing = TextureManager::boulderEyesClosingAnimLvl3;
+                    boulderClockWise = TextureManager::boulderRollingRightAnimLvl3;
+                    boulderCounterClockWise = TextureManager::boulderRollingLeftAnimLvl3;
+                    break;
+                case 3:
+                    boulderEyesOpen = TextureManager::boulderEyesOpenLvl4;
+                    boulderEyesOpening = TextureManager::boulderEyesOpeningAnimLvl4;
+                    boulderEyesClosing = TextureManager::boulderEyesClosingAnimLvl4;
+                    boulderClockWise = TextureManager::boulderRollingRightAnimLvl4;
+                    boulderCounterClockWise = TextureManager::boulderRollingLeftAnimLvl4;
+                    break;
+            }
+            if (boulderMoving) {
+                animationCounter++;
+                if (animationCounter < 30) {
+                    DrawTextureRec(boulderEyesOpening, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                                   Vector2{(float) posX * 32, (float) posY * 32},
+                                   WHITE);
+                } else {
+                    DrawTextureRec(boulderEyesOpen, textureSource, Vector2{(float) posX * 32, (float) posY * 32},
+                                   WHITE);
+                }
+            } else if (boulderRollingRight) {
+                animationCounter++;
+                if (animationCounter < 70) {
+                    DrawTextureRec(boulderClockWise, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                                   Vector2{(float) posX * 32, (float) posY * 32},
+                                   WHITE);
+                } else {
+                    animationCounter = 0;
+                    boulderRollingRight = false;
+                    boulderRollingLeft = false;
+                }
+            } else if (boulderRollingLeft) {
+                animationCounter++;
+                if (animationCounter < 70) {
+                    DrawTextureRec(boulderCounterClockWise, Rectangle{(float) (animationCounter / 10) * 32, 0, 32, 32},
+                                   Vector2{(float) posX * 32, (float) posY * 32},
+                                   WHITE);
+                } else {
+                    animationCounter = 0;
+                    boulderRollingLeft = false;
+                    boulderRollingRight = false;
+                }
+            } else
+                DrawTextureRec(texture, textureSource, Vector2{(float) posX * 32, (float) posY * 32}, WHITE);
+
             break;
 
         case malware:
